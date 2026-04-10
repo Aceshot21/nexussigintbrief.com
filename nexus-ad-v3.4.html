@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NEXUS Signal Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@700;800&display=swap"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07090f;--bg2:#040810;--bg3:#04060b;
+  --border:#0e1828;--border2:#162236;--border3:#1e3450;
+  --text:#b0c8e0;--text2:#4e6e88;--text3:#243848;
+  --green:#00d98b;--blue:#38bdf8;--purple:#a78bfa;
+  --amber:#f0b429;--red:#ff6b6b;--white:#e4f0fc;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Mono','Courier New',monospace;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;overflow-x:hidden}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.28}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes glowGreen{0%,100%{box-shadow:0 0 6px #00d98b1a}50%{box-shadow:0 0 18px #00d98b44}}
+
+.pulse{animation:pulse 2s ease-in-out infinite}
+.f1{animation:fadeUp .6s ease both}
+.f2{animation:fadeUp .6s .1s ease both}
+.f3{animation:fadeUp .6s .2s ease both}
+.f4{animation:fadeUp .6s .3s ease both}
+.f5{animation:fadeUp .6s .4s ease both}
+
+.page{max-width:860px;margin:0 auto;padding:0 22px 80px}
+
+/* ── HERO ── */
+.hero{padding:54px 0 40px;text-align:center;position:relative}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 20%,rgba(0,217,139,.04),transparent 70%);pointer-events:none}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:10px;letter-spacing:.18em;color:var(--text2);
+  border:1px solid var(--border3);border-radius:2px;
+  padding:5px 14px;margin-bottom:22px;
+  background:rgba(14,24,40,.5);
+}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);flex-shrink:0}
+
+.logo{font-family:'Syne',sans-serif;font-size:66px;font-weight:800;color:#fff;letter-spacing:.06em;line-height:1;margin-bottom:7px}
+.logo-sub{font-size:10px;color:var(--text3);letter-spacing:.2em;margin-bottom:22px}
+
+.hero-headline{
+  font-family:'Syne',sans-serif;font-size:20px;font-weight:800;
+  color:var(--white);line-height:1.4;max-width:580px;margin:0 auto 14px;
+  letter-spacing:.01em;
+}
+.hero-headline em{color:var(--green);font-style:normal}
+.hero-desc{font-size:13px;color:var(--text2);max-width:540px;margin:0 auto;line-height:1.9}
+.hero-desc strong{color:var(--blue)}
+
+/* ── SECTION LABEL ── */
+.sec{font-size:9px;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;
+  margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.sec::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── MARKET STRIP ── */
+.strip{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:12px 16px;margin-bottom:10px;overflow-x:auto}
+.strip-inner{display:flex;align-items:center;justify-content:space-between;min-width:520px}
+.strip-item{text-align:center;flex:1;padding:0 6px}
+.s-label{font-size:9px;color:var(--text3);letter-spacing:.12em;margin-bottom:5px}
+.s-val{font-size:14px;font-weight:800;line-height:1}
+.s-sub{font-size:10px;color:var(--text2);margin-top:3px}
+.sdiv{width:1px;background:var(--border);height:32px;flex-shrink:0}
+.strip-note{font-size:10px;color:var(--text3);text-align:center;margin-bottom:40px}
+
+/* ── HOW IT WORKS ── */
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:8px;overflow:hidden;margin-bottom:12px}
+.how-cell{background:var(--bg2);padding:20px 18px}
+.how-icon{font-size:11px;letter-spacing:.1em;margin-bottom:9px;font-weight:700}
+.how-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--white);margin-bottom:6px}
+.how-body{font-size:12px;color:var(--text2);line-height:1.7}
+
+/* ── ENGINEERING CALLOUT ── */
+.eng-callout{
+  background:rgba(0,217,139,.03);border:1px solid rgba(0,217,139,.12);
+  border-radius:0 0 8px 8px;border-top:none;
+  padding:12px 18px;margin-bottom:44px;
+  display:flex;align-items:flex-start;gap:12px;
+}
+.eng-callout-icon{color:var(--green);font-size:13px;flex-shrink:0;margin-top:1px}
+.eng-callout-text{font-size:12px;color:#3a6050;line-height:1.7}
+.eng-callout-text strong{color:#4a8068}
+
+/* ── PROOF NUMBERS ── */
+.proof-strip{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--border);border-radius:8px;overflow:hidden;
+  margin-bottom:44px;
+}
+.proof-cell{background:var(--bg2);padding:18px 12px;text-align:center}
+.proof-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;line-height:1;margin-bottom:5px}
+.proof-desc{font-size:11px;color:var(--text2);line-height:1.5}
+
+/* ── REGIME BLOCK ── */
+.regime-block{
+  background:var(--bg2);border:1px solid var(--border2);border-radius:8px;
+  overflow:hidden;margin-bottom:44px;
+}
+.regime-header{
+  padding:12px 20px;border-bottom:1px solid var(--border);
+  background:rgba(240,180,41,.03);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.regime-header-left{display:flex;align-items:center;gap:10px}
+.regime-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--white)}
+.regime-badge{font-size:9px;letter-spacing:.12em;padding:2px 8px;border-radius:2px;border:1px solid;opacity:.7}
+.regime-desc{font-size:12px;color:var(--text2);padding:14px 20px 16px;line-height:1.8;border-bottom:1px solid var(--border)}
+.regime-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.regime-cell{background:var(--bg2);padding:14px 16px;text-align:center}
+.regime-label{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;margin-bottom:6px}
+.regime-stat{font-size:11px;color:var(--text2);line-height:1.6}
+.regime-stat span{display:block}
+
+/* ── TIER TOGGLE ── */
+.tier-toggle{display:flex;gap:1px;background:var(--border);border-radius:6px;overflow:hidden;width:fit-content;margin:0 auto 22px}
+.tbtn{padding:8px 22px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.08em;cursor:pointer;border:none;transition:all .18s;background:#080d18;color:var(--text3)}
+.tbtn.on-free{background:var(--bg2);color:var(--text)}
+.tbtn.on-paid{background:rgba(0,217,139,.1);color:var(--green)}
+
+/* banners */
+.grade-banner{display:flex;align-items:center;gap:18px;background:#f8fafb;border:1px solid #e0e8f0;border-left:5px solid #00d98b;border-radius:8px;padding:14px 18px;margin-bottom:8px}
+.grade-letter{font-size:46px;font-weight:800;color:#00d98b;line-height:1;flex-shrink:0;font-family:'Syne',sans-serif}
+.grade-sub{font-size:9px;color:#8a9ab0;letter-spacing:.14em;font-weight:700;margin-bottom:4px}
+.grade-body{font-size:12px;color:#2a3a4a;line-height:1.7}
+.ctx-banner{background:#f8fafb;border:1px solid #e0e8f0;border-left:5px solid #38bdf8;border-radius:8px;padding:13px 18px;margin-bottom:16px;font-size:12px;color:#3a4a5a;line-height:1.7}
+
+/* column header */
+.col-hdr{display:grid;grid-template-columns:58px 150px minmax(0,1fr) 88px 108px 118px;padding:4px 14px;margin-bottom:4px;gap:8px}
+.col-h{font-size:9px;color:var(--text3);letter-spacing:.12em;white-space:nowrap}
+.col-h.ctr{text-align:center}
+
+/* signal row */
+.sig-row{
+  display:grid;grid-template-columns:58px 150px minmax(0,1fr) 88px 108px 118px;
+  gap:8px;align-items:center;padding:12px 14px;
+  background:var(--bg2);border:1px solid var(--border);border-radius:6px;
+  margin-bottom:5px;position:relative;transition:background .15s;
+}
+.sig-row.strong{background:rgba(0,217,139,.02);border-color:#1a3a28;animation:glowGreen 3s ease-in-out infinite}
+.sig-row:hover{background:#0a1020}
+.conv-wrap{text-align:center}
+.conv-num{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;line-height:1}
+.conv-lbl{font-size:9px;letter-spacing:.05em;opacity:.5;margin-top:1px}
+.ticker-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff;line-height:1;margin-bottom:4px}
+.ticker-badge{font-size:10px;font-weight:700;padding:1px 6px;border-radius:2px;display:inline-block;margin-bottom:3px}
+.ticker-sector{font-size:10px;color:var(--text3)}
+.thesis-wrap{min-width:0}
+.thesis-text{font-size:12px;color:#5a7898;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.thesis-tag{font-size:10px;padding:1px 5px;border-radius:2px;margin-top:4px;display:inline-block}
+.price-wrap{text-align:center;position:relative}
+.price-main{font-size:15px;font-weight:700;color:#b8d4ec}
+.price-chg{font-size:11px;margin-top:2px}
+.levels-wrap{text-align:center;position:relative}
+.level-sl{font-size:11px;color:var(--red);margin-bottom:2px}
+.level-tp{font-size:11px;color:var(--green);margin-bottom:2px}
+.level-rr{font-size:10px;font-weight:700}
+.sigs-wrap{position:relative}
+.sig-pill{font-size:11px;text-align:center;margin-bottom:2px}
+
+/* locks */
+.lock-overlay{position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(7,9,15,.92) 38%,rgba(7,9,15,.99) 100%);display:flex;align-items:center;justify-content:flex-end;border-radius:3px}
+.lock-lbl{font-size:10px;color:var(--text3);letter-spacing:.07em;padding-right:2px;display:flex;align-items:center;gap:4px;white-space:nowrap}
+body.paid .lock-overlay{display:none}
+body.paid .watch-lock{display:none}
+body:not(.paid) .watch-lock{display:flex}
+body.paid .watch-levels{display:block}
+body:not(.paid) .watch-levels{display:none}
+
+/* watch rows */
+.watch-hdr{font-size:10px;color:var(--text2);letter-spacing:.12em;font-weight:700;padding:12px 0 6px;border-top:1px solid var(--border);margin-top:8px;margin-bottom:4px}
+.watch-row{display:flex;align-items:center;padding:10px 14px;border:1px solid var(--border);border-radius:6px;margin-bottom:4px;background:var(--bg2)}
+.watch-ticker{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#fff;width:72px;flex-shrink:0}
+.watch-badge{font-size:10px;padding:1px 5px;border-radius:2px;margin-right:10px;flex-shrink:0}
+.watch-thesis{font-size:12px;color:var(--text2);flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;min-width:0}
+.watch-right{flex-shrink:0;text-align:right;margin-left:12px;min-width:96px}
+.watch-price{font-size:13px;font-weight:700;color:#b8d4ec}
+.watch-lock{font-size:10px;color:var(--text3);margin-top:3px;justify-content:flex-end;align-items:center;gap:3px;white-space:nowrap}
+.watch-levels{font-size:10px;color:var(--red);margin-top:3px;white-space:nowrap}
+
+/* plans */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:44px}
+.plan-card{border-radius:10px;padding:26px 22px;border:1px solid var(--border2);background:var(--bg2);position:relative;overflow:hidden}
+.plan-card.featured{border-color:#1a4030;background:rgba(0,217,139,.025)}
+.plan-badge-top{position:absolute;top:14px;right:14px;font-size:9px;letter-spacing:.12em;color:var(--green);padding:2px 8px;border:1px solid var(--green);border-radius:2px;opacity:.6}
+.plan-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--white);margin-bottom:4px}
+.plan-price{font-size:28px;font-weight:800;font-family:'Syne',sans-serif;margin-bottom:3px}
+.plan-cadence{font-size:11px;color:var(--text3);margin-bottom:18px}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:22px}
+.plan-features li{font-size:12px;display:flex;gap:8px;align-items:flex-start;line-height:1.5}
+.chk{color:var(--green);flex-shrink:0}
+.dim{color:var(--text3);flex-shrink:0}
+.lf{color:var(--text3)}
+.plan-cta{display:block;text-align:center;padding:11px 0;border-radius:6px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.08em;cursor:pointer;transition:all .18s;text-decoration:none;border:none}
+.free-cta{background:#0c1624;color:var(--text2);border:1px solid var(--border2)}
+.paid-cta{background:linear-gradient(135deg,#082818,#144030);color:var(--green);border:1px solid #00d98b33}
+.paid-cta:hover{filter:brightness(1.14);transform:translateY(-1px)}
+
+.divider{height:1px;background:var(--border);margin:38px 0}
+.footnote{font-size:11px;color:var(--text3);text-align:center;line-height:1.9;padding-top:20px}
+.facts-row{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-bottom:6px}
+.fact-label{font-size:9px;color:var(--text3);letter-spacing:.12em;margin-bottom:4px}
+.fact-val{font-size:13px;color:var(--text)}
+
+@media(max-width:680px){
+  .col-hdr,.sig-row{grid-template-columns:50px 118px minmax(0,1fr)!important}
+  .col-hdr>*:nth-child(n+4),.sig-row>*:nth-child(n+4){display:none}
+  .how-grid,.proof-strip,.plans,.regime-grid{grid-template-columns:1fr}
+  .logo{font-size:48px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══ HERO ══ -->
+  <div class="hero f1">
+    <div class="eyebrow">
+      <div class="eyebrow-dot pulse"></div>
+      HUMAN-ENGINEERED &nbsp;&middot;&nbsp; AI-ENHANCED &nbsp;&middot;&nbsp; BACKTESTED
+    </div>
+    <div class="logo">NEXUS</div>
+    <div class="logo-sub">SIGNAL BRIEF &nbsp;&middot;&nbsp; STOCK ANALYSIS &nbsp;&middot;&nbsp; DELIVERED DAILY</div>
+    <h1 class="hero-headline">
+      Not tips. Not hunches.<br>
+      <em>Data-driven analysis combined with deep pattern recognition.</em><br>Delivered every trading day.
+    </h1>
+    <p class="hero-desc">
+      Built by an <strong>Aerospace engineer</strong>, powered by AI. A <strong>3-agent system</strong> actively monitors the market across 9 sectors &mdash; performing strategic, data-driven assessments utilizing deep pattern recognition and multi-source intelligence to surface the highest-conviction setups before the open.
+    </p>
+  </div>
+
+  <!-- ══ MARKET STRIP ══ -->
+  <div class="strip f2">
+    <div class="strip-inner">
+      <div class="strip-item">
+        <div class="s-label">NEXUS TODAY</div>
+        <div class="s-val" style="color:var(--green)">+1.84%</div>
+        <div class="s-sub" style="color:#00a860">BEATING MKT</div>
+      </div>
+      <div class="sdiv"></div>
+      <div class="strip-item">
+        <div class="s-label">SPY</div>
+        <div class="s-val" style="color:var(--green)">+0.62%</div>
+        <div class="s-sub">Apr 4 close</div>
+      </div>
+      <div class="sdiv"></div>
+      <div class="strip-item">
+        <div class="s-label">NASDAQ</div>
+        <div class="s-val" style="color:var(--green)">+0.85%</div>
+        <div class="s-sub">Apr 4 close</div>
+      </div>
+      <div class="sdiv"></div>
+      <div class="strip-item">
+        <div class="s-label">WIN RATE</div>
+        <div class="s-val" style="color:var(--green)">64%</div>
+        <div class="s-sub">38 closed</div>
+      </div>
+      <div class="sdiv"></div>
+      <div class="strip-item">
+        <div class="s-label">ALPHA vs SPY</div>
+        <div class="s-val" style="color:var(--blue)">+2.1%</div>
+        <div class="s-sub">avg per trade</div>
+      </div>
+      <div class="sdiv"></div>
+      <div class="strip-item">
+        <div class="s-label">SCAN GRADE</div>
+        <div class="s-val" style="color:var(--green)">A</div>
+        <div class="s-sub">7 qualified</div>
+      </div>
+    </div>
+  </div>
+  <p class="strip-note f2">&uarr; This market strip appears in every edition &mdash; free and paid alike</p>
+
+  <!-- ══ HOW IT WORKS ══ -->
+  <div class="sec f3">How it works</div>
+  <div class="how-grid f3">
+    <div class="how-cell">
+      <div class="how-icon" style="color:var(--blue)">[ ANALYST ]</div>
+      <div class="how-title">Technical Deep Scan</div>
+      <div class="how-body">RSI, MACD, Bollinger Bands, SMA50, ATR, support &amp; resistance, volume indicators, short interest, and weekly trend alignment &mdash; scored against a backtested multi-factor model engineered for precision, not broad coverage.</div>
+    </div>
+    <div class="how-cell" style="border-left:1px solid var(--border)">
+      <div class="how-icon" style="color:var(--purple)">[ INTEL ]</div>
+      <div class="how-title">Catalyst &amp; Sentiment</div>
+      <div class="how-body">News sentiment cross-referenced with SEC filings (Form 4 insider trades, 8-K events), analyst ratings, earnings proximity, and sector relative strength. Sources are compared and divergence is flagged automatically.</div>
+    </div>
+    <div class="how-cell" style="border-left:1px solid var(--border)">
+      <div class="how-icon" style="color:var(--green)">[ DECISION ]</div>
+      <div class="how-title">Conviction Scoring</div>
+      <div class="how-body">A final agent synthesizes both reports alongside fund state, historical trade context, and system learning notes &mdash; issuing a conviction score, stop-loss, price target, and risk/reward ratio grounded in real outcomes.</div>
+    </div>
+  </div>
+
+  <!-- engineering proof callout -->
+  <div class="eng-callout f3">
+    <div class="eng-callout-icon">&#9650;</div>
+    <div class="eng-callout-text">
+      <strong>Built by an engineer, not assembled from a template.</strong>
+      Every indicator, sector inclusion, setup constraint, and position-sizing parameter was
+      designed and backtested to develop a dynamic, responsive system that maximizes AI agents
+      for speed and pattern recognition while minimizing confirmation bias.
+    </div>
+  </div>
+
+  <!-- ══ PROOF NUMBERS ══ -->
+  <div class="proof-strip f4">
+    <div class="proof-cell">
+      <div class="proof-num" style="color:var(--blue)">9</div>
+      <div class="proof-desc">sectors actively<br>monitored &amp; assessed</div>
+    </div>
+    <div class="proof-cell">
+      <div class="proof-num" style="color:var(--amber)">1,556+</div>
+      <div class="proof-desc">backtested trades<br>calibrating every parameter</div>
+    </div>
+    <div class="proof-cell">
+      <div class="proof-num" style="color:var(--green)">4</div>
+      <div class="proof-desc">market regimes<br>dynamically detected</div>
+    </div>
+  </div>
+
+  <!-- ══ REGIME BLOCK ══ -->
+  <div class="sec f4">Regime-Aware Intelligence</div>
+  <div class="regime-block f4">
+    <div class="regime-header">
+      <div class="regime-header-left">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber)44"></div>
+        <div class="regime-title">Dynamic Market Regime Detection</div>
+      </div>
+      <span class="regime-badge" style="color:var(--green);border-color:var(--green)">ACTIVE &mdash; BULL</span>
+    </div>
+    <div class="regime-desc">
+      Most systems run the same algorithm regardless of whether the market is in a bull run, a choppy range, a bear cycle, or a crash. NEXUS doesn&rsquo;t. The system continuously detects the current market regime and dynamically adjusts every key parameter &mdash; conviction thresholds, capital deployment, position limits, and sector exposure &mdash; to maintain an edge across all conditions. When the environment shifts, the system shifts with it. No manual intervention required.
+    </div>
+    <div class="regime-grid">
+      <div class="regime-cell">
+        <div class="regime-label" style="color:var(--green)">BULL</div>
+        <div class="regime-stat">
+          <span>Full deployment</span>
+          <span>Max positions active</span>
+          <span style="color:var(--text3);margin-top:3px;font-size:10px">All sectors open</span>
+        </div>
+      </div>
+      <div class="regime-cell" style="border-left:1px solid var(--border)">
+        <div class="regime-label" style="color:var(--blue)">CHOPPY</div>
+        <div class="regime-stat">
+          <span>Reduced exposure</span>
+          <span>Higher conviction bar</span>
+          <span style="color:var(--text3);margin-top:3px;font-size:10px">Volatile sectors gated</span>
+        </div>
+      </div>
+      <div class="regime-cell" style="border-left:1px solid var(--border)">
+        <div class="regime-label" style="color:var(--amber)">BEAR</div>
+        <div class="regime-stat">
+          <span>Capital preserved</span>
+          <span>Defensive posture</span>
+          <span style="color:var(--text3);margin-top:3px;font-size:10px">Growth sectors closed</span>
+        </div>
+      </div>
+      <div class="regime-cell" style="border-left:1px solid var(--border)">
+        <div class="regime-label" style="color:var(--red)">CRASH</div>
+        <div class="regime-stat">
+          <span>Minimal deployment</span>
+          <span>Max conviction required</span>
+          <span style="color:var(--text3);margin-top:3px;font-size:10px">Only defensives considered</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LIVE PREVIEW ══ -->
+  <div class="sec f5">Today&rsquo;s edition &mdash; live preview</div>
+
+  <div class="tier-toggle">
+    <button class="tbtn on-free" id="btn-free" onclick="setTier('free')">FREE TIER</button>
+    <button class="tbtn" id="btn-paid" onclick="setTier('paid')">PAID TIER</button>
+  </div>
+
+  <!-- banners (both tiers) -->
+  <div class="grade-banner">
+    <div class="grade-letter">A</div>
+    <div>
+      <div class="grade-sub">AI REFLECTION GRADE</div>
+      <div class="grade-body">Strong session. Semiconductors led the advance with broad participation. 5 of 7 signals cleared the conviction threshold; all three STRONG BUY entries are currently profitable. Regime confirmed BULL.</div>
+    </div>
+  </div>
+  <div class="ctx-banner">Market breadth improved for the third consecutive session. VIX pulled back to 16.2 &mdash; risk appetite is expanding. Energy rotating in as a late-cycle hedge. Watch Healthcare: three setups developing with earnings proximity indicators firing.</div>
+
+  <!-- column headers -->
+  <div class="col-hdr">
+    <div class="col-h">CONV</div>
+    <div class="col-h">TICKER</div>
+    <div class="col-h">THESIS</div>
+    <div class="col-h ctr">PRICE</div>
+    <div class="col-h ctr">LEVELS</div>
+    <div class="col-h ctr">SIGNALS</div>
+  </div>
+
+  <!-- SIGNAL 1: NVDA -->
+  <div class="sig-row strong">
+    <div class="conv-wrap">
+      <div class="conv-num" style="color:var(--green)">87%</div>
+      <div class="conv-lbl" style="color:var(--green)">CONV</div>
+    </div>
+    <div>
+      <div class="ticker-name">NVDA</div>
+      <span class="ticker-badge" style="color:#00ffb3;background:rgba(0,255,179,.07);border:1px solid #00ffb333">^^ STRONG BUY</span>
+      <div class="ticker-sector">Semiconductors</div>
+    </div>
+    <div class="thesis-wrap">
+      <div class="thesis-text">Post-consolidation breakout above SMA50 on 2.3&times; volume. MACD histogram turning positive. Bollinger compression resolving upside. Analyst revision cycle beginning &mdash; earnings 23 days out.</div>
+      <span class="thesis-tag" style="color:var(--purple);background:rgba(167,139,250,.08);border:1px solid #a78bfa33">Catalyst</span>
+      <span class="thesis-tag" style="color:#1a7a3a;background:rgba(0,217,139,.05);border:1px solid #00d98b22;margin-left:4px">BB Squeeze</span>
+    </div>
+    <div class="price-wrap">
+      <div class="price-main">$873.40</div>
+      <div class="price-chg" style="color:var(--green)">+1.92%</div>
+    </div>
+    <div class="levels-wrap">
+      <div class="level-sl">SL $831.00</div>
+      <div class="level-tp">TP $962.00</div>
+      <div class="level-rr" style="color:var(--green)">R/R 2.1&times;</div>
+      <div class="lock-overlay"><span class="lock-lbl">&#128274; PAID</span></div>
+    </div>
+    <div class="sigs-wrap">
+      <div class="sig-pill" style="color:var(--green)">RSI 52</div>
+      <div class="sig-pill" style="color:var(--green)">2.3&times; vol</div>
+      <div class="sig-pill" style="color:var(--text3)">Earn 23d</div>
+      <div class="lock-overlay"><span class="lock-lbl">&#128274; PAID</span></div>
+    </div>
+  </div>
+
+  <!-- paid callout -->
+  <div id="paid-callout" style="border:1px dashed var(--border2);border-radius:6px;padding:11px 16px;margin:6px 0;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text3)">
+    <span>+ 2&ndash;4 more signals like this one, fully unlocked</span>
+    <span style="color:var(--border3);letter-spacing:.06em">PAID TIER ONLY &#128274;</span>
+  </div>
+
+  <!-- WATCH ITEMS -->
+  <div class="watch-hdr">WATCH &mdash; 2 developing setups</div>
+
+  <div class="watch-row">
+    <div class="watch-ticker">FCX</div>
+    <span class="watch-badge" style="color:var(--blue);background:rgba(56,189,248,.08);border:1px solid #38bdf844">WATCH</span>
+    <div class="watch-thesis">Materials breakout candidate &mdash; SMA50 reclaim, copper demand thesis intact, volume building</div>
+    <div class="watch-right">
+      <div class="watch-price">$40.18</div>
+      <div class="watch-lock">&#128274;&nbsp;no levels</div>
+      <div class="watch-levels">SL $37.20 &middot; TP $46.50</div>
+    </div>
+  </div>
+
+  <div class="watch-row">
+    <div class="watch-ticker">ANET</div>
+    <span class="watch-badge" style="color:var(--blue);background:rgba(56,189,248,.08);border:1px solid #38bdf844">WATCH</span>
+    <div class="watch-thesis">BB compression resolving &mdash; pattern recognition flagging pre-breakout conditions, awaiting volume confirmation</div>
+    <div class="watch-right">
+      <div class="watch-price">$312.40</div>
+      <div class="watch-lock">&#128274;&nbsp;no levels</div>
+      <div class="watch-levels">SL $294.00 &middot; TP $352.00</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══ PLAN CARDS ══ -->
+  <div class="sec">Choose your tier</div>
+  <div class="plans">
+    <div class="plan-card">
+      <div class="plan-name">Free</div>
+      <div class="plan-price" style="color:var(--text2)">$0</div>
+      <div class="plan-cadence">Always free &middot; No credit card</div>
+      <ul class="plan-features">
+        <li><span class="chk">&#10003;</span> Daily market strip (SPY, NASDAQ, DOW, VIX)</li>
+        <li><span class="chk">&#10003;</span> System win rate &amp; alpha vs SPY</li>
+        <li><span class="chk">&#10003;</span> Daily scan grade &amp; AI reflection summary</li>
+        <li><span class="chk">&#10003;</span> Market context &amp; regime detection banner</li>
+        <li><span class="chk">&#10003;</span> 1 top signal &mdash; conviction %, sector &amp; thesis</li>
+        <li><span class="chk">&#10003;</span> 2 watch items &mdash; ticker &amp; setup type</li>
+        <li><span class="dim">&mdash;</span> <span class="lf">Entry price, stop-loss &amp; target</span></li>
+        <li><span class="dim">&mdash;</span> <span class="lf">RSI, volume &amp; earnings indicators</span></li>
+        <li><span class="dim">&mdash;</span> <span class="lf">Watch item levels</span></li>
+        <li><span class="dim">&mdash;</span> <span class="lf">3&ndash;5 signals per edition</span></li>
+      </ul>
+      <a href="#" class="plan-cta free-cta">Subscribe Free &rarr;</a>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-badge-top">MOST VALUE</div>
+      <div class="plan-name">Signal Brief+</div>
+      <div class="plan-price" style="color:var(--green)">$29.99<span style="font-size:14px;font-weight:400;color:var(--text2)">/mo</span></div>
+      <div class="plan-cadence">or $249/year &middot; Cancel anytime</div>
+      <ul class="plan-features">
+        <li><span class="chk">&#10003;</span> Everything in Free</li>
+        <li><span class="chk">&#10003;</span> <strong>3&ndash;5 full signals per edition</strong></li>
+        <li><span class="chk">&#10003;</span> Entry price, stop-loss &amp; target for every pick</li>
+        <li><span class="chk">&#10003;</span> Risk/reward ratio for every signal</li>
+        <li><span class="chk">&#10003;</span> RSI, volume &amp; earnings proximity indicators</li>
+        <li><span class="chk">&#10003;</span> Chart pattern &amp; catalyst type labels</li>
+        <li><span class="chk">&#10003;</span> Full watch list &mdash; levels included</li>
+        <li><span class="chk">&#10003;</span> Conviction calibration by bucket (60&ndash;90%+)</li>
+        <li><span class="chk">&#10003;</span> In-depth signal analysis &mdash; company overview &amp; full narrative on why each stock was selected</li>
+        <li><span class="chk">&#10003;</span> Founding member rate &mdash; locked in for life</li>
+      </ul>
+      <a href="#" class="plan-cta paid-cta">Get Signal Brief+ &rarr;</a>
+    </div>
+  </div>
+
+  <!-- ══ CLOSING ══ -->
+  <div class="divider"></div>
+  <div style="text-align:center;padding:0 16px">
+    <div class="sec" style="justify-content:center">Built different</div>
+    <p style="font-size:13px;color:var(--text2);max-width:540px;margin:0 auto 24px;line-height:1.95">
+      Every recommendation is the output of a documented, reproducible process &mdash; analysis-driven,
+      intelligence-informed, and calibrated against real trade outcomes. Not a screener with a headline
+      attached. Not a chatbot asked for stock picks.
+      <br><br>
+      After every session, the system performs a reflection on the full trade ledger, updates its
+      conviction calibration across every indicator bucket, and develops learning notes that feed
+      directly into the next day&rsquo;s assessments. The system doesn&rsquo;t just run &mdash; it improves.
+    </p>
+    <div class="facts-row">
+      <div><div class="fact-label">APPROACH</div><div class="fact-val">Engineer-designed</div></div>
+      <div><div class="fact-label">CADENCE</div><div class="fact-val">Every trading day</div></div>
+      <div><div class="fact-label">CONFLICTS</div><div class="fact-val">None &mdash; no sponsors</div></div>
+      <div><div class="fact-label">METHODOLOGY</div><div class="fact-val">Documented &amp; reproducible</div></div>
+    </div>
+  </div>
+
+  <p class="footnote">
+    NEXUS Signal Brief is published for informational purposes only and does not constitute investment advice.<br>
+    Past performance of the model portfolio does not guarantee future results. Always do your own research.<br>
+    &copy; 2026 NEXUS Signal Brief
+  </p>
+</div>
+
+<script>
+function setTier(t){
+  var b=document.body,f=document.getElementById('btn-free'),p=document.getElementById('btn-paid');
+  var pc=document.getElementById('paid-callout');
+  if(t==='paid'){
+    b.classList.add('paid');f.className='tbtn';p.className='tbtn on-paid';
+    pc.style.display='none';
+  }else{
+    b.classList.remove('paid');f.className='tbtn on-free';p.className='tbtn';
+    pc.style.display='flex';
+  }
+}
+</script>
+</body>
+</html>
