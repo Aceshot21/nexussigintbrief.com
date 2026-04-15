@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NEXUS Signal Brief — AI-Powered Stock Intelligence, Daily</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500&display=swap"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#06080f;--bg2:#080c18;--bg3:#050810;
+  --card:#0a0e1a;--card2:#0d1120;
+  --border:#111a2e;--border2:#182338;--border3:#1e3054;
+  --text:#a8c4de;--text2:#4a6a88;--text3:#283848;
+  --green:#00e598;--green2:#00b876;--green-dim:rgba(0,229,152,.08);
+  --blue:#4eb5f8;--purple:#b49eff;--amber:#f5bc3a;--red:#ff5e5e;
+  --white:#eaf4ff;
+  --font-display:'Bebas Neue',sans-serif;
+  --font-body:'Space Grotesk',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;font-size:15px;line-height:1.6}
+
+/* ── NOISE + GLOW BACKGROUND ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,229,152,.055) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 80% 80%, rgba(78,181,248,.03) 0%, transparent 50%);
+  pointer-events:none;
+}
+
+/* Scanline texture overlay */
+body::after{
+  content:'';position:fixed;inset:0;z-index:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.05) 2px,rgba(0,0,0,.05) 4px);
+  pointer-events:none;
+}
+
+.wrap{max-width:900px;margin:0 auto;padding:0 24px 100px;position:relative;z-index:1}
+
+/* ── NAV BAR ── */
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 0 0;margin-bottom:0;
+}
+.nav-logo{font-family:var(--font-display);font-size:26px;color:#fff;letter-spacing:.12em}
+.nav-logo span{color:var(--green)}
+.nav-pill{
+  display:flex;align-items:center;gap:7px;
+  font-family:var(--font-mono);font-size:15px;color:var(--text2);letter-spacing:.1em;
+  border:1px solid var(--border2);border-radius:20px;padding:5px 14px;
+  background:rgba(10,14,26,.8);
+}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── HERO ── */
+.hero{
+  padding:70px 0 60px;
+  text-align:center;
+}
+.hero-eyebrow{
+  font-family:var(--font-mono);font-size:15px;letter-spacing:.22em;color:var(--text3);
+  text-transform:uppercase;margin-bottom:28px;
+}
+.hero-kicker{
+  display:inline-block;
+  font-family:var(--font-mono);font-size:15px;letter-spacing:.15em;
+  color:var(--green);border:1px solid rgba(0,229,152,.25);
+  padding:5px 16px;border-radius:2px;margin-bottom:24px;
+  background:rgba(0,229,152,.04);
+}
+.hero-h1{
+  font-family:var(--font-display);
+  font-size:clamp(58px,9vw,96px);
+  color:#fff;letter-spacing:.04em;line-height:.96;
+  margin-bottom:6px;
+}
+.hero-h1 span{color:var(--green)}
+.hero-h2{
+  font-family:var(--font-display);
+  font-size:clamp(22px,3.5vw,36px);
+  color:var(--text2);letter-spacing:.08em;line-height:1.2;
+  margin-bottom:30px;
+}
+.hero-sub{
+  font-size:16px;color:var(--text2);max-width:580px;margin:0 auto 44px;line-height:1.9;
+}
+.hero-sub strong{color:var(--blue)}
+.hero-sub em{color:var(--white);font-style:normal}
+
+/* CTA buttons */
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:52px}
+.btn-primary{
+  font-family:var(--font-mono);font-size:15px;letter-spacing:.1em;
+  padding:14px 32px;border-radius:4px;cursor:pointer;text-decoration:none;
+  background:linear-gradient(135deg,#003d22,#006b3a);color:var(--green);
+  border:1px solid rgba(0,229,152,.35);
+  transition:all .2s;display:inline-block;
+}
+.btn-primary:hover{filter:brightness(1.2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,229,152,.15)}
+.btn-ghost{
+  font-family:var(--font-mono);font-size:15px;letter-spacing:.1em;
+  padding:14px 32px;border-radius:4px;cursor:pointer;text-decoration:none;
+  background:transparent;color:var(--text2);
+  border:1px solid var(--border2);
+  transition:all .2s;display:inline-block;
+}
+.btn-ghost:hover{border-color:var(--border3);color:var(--text)}
+
+/* ── LIVE TICKER STRIP ── */
+.strip-wrap{
+  background:var(--card);border:1px solid var(--border2);border-radius:10px;
+  overflow:hidden;margin-bottom:12px;
+}
+.strip-label{
+  font-family:var(--font-mono);font-size:15px;letter-spacing:.2em;color:var(--text3);
+  padding:8px 16px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;
+}
+.strip-inner{
+  display:grid;grid-template-columns:repeat(6,1fr);
+}
+.s-cell{
+  padding:14px 12px;text-align:center;border-right:1px solid var(--border);
+}
+.s-cell:last-child{border-right:none}
+.s-lbl{font-family:var(--font-mono);font-size:15px;color:var(--text3);letter-spacing:.12em;margin-bottom:6px}
+.s-val{font-family:var(--font-display);font-size:22px;line-height:1;margin-bottom:3px}
+.s-sub{font-family:var(--font-mono);font-size:15px;color:var(--text2)}
+.strip-note{font-family:var(--font-mono);font-size:15px;color:var(--text3);text-align:center;padding:6px 0 44px}
+
+/* ── SECTION LABEL ── */
+.sec{
+  font-family:var(--font-body);font-size:15px;font-weight:600;letter-spacing:.12em;color:var(--text2);
+  text-transform:uppercase;margin-bottom:28px;
+  display:flex;align-items:center;gap:16px;
+}
+.sec::after{content:'';flex:1;height:1px;background:var(--border)}
+.sec-num{color:var(--green);opacity:.7;font-family:var(--font-mono);font-size:15px}
+
+/* ── PERSONA SECTION ── */
+.persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border2);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.persona-card{
+  background:var(--card);padding:28px 22px;
+  transition:background .2s;
+}
+.persona-card:hover{background:var(--card2)}
+.persona-icon{font-size:24px;margin-bottom:14px}
+.persona-type{
+  font-family:var(--font-display);font-size:20px;color:var(--white);
+  letter-spacing:.06em;margin-bottom:8px;
+}
+.persona-role{font-family:var(--font-mono);font-size:15px;color:var(--text3);letter-spacing:.12em;margin-bottom:12px}
+.persona-benefit{font-size:15px;color:var(--text2);line-height:1.75}
+.persona-benefit strong{color:var(--text);display:block;margin-bottom:4px}
+.persona-tag{
+  display:inline-block;margin-top:14px;
+  font-family:var(--font-mono);font-size:15px;padding:3px 10px;border-radius:2px;
+}
+
+/* ── HOW IT WORKS ── */
+.pipeline{
+  background:var(--card);border:1px solid var(--border2);border-radius:10px;
+  overflow:hidden;margin-bottom:12px;
+}
+.pipeline-row{
+  display:grid;grid-template-columns:120px 1fr;
+  border-bottom:1px solid var(--border);
+}
+.pipeline-row:last-child{border-bottom:none}
+.pipeline-step{
+  padding:22px 20px;
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;
+}
+.step-tag{
+  font-family:var(--font-mono);font-size:15px;letter-spacing:.1em;
+  padding:4px 10px;border-radius:2px;margin-bottom:8px;font-weight:500;
+}
+.step-num{font-family:var(--font-display);font-size:32px;color:var(--text3);line-height:1}
+.pipeline-body{padding:22px 24px}
+.pipeline-title{font-family:var(--font-display);font-size:18px;color:var(--white);letter-spacing:.04em;margin-bottom:6px}
+.pipeline-desc{font-size:15px;color:var(--text2);line-height:1.75}
+.pipeline-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.ptag{
+  font-family:var(--font-mono);font-size:15px;color:var(--text3);
+  border:1px solid var(--border2);padding:2px 7px;border-radius:2px;
+}
+
+/* ── DIFFERENTIATORS ── */
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px}
+.diff-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:8px;
+  padding:22px 20px;
+  position:relative;overflow:hidden;
+}
+.diff-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+}
+.diff-card.green::before{background:linear-gradient(90deg,var(--green),transparent)}
+.diff-card.blue::before{background:linear-gradient(90deg,var(--blue),transparent)}
+.diff-card.purple::before{background:linear-gradient(90deg,var(--purple),transparent)}
+.diff-card.amber::before{background:linear-gradient(90deg,var(--amber),transparent)}
+.diff-icon{font-size:22px;margin-bottom:12px}
+.diff-title{font-family:var(--font-display);font-size:17px;color:var(--white);letter-spacing:.04em;margin-bottom:7px}
+.diff-body{font-size:15px;color:var(--text2);line-height:1.75}
+.diff-vs{
+  margin-top:12px;font-family:var(--font-mono);font-size:15px;
+  color:var(--text3);border-top:1px solid var(--border);padding-top:10px;
+  line-height:1.6;
+}
+.diff-vs span{color:var(--green)}
+
+/* ── PROOF NUMBERS ── */
+.proof-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:10px;overflow:hidden;margin-bottom:44px}
+.proof-cell{background:var(--card);padding:22px 12px;text-align:center}
+.proof-n{font-family:var(--font-display);font-size:42px;line-height:1;margin-bottom:6px}
+.proof-d{font-family:var(--font-mono);font-size:15px;color:var(--text2);letter-spacing:.06em;line-height:1.5}
+
+/* ── REGIME BLOCK ── */
+.regime-wrap{
+  background:var(--card);border:1px solid var(--border2);border-radius:10px;
+  overflow:hidden;margin-bottom:12px;
+}
+.regime-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;border-bottom:1px solid var(--border);
+  background:rgba(245,188,58,.02);
+}
+.regime-head-l{display:flex;align-items:center;gap:12px}
+.regime-ht{font-family:var(--font-display);font-size:16px;color:var(--white);letter-spacing:.05em}
+.regime-badge{
+  font-family:var(--font-mono);font-size:15px;letter-spacing:.12em;
+  padding:3px 10px;border-radius:2px;border:1px solid;
+}
+.regime-copy{font-size:15px;color:var(--text2);padding:16px 20px 18px;line-height:1.8;border-bottom:1px solid var(--border)}
+.regime-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.regime-cell{background:var(--card);padding:16px;text-align:center}
+.regime-lbl{font-family:var(--font-display);font-size:16px;letter-spacing:.05em;margin-bottom:6px}
+.regime-stat{font-family:var(--font-mono);font-size:15px;color:var(--text2);line-height:1.7}
+
+/* ── LIVE PREVIEW ── */
+.preview-wrap{
+  background:var(--card);border:1px solid var(--border2);border-radius:10px;
+  overflow:hidden;margin-bottom:12px;
+}
+.preview-head{
+  padding:14px 18px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.preview-title{font-family:var(--font-mono);font-size:15px;color:var(--text2);letter-spacing:.12em}
+.tier-toggle{display:flex;gap:1px;background:var(--border);border-radius:4px;overflow:hidden}
+.tbtn{
+  padding:6px 18px;font-family:var(--font-mono);font-size:15px;letter-spacing:.08em;
+  cursor:pointer;border:none;background:#090d1a;color:var(--text3);transition:all .15s;
+}
+.tbtn.active-free{background:var(--card2);color:var(--text)}
+.tbtn.active-paid{background:rgba(0,229,152,.1);color:var(--green)}
+
+.preview-body{padding:18px}
+
+/* Grade banner */
+.grade-row{
+  display:flex;align-items:center;gap:16px;
+  background:rgba(255,255,255,.02);border:1px solid var(--border2);border-left:4px solid var(--green);
+  border-radius:6px;padding:14px 16px;margin-bottom:10px;
+}
+.grade-letter{font-family:var(--font-display);font-size:52px;color:var(--green);line-height:1;flex-shrink:0}
+.grade-lbl{font-family:var(--font-mono);font-size:15px;color:var(--text3);letter-spacing:.14em;margin-bottom:4px}
+.grade-body{font-size:15px;color:var(--text2);line-height:1.65}
+.ctx-row{
+  background:rgba(255,255,255,.02);border:1px solid var(--border2);border-left:4px solid var(--blue);
+  border-radius:6px;padding:12px 16px;margin-bottom:16px;
+  font-family:var(--font-mono);font-size:15px;color:var(--text2);line-height:1.6;
+}
+
+/* Signal table */
+.sig-cols{
+  display:grid;grid-template-columns:56px 140px 1fr 90px 110px;gap:6px;
+  padding:4px 12px;margin-bottom:4px;
+}
+.sig-col-h{font-family:var(--font-mono);font-size:15px;color:var(--text3);letter-spacing:.12em}
+.sig-row{
+  display:grid;grid-template-columns:56px 140px 1fr 90px 110px;gap:6px;
+  align-items:center;padding:12px 12px;
+  background:rgba(0,229,152,.015);border:1px solid rgba(0,229,152,.12);
+  border-radius:6px;margin-bottom:5px;position:relative;
+}
+.sig-row.plain{background:var(--bg2);border-color:var(--border)}
+.conv-n{font-family:var(--font-display);font-size:24px;line-height:1}
+.conv-sub{font-family:var(--font-mono);font-size:15px;color:var(--text3);opacity:.6;letter-spacing:.04em}
+.t-name{font-family:var(--font-display);font-size:20px;color:#fff;line-height:1;margin-bottom:3px}
+.t-badge{
+  font-family:var(--font-mono);font-size:15px;font-weight:500;
+  padding:1px 6px;border-radius:2px;display:inline-block;margin-bottom:2px;
+}
+.t-sec{font-family:var(--font-mono);font-size:15px;color:var(--text3)}
+.th-text{font-size:15px;color:var(--text2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.th-tag{
+  font-family:var(--font-mono);font-size:15px;padding:1px 5px;border-radius:2px;
+  display:inline-block;margin-top:4px;
+}
+.p-main{font-family:var(--font-display);font-size:18px;color:#c0d8f0}
+.p-chg{font-family:var(--font-mono);font-size:15px;margin-top:2px}
+.lvl-sl{font-family:var(--font-mono);font-size:15px;color:var(--red);margin-bottom:2px}
+.lvl-tp{font-family:var(--font-mono);font-size:15px;color:var(--green);margin-bottom:2px}
+.lvl-rr{font-family:var(--font-mono);font-size:15px;color:var(--amber)}
+.lock{
+  position:absolute;right:0;top:0;bottom:0;width:120px;
+  background:linear-gradient(90deg,transparent,var(--bg) 40%);
+  display:flex;align-items:center;justify-content:flex-end;padding-right:12px;
+  border-radius:0 6px 6px 0;
+}
+.lock-txt{font-family:var(--font-mono);font-size:15px;color:var(--text3);letter-spacing:.08em}
+body.paid .lock{display:none}
+body.paid .watch-lock{display:none!important}
+body:not(.paid) .watch-levels{display:none!important}
+body.paid .watch-levels{display:block!important}
+
+/* Watch */
+.watch-hdr{font-family:var(--font-mono);font-size:15px;color:var(--text2);letter-spacing:.14em;padding:12px 0 6px;border-top:1px solid var(--border);margin-top:10px}
+.watch-row{
+  display:flex;align-items:center;padding:10px 12px;
+  border:1px solid var(--border);border-radius:6px;margin-bottom:4px;
+  background:rgba(255,255,255,.01);
+}
+.w-tick{font-family:var(--font-display);font-size:18px;color:#fff;width:68px;flex-shrink:0}
+.w-badge{font-family:var(--font-mono);font-size:15px;padding:1px 6px;border-radius:2px;margin-right:10px;flex-shrink:0}
+.w-thesis{font-size:15px;color:var(--text2);flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;min-width:0}
+.w-right{flex-shrink:0;text-align:right;margin-left:12px;min-width:88px}
+.w-price{font-family:var(--font-display);font-size:15px;color:#b0cce0}
+.watch-lock{font-family:var(--font-mono);font-size:15px;color:var(--text3);margin-top:2px;display:flex;justify-content:flex-end;align-items:center;gap:3px}
+.watch-levels{font-family:var(--font-mono);font-size:15px;color:var(--red);margin-top:2px;white-space:nowrap}
+.gate-row{
+  border:1px dashed var(--border2);border-radius:6px;padding:10px 14px;
+  margin:6px 0;display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--font-mono);font-size:15px;color:var(--text3);
+}
+
+/* ── PLANS ── */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:44px}
+.plan{
+  background:var(--card);border:1px solid var(--border2);border-radius:10px;
+  padding:28px 24px;position:relative;overflow:hidden;
+}
+.plan.featured{
+  border-color:rgba(0,229,152,.3);
+  background:rgba(0,229,152,.02);
+}
+.plan.featured::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--green),transparent);
+}
+.plan-badge{
+  position:absolute;top:14px;right:14px;
+  font-family:var(--font-mono);font-size:15px;letter-spacing:.12em;
+  color:var(--green);border:1px solid rgba(0,229,152,.3);padding:2px 8px;border-radius:2px;
+}
+.plan-name{font-family:var(--font-display);font-size:22px;color:var(--white);letter-spacing:.06em;margin-bottom:4px}
+.plan-price{font-family:var(--font-display);font-size:38px;margin-bottom:2px}
+.plan-cadence{font-family:var(--font-mono);font-size:15px;color:var(--text3);margin-bottom:22px}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.plan-features li{font-size:15px;display:flex;gap:9px;align-items:flex-start;line-height:1.5}
+.chk{color:var(--green);flex-shrink:0;font-family:var(--font-mono)}
+.dim{color:var(--text3);flex-shrink:0}
+.lf{color:var(--text3)}
+.plan-cta{
+  display:block;text-align:center;padding:13px 0;border-radius:4px;
+  font-family:var(--font-mono);font-size:15px;letter-spacing:.08em;
+  cursor:pointer;text-decoration:none;border:none;transition:all .2s;
+}
+.cta-free{background:#080d1c;color:var(--text2);border:1px solid var(--border2)}
+.cta-paid{
+  background:linear-gradient(135deg,#003a1e,#005e30);
+  color:var(--green);border:1px solid rgba(0,229,152,.25);
+}
+.cta-paid:hover{filter:brightness(1.18);transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,229,152,.12)}
+
+/* ── CLOSING ── */
+.closing{text-align:center;padding:0 16px 0}
+.closing-title{font-family:var(--font-display);font-size:clamp(30px,5vw,48px);color:var(--white);letter-spacing:.04em;margin-bottom:16px}
+.closing-body{font-size:15px;color:var(--text2);max-width:520px;margin:0 auto 32px;line-height:1.9}
+.facts{display:flex;justify-content:center;gap:44px;flex-wrap:wrap;margin-bottom:44px}
+.fact-lbl{font-family:var(--font-mono);font-size:15px;color:var(--text3);letter-spacing:.14em;margin-bottom:5px}
+.fact-val{font-family:var(--font-body);font-size:15px;color:var(--text)}
+.divider{height:1px;background:var(--border);margin:44px 0}
+.footnote{font-family:var(--font-mono);font-size:15px;color:var(--text3);text-align:center;line-height:1.9;padding-top:20px}
+.x-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;
+  color:var(--text2);text-decoration:none;
+  border:1px solid var(--border2);border-radius:20px;padding:5px 14px;
+  background:rgba(10,14,26,.8);transition:all .2s;
+}
+.x-link:hover{border-color:var(--border3);color:var(--text)}
+
+/* ── LEARNING ENGINE ── */
+.learn-wrap{
+  background:var(--card);border:1px solid var(--border2);border-radius:10px;
+  overflow:hidden;margin-bottom:12px;
+}
+.learn-head{
+  display:flex;align-items:center;padding:14px 20px;
+  border-bottom:1px solid var(--border);background:rgba(0,229,152,.02);
+}
+.learn-head-l{display:flex;align-items:center;gap:12px}
+.learn-ht{font-family:var(--font-display);font-size:16px;color:var(--white);letter-spacing:.05em}
+.learn-copy{font-size:15px;color:var(--text2);padding:16px 20px 18px;line-height:1.8;border-bottom:1px solid var(--border)}
+.learn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.learn-cell{background:var(--card);padding:16px;text-align:center}
+.learn-lbl{font-family:var(--font-display);font-size:15px;letter-spacing:.05em;margin-bottom:6px;line-height:1.3}
+.learn-stat{font-family:var(--font-mono);font-size:15px;color:var(--text2);line-height:1.7}
+
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  .persona-grid,.regime-grid,.proof-row,.plans,.learn-grid{grid-template-columns:1fr}
+  .pipeline-row{grid-template-columns:1fr}
+  .pipeline-step{border-right:none;border-bottom:1px solid var(--border);flex-direction:row;justify-content:flex-start;gap:12px;padding:14px 18px}
+  .diff-grid{grid-template-columns:1fr}
+  .strip-inner{grid-template-columns:repeat(3,1fr)}
+  .sig-cols,.sig-row{grid-template-columns:52px 120px 1fr!important}
+  .sig-cols>*:nth-child(n+4),.sig-row>*:nth-child(n+4){display:none}
+  .hero-h1{font-size:56px}
+  .facts{gap:24px}
+}
+
+/* ── FADE-IN ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.ani{animation:fadeUp .65s ease both}
+.d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}.d4{animation-delay:.35s}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ══ NAV ══ -->
+  <nav class="nav ani">
+    <div class="nav-logo">NEX<span>US</span></div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <a href="https://x.com/NEXUS_SigInt" target="_blank" class="x-link">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        @NEXUS_SigInt
+      </a>
+      <div class="nav-pill">
+        <div class="nav-dot"></div>
+        MARKETS OPEN &nbsp;&middot;&nbsp; SCANNING LIVE
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <div class="hero">
+    <div class="hero-kicker ani d1">&#9650;&nbsp; HUMAN ENGINEERED &middot; AI POWERED &middot; UNPRECEDENTED RESULTS</div>
+    <h1 class="hero-h1 ani d2">NEXUS<br><span>SIGNAL</span><br>BRIEF</h1>
+    <div class="hero-h2 ani d2">Stock Intelligence. Every Trading Day.</div>
+    <p class="hero-sub ani d3">
+      Built by an <strong>Aerospace engineer</strong>, integrated with AI. A <strong>multi-agent system</strong> actively monitors the market across <em>7 sectors</em> &mdash; performing strategic, data-driven assessments utilizing deep pattern recognition and multi-source intelligence to surface the highest-conviction setups before the open.
+    </p>
+    <div class="cta-row ani d4">
+      <a href="#plans" class="btn-primary">Start Free — No Card Required &nbsp;&rarr;</a>
+      <a href="#preview" class="btn-ghost">See a Live Preview &nbsp;&darr;</a>
+    </div>
+  </div>
+
+  <!-- ══ MARKET STRIP ══ -->
+  <div class="strip-wrap ani d4">
+    <div class="strip-label">
+      <div style="width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)"></div>
+      LIVE MARKET STRIP &nbsp;&middot;&nbsp; APPEARS IN EVERY EDITION (FREE &amp; PAID)
+    </div>
+    <div class="strip-inner">
+      <div class="s-cell">
+        <div class="s-lbl">NEXUS CLOSE</div>
+        <div class="s-val" style="color:var(--green)">+1.84%</div>
+        <div class="s-sub" style="color:var(--green2)">BEATING MKT</div>
+      </div>
+      <div class="s-cell">
+        <div class="s-lbl">SPY</div>
+        <div class="s-val" style="color:var(--green)">+0.62%</div>
+        <div class="s-sub">Apr 14 close</div>
+      </div>
+      <div class="s-cell">
+        <div class="s-lbl">NASDAQ</div>
+        <div class="s-val" style="color:var(--green)">+1.16%</div>
+        <div class="s-sub">Apr 14 close</div>
+      </div>
+      <div class="s-cell">
+        <div class="s-lbl">WIN RATE</div>
+        <div class="s-val" style="color:var(--green)">63%</div>
+        <div class="s-sub">8 closed</div>
+      </div>
+      <div class="s-cell">
+        <div class="s-lbl">ALPHA vs SPY</div>
+        <div class="s-val" style="color:var(--blue)">+2.1%</div>
+        <div class="s-sub">avg per trade</div>
+      </div>
+      <div class="s-cell">
+        <div class="s-lbl">SCAN GRADE</div>
+        <div class="s-val" style="color:var(--green)">A</div>
+        <div class="s-sub">6 qualified</div>
+      </div>
+    </div>
+  </div>
+  <p class="strip-note">&uarr; This strip is at the top of every edition &mdash; so you always know where things stand before you read a word</p>
+
+  <!-- ══ WHO IS NEXUS FOR ══ -->
+  <div class="sec"><span class="sec-num">01</span> Who it&rsquo;s built for</div>
+  <div class="persona-grid">
+    <div class="persona-card">
+      <div class="persona-icon">📈</div>
+      <div class="persona-type">THE DAY TRADER</div>
+      <div class="persona-role">ACTIVE &middot; EXECUTION-FOCUSED</div>
+      <div class="persona-benefit">
+        <strong>What you get:</strong>
+        Every morning brief includes pre-market price movement for each signal,
+        plus exact entry levels, stop-loss and targets — so you can act at the open
+        with a complete plan, not a hunch.
+        Regime detection means you're never fighting the trend.
+      </div>
+      <span class="persona-tag" style="color:var(--green);background:rgba(0,229,152,.07);border:1px solid rgba(0,229,152,.2)">Entry · Stop · Target on every pick</span>
+    </div>
+    <div class="persona-card" style="border-left:1px solid var(--border);border-right:1px solid var(--border)">
+      <div class="persona-icon">💼</div>
+      <div class="persona-type">THE BUSY PROFESSIONAL</div>
+      <div class="persona-role">TIME-CONSTRAINED &middot; RETURNS-FOCUSED</div>
+      <div class="persona-benefit">
+        <strong>What you get:</strong>
+        One email, every trading day, with the highest-conviction setups — screened,
+        scored, and ranked. No charts to pull, no screeners to run.
+        The scan grade tells you immediately if today is a high-signal day
+        or one to sit out.
+      </div>
+      <span class="persona-tag" style="color:var(--blue);background:rgba(78,181,248,.07);border:1px solid rgba(78,181,248,.2)">3 min read · Actionable in seconds</span>
+    </div>
+    <div class="persona-card">
+      <div class="persona-icon">🎓</div>
+      <div class="persona-type">THE NOVICE INVESTOR</div>
+      <div class="persona-role">LEARNING &middot; BUILDING CONFIDENCE</div>
+      <div class="persona-benefit">
+        <strong>What you get:</strong>
+        Each signal includes a plain-English thesis explaining exactly why it was selected. The daily learning note surfaces one pattern or insight from that
+        session's data. You'll understand what RSI, MACD, and conviction scoring mean
+        by reading, not studying.
+      </div>
+      <span class="persona-tag" style="color:var(--purple);background:rgba(180,158,255,.07);border:1px solid rgba(180,158,255,.2)">Learn while you earn</span>
+    </div>
+  </div>
+
+  <!-- ══ WHAT SETS IT APART ══ -->
+  <div class="sec" style="margin-top:44px"><span class="sec-num">02</span> What sets NEXUS apart</div>
+  <div class="diff-grid">
+    <div class="diff-card green">
+      <div class="diff-icon">🎯</div>
+      <div class="diff-title">Complete Trade Plans, Not Just Tickers</div>
+      <div class="diff-body">
+        Every signal comes with entry price, stop-loss, price target, risk/reward ratio,
+        RSI, volume confirmation, and earnings proximity alert. You know exactly
+        what the setup is, why it was selected, and where to exit — before you click buy.
+      </div>
+      <div class="diff-vs">
+        Every other newsletter gives you a ticker and a thesis.<br>
+        <span>NEXUS gives you a trade plan.</span>
+      </div>
+    </div>
+    <div class="diff-card blue">
+      <div class="diff-icon">🧠</div>
+      <div class="diff-title">Regime-Aware — The System Adapts</div>
+      <div class="diff-body">
+        NEXUS continuously detects whether the market is in a BULL, CHOPPY, BEAR, or
+        CRASH regime — and automatically adjusts conviction thresholds, position sizing,
+        and sector exposure to match. You're never applying bull-market logic in a bear
+        market.
+      </div>
+      <div class="diff-vs">
+        Other services run the same algorithm in every market condition.<br>
+        <span>NEXUS recalibrates every session.</span>
+      </div>
+    </div>
+    <div class="diff-card purple">
+      <div class="diff-icon">⚡</div>
+      <div class="diff-title">Daily Cadence — 365 Days of Edge</div>
+      <div class="diff-body">
+        Motley Fool and Seeking Alpha send 2 picks a month.
+        NEXUS sends a full briefing every single trading day — with a morning
+        pre-market edition and a week-in-review deep-dive edition. The edge compounds
+        with frequency.
+      </div>
+      <div class="diff-vs">
+        The market moves daily.<br>
+        <span>NEXUS moves with it.</span>
+      </div>
+    </div>
+    <div class="diff-card amber">
+      <div class="diff-icon">🔁</div>
+      <div class="diff-title">Self-Learning — Gets Sharper Every Session</div>
+      <div class="diff-body">
+        NEXUS runs a live paper portfolio alongside every signal it publishes. Entries,
+        stops, and targets are tracked against real market data — not backtested assumptions.
+        After each session close, the system processes the outcomes: which setups delivered,
+        where conviction was miscalibrated, and which sectors are in or out of form. Those
+        results feed directly back into the scoring model, tightening the pattern
+        recognition engine with every trading day.
+      </div>
+      <div class="diff-vs">
+        Most systems are calibrated once, then run forever.<br>
+        <span>NEXUS is recalibrated after every single session.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ HOW IT WORKS ══ -->
+  <div class="sec" style="margin-top:44px"><span class="sec-num">03</span> How the system works</div>
+  <div class="pipeline">
+    <div class="pipeline-row">
+      <div class="pipeline-step">
+        <span class="step-tag" style="color:var(--blue);background:rgba(78,181,248,.08);border:1px solid rgba(78,181,248,.2)">ANALYST</span>
+        <div class="step-num">01</div>
+      </div>
+      <div class="pipeline-body">
+        <div class="pipeline-title">Technical Deep Scan</div>
+        <div class="pipeline-desc">Every ticker in the 7-sector universe is scored against a dynamic multi-factor model. RSI zones, MACD histogram, SMA50/200, Bollinger Band compression, ATR, ADX trend strength, OBV accumulation/distribution, volume ratio, and support/resistance proximity are evaluated and numerically scored. Setups that don't meet our proprietary thresholds are eliminated before the next stage.</div>
+        <div class="pipeline-tags">
+          <span class="ptag">RSI</span><span class="ptag">MACD</span><span class="ptag">SMA50/200</span><span class="ptag">Bollinger Bands</span><span class="ptag">ADX</span><span class="ptag">OBV</span><span class="ptag">ATR</span><span class="ptag">Volume Ratio</span><span class="ptag">Support &amp; Resistance</span>
+        </div>
+      </div>
+    </div>
+    <div class="pipeline-row">
+      <div class="pipeline-step">
+        <span class="step-tag" style="color:var(--purple);background:rgba(180,158,255,.08);border:1px solid rgba(180,158,255,.2)">INTEL</span>
+        <div class="step-num">02</div>
+      </div>
+      <div class="pipeline-body">
+        <div class="pipeline-title">Catalyst &amp; Sentiment Intelligence</div>
+        <div class="pipeline-desc">Candidates that clear the technical screen are enriched with real-time intelligence: SEC Form 4 insider transactions, 8-K material event filings, analyst upgrade/downgrade history, earnings proximity warnings, and news sentiment. Divergence between sentiment and price is flagged automatically.</div>
+        <div class="pipeline-tags">
+          <span class="ptag">SEC EDGAR</span><span class="ptag">Form 4 Insider</span><span class="ptag">8-K Events</span><span class="ptag">Analyst Ratings</span><span class="ptag">Earnings Calendar</span><span class="ptag">News Sentiment</span>
+        </div>
+      </div>
+    </div>
+    <div class="pipeline-row">
+      <div class="pipeline-step">
+        <span class="step-tag" style="color:var(--green);background:rgba(0,229,152,.08);border:1px solid rgba(0,229,152,.2)">DECISION</span>
+        <div class="step-num">03</div>
+      </div>
+      <div class="pipeline-body">
+        <div class="pipeline-title">Conviction Scoring &amp; Trade Plan</div>
+        <div class="pipeline-desc">NEXUS generates the technical score and intelligence report alongside the current market regime, portfolio state, and historical learning notes. The output is a conviction score (60–90%), specific entry price, ATR-calibrated stop-loss, price target, risk/reward ratio, and an execution note. Nothing is published unless conviction clears the regime's floor.</div>
+        <div class="pipeline-tags">
+          <span class="ptag">Conviction %</span><span class="ptag">Stop-Loss</span><span class="ptag">Target Price</span><span class="ptag">Risk/Reward</span><span class="ptag">Execution Note</span><span class="ptag">Regime Gate</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LEARNING ENGINE ══ -->
+  <div class="sec" style="margin-top:44px"><span class="sec-num">04</span> The self-improving loop</div>
+  <div class="learn-wrap">
+    <div class="learn-head">
+      <div class="learn-head-l">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(0,229,152,.5)"></div>
+        <div class="learn-ht">Live Paper Portfolio &middot; Real Data &middot; Daily Feedback Loop</div>
+      </div>
+    </div>
+    <div class="learn-copy">
+      Most trading systems are static — NEXUS operates differently. Simultaneously building a live paper portfolio based on the published signals and tracked against real market prices. After each session, every open and closed position is reviewed: scoring execution quality, flagging miscalibrated conviction, and identifying which technical patterns delivered edge. The outcomes are logged as structured learning notes that flow directly into the next scan — updating scoring weights, sector emphasis, and conviction thresholds in real time. The system doesn't just analyze the market. It learns from it, every single day.
+    </div>
+    <div class="learn-grid">
+      <div class="learn-cell">
+        <div class="learn-lbl" style="color:var(--green)">LIVE PAPER<br>PORTFOLIO</div>
+        <div class="learn-stat">Every signal tracked<br>against real prices<br><span style="color:var(--text3);font-size:15px">No hypothetical fills</span></div>
+      </div>
+      <div class="learn-cell" style="border-left:1px solid var(--border)">
+        <div class="learn-lbl" style="color:var(--blue)">REAL MARKET<br>DATA</div>
+        <div class="learn-stat">Live prices, actual<br>entries &amp; exits<br><span style="color:var(--text3);font-size:15px">Forward-testing, not backtest</span></div>
+      </div>
+      <div class="learn-cell" style="border-left:1px solid var(--border)">
+        <div class="learn-lbl" style="color:var(--purple)">POST-SESSION<br>REVIEW</div>
+        <div class="learn-stat">AI reflection scores<br>every call made<br><span style="color:var(--text3);font-size:15px">Win/loss pattern analysis</span></div>
+      </div>
+      <div class="learn-cell" style="border-left:1px solid var(--border)">
+        <div class="learn-lbl" style="color:var(--amber)">SCORING<br>UPDATES</div>
+        <div class="learn-stat">Conviction weights<br>recalibrated daily<br><span style="color:var(--text3);font-size:15px">Compounds every session</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PROOF NUMBERS ══ -->
+  <div class="proof-row" style="margin-top:12px">
+    <div class="proof-cell">
+      <div class="proof-n" style="color:var(--blue)">7</div>
+      <div class="proof-d">sectors<br>monitored daily</div>
+    </div>
+    <div class="proof-cell">
+      <div class="proof-n" style="color:var(--amber)">5,500+</div>
+      <div class="proof-d">backtested trades<br>calibrate every param</div>
+    </div>
+    <div class="proof-cell">
+      <div class="proof-n" style="color:var(--green)">4</div>
+      <div class="proof-d">market regimes<br>dynamically detected</div>
+    </div>
+  </div>
+
+  <!-- ══ REGIME BLOCK ══ -->
+  <div class="sec" style="margin-top:44px"><span class="sec-num">05</span> Regime-aware intelligence</div>
+  <div class="regime-wrap">
+    <div class="regime-head">
+      <div class="regime-head-l">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px rgba(245,188,58,.5)"></div>
+        <div class="regime-ht">Dynamic Market Regime Detection</div>
+      </div>
+      <span class="regime-badge" style="color:var(--green);border-color:rgba(0,229,152,.3)">ACTIVE &mdash; BULL</span>
+    </div>
+    <div class="regime-copy">
+      Most systems apply the same rules whether the S&amp;P is ripping higher or in freefall.
+      NEXUS continuously scores four regime inputs — VIX level, SPY momentum, sector breadth,
+      and system win rate — and dynamically adjusts every parameter to match the current environment.
+      When conditions deteriorate, capital deployment drops, conviction bars rise, and volatile sectors close.
+      When conditions improve, the system scales back up automatically.
+    </div>
+    <div class="regime-grid">
+      <div class="regime-cell">
+        <div class="regime-lbl" style="color:var(--green)">BULL</div>
+        <div class="regime-stat">Full deployment<br>Max positions active<br><span style="color:var(--text3);font-size:15px">All sectors open</span></div>
+      </div>
+      <div class="regime-cell" style="border-left:1px solid var(--border)">
+        <div class="regime-lbl" style="color:var(--blue)">CHOPPY</div>
+        <div class="regime-stat">Reduced exposure<br>Higher conviction bar<br><span style="color:var(--text3);font-size:15px">Volatile sectors gated</span></div>
+      </div>
+      <div class="regime-cell" style="border-left:1px solid var(--border)">
+        <div class="regime-lbl" style="color:var(--amber)">BEAR</div>
+        <div class="regime-stat">Capital preserved<br>Defensive posture<br><span style="color:var(--text3);font-size:15px">Growth sectors closed</span></div>
+      </div>
+      <div class="regime-cell" style="border-left:1px solid var(--border)">
+        <div class="regime-lbl" style="color:var(--red)">CRASH</div>
+        <div class="regime-stat">Minimal deployment<br>Max conviction required<br><span style="color:var(--text3);font-size:15px">Only defensives</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LIVE PREVIEW ══ -->
+  <div class="sec" style="margin-top:44px" id="preview"><span class="sec-num">06</span> Today&rsquo;s edition &mdash; live preview</div>
+  <div class="preview-wrap">
+    <div class="preview-head">
+      <div class="preview-title">SIGNAL BRIEF &nbsp;&middot;&nbsp; MON APR 14 &nbsp;&middot;&nbsp; POST-CLOSE &nbsp;&middot;&nbsp; 9:47 PM ET</div>
+      <div class="tier-toggle">
+        <button class="tbtn active-free" id="btn-free" onclick="setTier('free')">FREE TIER</button>
+        <button class="tbtn" id="btn-paid" onclick="setTier('paid')">PAID TIER</button>
+      </div>
+    </div>
+    <div class="preview-body">
+
+      <div class="ctx-row">
+        SPY pre-market +0.42% &middot; QQQ +0.61% &mdash; futures pointing higher. Signals below from Mon Apr 13 post-close scan, enriched with pre-market intel. SPY +0.98% on Apr 13. Semiconductors +2.0% &bull; Healthcare +0.5% &bull; Energy +0.4% &bull; Utilities -1.2%
+      </div>
+
+      <!-- Signal table -->
+      <div class="sig-cols">
+        <div class="sig-col-h">CONV</div>
+        <div class="sig-col-h">TICKER</div>
+        <div class="sig-col-h">TODAY'S EDGE &middot; THESIS</div>
+        <div class="sig-col-h" style="text-align:center">PRICE</div>
+        <div class="sig-col-h" style="text-align:center">LEVELS</div>
+      </div>
+
+      <!-- Signal 1 — ANET -->
+      <div class="sig-row">
+        <div>
+          <div class="conv-n" style="color:var(--green)">78%</div>
+          <div class="conv-sub">CONV</div>
+        </div>
+        <div>
+          <div class="t-name">ANET</div>
+          <span class="t-badge" style="color:var(--green);background:rgba(0,229,152,.07);border:1px solid rgba(0,229,152,.2)">▲ BUY</span>
+          <div class="t-sec">Semiconductors</div>
+        </div>
+        <div>
+          <div class="th-text" style="color:var(--text);font-weight:500;margin-bottom:3px">Rosenblatt upgrade ignited +20% in 5 days &mdash; $148-150 congestion zone cleared on 1.07x volume. RSI 66 has extension room.</div>
+          <span class="th-tag" style="color:var(--purple);background:rgba(180,158,255,.07);border:1px solid rgba(180,158,255,.2)">Catalyst</span>
+          <span class="th-tag" style="color:var(--blue);background:rgba(78,181,248,.07);border:1px solid rgba(78,181,248,.2);margin-left:3px">Momentum</span>
+        </div>
+        <div style="text-align:center">
+          <div class="p-main">$152.02</div>
+          <div class="p-chg" style="color:var(--green)">+3.24%</div>
+        </div>
+        <div style="text-align:center;position:relative">
+          <div class="lvl-sl">SL $142.07</div>
+          <div class="lvl-tp">TP $171.73</div>
+          <div class="lvl-rr">R/R 2.0×</div>
+          <div class="lock"><span class="lock-txt">&#128274; PAID</span></div>
+        </div>
+      </div>
+
+      <!-- Signal 2 — NRG (free tier blurred) -->
+      <div class="sig-row plain">
+        <div>
+          <div class="conv-n" style="color:var(--blue)">76%</div>
+          <div class="conv-sub">CONV</div>
+        </div>
+        <div>
+          <div class="t-name">NRG</div>
+          <span class="t-badge" style="color:var(--blue);background:rgba(78,181,248,.07);border:1px solid rgba(78,181,248,.2)">▲ BUY</span>
+          <div class="t-sec">Utilities</div>
+        </div>
+        <div>
+          <div class="th-text">LS Power data center deal catalyst. Broke $169.66 resistance on 1.16x volume. ADX 38 confirms strong trend. RSI 63.6 not extended.</div>
+          <span class="th-tag" style="color:var(--green);background:rgba(0,229,152,.07);border:1px solid rgba(0,229,152,.2)">Breakout</span>
+        </div>
+        <div style="text-align:center">
+          <div class="p-main">$170.24</div>
+          <div class="p-chg" style="color:var(--green)">+3.76%</div>
+        </div>
+        <div style="text-align:center;position:relative">
+          <div class="lvl-sl">SL $169.66</div>
+          <div class="lvl-tp">TP $188.42</div>
+          <div class="lvl-rr">R/R 3.0×</div>
+          <div class="lock"><span class="lock-txt">&#128274; PAID</span></div>
+        </div>
+      </div>
+
+      <!-- Gated row -->
+      <div id="gate-row" class="gate-row">
+        <span>+ 4 more qualified signals with full entry, stop &amp; target</span>
+        <span style="color:var(--border3)">PAID ONLY &#128274;</span>
+      </div>
+      <div id="gate-row-hidden" class="gate-row" style="display:none;border-color:rgba(0,229,152,.15)">
+        <span style="color:var(--text2)">All 6 signals unlocked &mdash; ASML, MP, STLD, ALB also qualified today</span>
+        <span style="color:var(--green)">&#10003; FULL ACCESS</span>
+      </div>
+
+      <!-- Watch items -->
+      <div class="watch-hdr">WATCH &mdash; 3 developing setups</div>
+
+      <div class="watch-row">
+        <div class="w-tick">MP</div>
+        <span class="w-badge" style="color:var(--blue);background:rgba(78,181,248,.07);border:1px solid rgba(78,181,248,.2)">WATCH</span>
+        <div class="w-thesis">Materials — ADX 34.5 confirming strong trend, broke $56.43 on 1.17x vol, bullish MACD crossover</div>
+        <div class="w-right">
+          <div class="w-price">$57.82</div>
+          <div class="watch-lock">&#128274;&nbsp;no levels</div>
+          <div class="watch-levels" style="display:none">SL $56.43 &middot; TP $67.14</div>
+        </div>
+      </div>
+
+      <div class="watch-row">
+        <div class="w-tick">STLD</div>
+        <span class="w-badge" style="color:var(--blue);background:rgba(78,181,248,.07);border:1px solid rgba(78,181,248,.2)">WATCH</span>
+        <div class="w-thesis">Materials — testing $196 resistance after +10.73% 5-day surge on base metals rally</div>
+        <div class="w-right">
+          <div class="w-price">$195.47</div>
+          <div class="watch-lock">&#128274;&nbsp;no levels</div>
+          <div class="watch-levels" style="display:none">SL $186.03 &middot; TP $212.45</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ PLANS ══ -->
+  <div class="sec" style="margin-top:44px" id="plans"><span class="sec-num">07</span> Choose your tier</div>
+  <div class="plans">
+    <div class="plan">
+      <div class="plan-name">Free</div>
+      <div class="plan-price" style="color:var(--text2)">$0</div>
+      <div class="plan-cadence">Always free &middot; No credit card &middot; Cancel anytime</div>
+      <ul class="plan-features">
+        <li><span class="chk">✓</span> Daily market strip (SPY, NASDAQ, DOW, VIX)</li>
+        <li><span class="chk">✓</span> Scan grade &amp; AI reflection summary</li>
+        <li><span class="chk">✓</span> Market context &amp; regime banner</li>
+        <li><span class="chk">✓</span> System win rate &amp; equity curve</li>
+        <li><span class="chk">✓</span> 1 full signal &mdash; conviction %, thesis, setup type</li>
+        <li><span class="chk">✓</span> 2 watch items &mdash; ticker &amp; thesis</li>
+        <li><span class="dim">—</span> <span class="lf">Entry price, stop-loss &amp; target</span></li>
+        <li><span class="dim">—</span> <span class="lf">Full 3–5 signals per edition</span></li>
+        <li><span class="dim">—</span> <span class="lf">Watch item price levels</span></li>
+        <li><span class="dim">—</span> <span class="lf">Signal deep-dive analysis</span></li>
+        <li><span class="dim">—</span> <span class="lf">Friday week-in-review &amp; P&amp;L recap</span></li>
+      </ul>
+      <a href="#" class="plan-cta cta-free">Subscribe Free &rarr;</a>
+    </div>
+    <div class="plan featured">
+      <div class="plan-badge">FOUNDING RATE</div>
+      <div class="plan-name">Signal Brief+</div>
+      <div class="plan-price" style="color:var(--green)">$29.99<span style="font-size:15px;font-weight:400;color:var(--text2)">/mo</span></div>
+      <div class="plan-cadence">or $249/year &middot; Cancel anytime &middot; Rate locked for life</div>
+      <ul class="plan-features">
+        <li><span class="chk">✓</span> Everything in Free</li>
+        <li><span class="chk">✓</span> <strong>3–5 full signals per edition</strong></li>
+        <li><span class="chk">✓</span> Entry price, stop-loss &amp; target on every pick</li>
+        <li><span class="chk">✓</span> Risk/reward ratio per signal</li>
+        <li><span class="chk">✓</span> RSI, volume &amp; earnings proximity indicators</li>
+        <li><span class="chk">✓</span> Pre-market price movement badge</li>
+        <li><span class="chk">✓</span> Full watch list with price levels</li>
+        <li><span class="chk">✓</span> Signal deep-dive — company overview, full technical narrative, chart</li>
+        <li><span class="chk">✓</span> Friday week-in-review: P&amp;L on every pick sent that week</li>
+        <li><span class="chk">✓</span> Founding member rate — locked in for life</li>
+      </ul>
+      <a href="#" class="plan-cta cta-paid">Get Signal Brief+ &rarr;</a>
+    </div>
+  </div>
+
+  <!-- ══ CLOSING ══ -->
+  <div class="divider"></div>
+  <div class="closing">
+    <div class="closing-title">Built Different.</div>
+    <p class="closing-body">
+      Every signal is the output of a documented, reproducible process — not a hot take or a screener with a headline attached.
+      Alongside every edition, NEXUS runs a live paper portfolio tracked against real market data. Every position closed generates a learning signal.
+      Every session ends with a reflection that updates conviction weights for the next scan.
+      The longer it runs, the sharper it gets. NEXUS doesn't just run — it improves.
+    </p>
+    <div class="facts">
+      <div><div class="fact-lbl">APPROACH</div><div class="fact-val">Engineer-designed</div></div>
+      <div><div class="fact-lbl">CADENCE</div><div class="fact-val">Every trading day</div></div>
+      <div><div class="fact-lbl">CONFLICTS</div><div class="fact-val">None — no sponsors</div></div>
+      <div><div class="fact-lbl">METHODOLOGY</div><div class="fact-val">Documented &amp; reproducible</div></div>
+      <div><div class="fact-lbl">PRICE COMPARISON</div><div class="fact-val">vs $499/yr Alpha Picks</div></div>
+    </div>
+    <div class="cta-row">
+      <a href="#plans" class="btn-primary">Start Free Today &nbsp;&rarr;</a>
+    </div>
+  </div>
+
+  <p class="footnote">
+    NEXUS Signal Brief is published for informational and educational purposes only and does not constitute investment advice.<br>
+    Past performance of the model portfolio does not guarantee future results. All trading involves risk. Always do your own research.<br>
+    2026 NEXUS Signal Brief &nbsp;&middot;&nbsp;
+    <a href="https://x.com/NEXUS_SigInt" target="_blank" style="color:var(--text2);text-decoration:none;">&#120143; @NEXUS_SigInt</a>
+  </p>
+
+</div>
+
+<script>
+function setTier(t){
+  var body=document.body;
+  var fb=document.getElementById('btn-free');
+  var pb=document.getElementById('btn-paid');
+  var gr=document.getElementById('gate-row');
+  var grh=document.getElementById('gate-row-hidden');
+  if(t==='paid'){
+    body.classList.add('paid');
+    fb.className='tbtn';pb.className='tbtn active-paid';
+    gr.style.display='none';grh.style.display='flex';
+  }else{
+    body.classList.remove('paid');
+    fb.className='tbtn active-free';pb.className='tbtn';
+    gr.style.display='flex';grh.style.display='none';
+  }
+}
+
+// Animate elements into view on scroll
+if('IntersectionObserver' in window){
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}
+    });
+  },{threshold:.1});
+  document.querySelectorAll('.diff-card,.persona-card,.pipeline-row,.proof-cell').forEach(function(el){
+    el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='opacity .5s ease, transform .5s ease';
+    obs.observe(el);
+  });
+}
+</script>
+</body>
+</html>
