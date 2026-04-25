@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<!-- NEXUS Signal Brief Ad Page — v5.2.9 -->
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NEXUS Signal Brief — Advanced Stock Intelligence, Daily</title>
+<meta name="description" content="Advanced stock intelligence built by an aerospace engineer. Complete trade plans with entry, stop-loss, and targets delivered every trading day. Free tier available — no card required."/>
+<meta property="og:title" content="NEXUS Signal Brief — Advanced Stock Intelligence, Daily"/>
+<meta property="og:description" content="A self-learning, regime-aware signal system that delivers complete trade plans before the open. Built by an engineer. Validated across a 5-year walk-forward backtest."/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content="@NEXUS_SigInt"/>
+<meta name="twitter:title" content="NEXUS Signal Brief — Advanced Stock Intelligence"/>
+<meta name="twitter:description" content="Complete trade plans. Every trading day. Advanced stock intelligence, built by an aerospace engineer."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#05080f;--bg2:#07091a;--bg3:#040610;
+  --card:#090d1c;--card2:#0c1022;
+  --border:#0f1828;--border2:#162036;--border3:#1d3050;
+  --text:#b8d0e8;--text2:#7a9aba;--text3:#6888a8;
+  --green:#00e598;--green2:#00c47e;--green-dim:rgba(0,229,152,.07);
+  --blue:#5bb8fa;--purple:#c4aeff;--amber:#f5c842;--red:#ff6060;
+  --white:#e8f2ff;
+  --font-display:'Syne',sans-serif;
+  --font-body:'Plus Jakarta Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;font-size:15px;line-height:1.6}
+
+/* ── BACKGROUND ATMOSPHERE ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 90% 55% at 50% -5%, rgba(0,229,152,.045) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at 85% 85%, rgba(91,184,250,.025) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 40% at 10% 60%, rgba(196,174,255,.015) 0%, transparent 50%);
+  pointer-events:none;
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px);
+  pointer-events:none;
+}
+
+.wrap{max-width:920px;margin:0 auto;padding:0 24px 100px;position:relative;z-index:1}
+.wrap > :first-child{margin-top:0}
+
+/* ── NAV ── */
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 0 0;
+}
+.nav-logo{
+  font-family:var(--font-display);font-size:22px;font-weight:800;
+  color:#fff;letter-spacing:.14em;text-transform:uppercase;
+}
+.nav-logo span{color:var(--green)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav{position:sticky;top:0;z-index:999;background:rgba(5,8,15,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border2);padding-top:0;padding-bottom:0;height:52px;margin-bottom:0;}
+.nav-wrap{max-width:920px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:100%}
+.nav-cta{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+  color:var(--bg);background:var(--green);
+  border:none;border-radius:4px;padding:7px 16px;
+  cursor:pointer;white-space:nowrap;font-weight:600;
+  transition:filter .2s;text-decoration:none;
+}
+.nav-cta:hover{filter:brightness(1.15)}
+.nav-pill{
+  display:flex;align-items:center;gap:7px;
+  font-family:var(--font-mono);font-size:11px;color:var(--text2);letter-spacing:.08em;
+  border:1px solid var(--border2);border-radius:20px;padding:5px 14px;
+  background:rgba(9,13,28,.85);
+}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.x-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+  color:var(--text2);text-decoration:none;
+  border:1px solid var(--border2);border-radius:20px;padding:5px 14px;
+  background:rgba(9,13,28,.85);transition:all .2s;
+}
+.x-link:hover{border-color:var(--border3);color:var(--text)}
+
+/* ── HERO ── */
+.hero{padding:68px 0 52px;text-align:center}
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;
+  color:var(--green);border:1px solid rgba(0,229,152,.22);
+  padding:6px 18px;border-radius:2px;margin-bottom:26px;
+  background:rgba(0,229,152,.04);
+}
+.hero-h1{
+  font-family:var(--font-display);font-weight:800;
+  font-size:clamp(36px,5.5vw,62px);
+  color:#fff;letter-spacing:.02em;line-height:.92;
+  margin-bottom:8px;
+}
+.hero-h1 span{color:var(--green)}
+.hero-h2{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(13px,1.8vw,20px);
+  color:var(--text2);letter-spacing:.08em;
+  margin-bottom:28px;
+}
+.hero-sub{
+  font-size:16px;color:var(--text);max-width:600px;margin:0 auto 40px;line-height:1.85;
+}
+.hero-sub strong{color:var(--blue)}
+.hero-sub em{color:var(--white);font-style:normal}
+
+/* ── EMAIL CAPTURE ── */
+.capture-wrap{
+  max-width:480px;margin:0 auto 16px;
+  display:flex;gap:0;
+  border:1px solid rgba(0,229,152,.3);border-radius:5px;
+  overflow:hidden;background:rgba(9,13,28,.9);
+}
+.capture-input{
+  flex:1;padding:14px 18px;
+  background:transparent;border:none;outline:none;
+  font-family:var(--font-body);font-size:14px;color:var(--white);
+}
+.capture-input::placeholder{color:var(--text3)}
+.capture-btn{
+  padding:14px 22px;background:linear-gradient(135deg,#00401f,#006932);
+  color:var(--green);font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;border:none;cursor:pointer;
+  border-left:1px solid rgba(0,229,152,.2);
+  transition:filter .2s;white-space:nowrap;
+}
+.capture-btn:hover{filter:brightness(1.2)}
+.capture-note{
+  font-family:var(--font-mono);font-size:12px;color:var(--text3);
+  margin-bottom:44px;
+}
+.capture-note a{color:var(--text2);text-decoration:none}
+.capture-note a:hover{color:var(--text)}
+
+/* ── SOCIAL PROOF STRIP ── */
+.proof-strip{
+  display:flex;align-items:center;justify-content:space-around;gap:0;
+  flex-wrap:nowrap;
+  padding:18px 24px;
+  background:var(--card);border:1px solid var(--border2);border-radius:10px;
+  margin-bottom:10px;
+}
+.ps-item{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1}
+.ps-num{
+  font-family:var(--font-display);font-weight:700;font-size:22px;
+  color:var(--green);line-height:1;white-space:nowrap;
+}
+.ps-lbl{font-family:var(--font-mono);font-size:12px;color:var(--text2);line-height:1.3;text-align:center;white-space:normal}
+.ps-div{width:1px;height:40px;background:var(--border2);flex-shrink:0}
+
+/* ── PERFORMANCE CHART ── */
+.perf-wrap{
+  background:var(--card);border:1px solid var(--border2);border-radius:10px;
+  overflow:hidden;margin-bottom:12px;
+}
+.perf-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;border-bottom:1px solid var(--border);
+  flex-wrap:wrap;gap:12px;
+}
+.perf-title{font-family:var(--font-display);font-weight:600;font-size:15px;color:var(--white);letter-spacing:.04em}
+.perf-sub{font-family:var(--font-mono);font-size:12px;color:var(--text3);margin-top:3px;letter-spacing:.02em}
+.perf-legend{display:flex;gap:18px;flex-wrap:wrap}
+.leg-item{display:flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;color:var(--text2);cursor:pointer;user-select:none;transition:opacity .15s}
+.leg-item.muted{opacity:.4}
+.leg-dot{width:8px;height:8px;border-radius:50%}
+.leg-bar{width:14px;height:2px;border-radius:1px}
+.leg-bar.thick{height:3px}
+.perf-body{padding:20px}
+
+.perf-toolbar{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;margin-bottom:14px;
+}
+.perf-toggle{
+  display:inline-flex;background:var(--bg2);border:1px solid var(--border2);
+  border-radius:6px;padding:3px;
+}
+.perf-toggle button{
+  background:transparent;border:none;padding:6px 14px;
+  font-family:var(--font-mono);font-size:11px;font-weight:500;
+  color:var(--text2);border-radius:4px;cursor:pointer;
+  transition:all .15s;letter-spacing:.04em;
+}
+.perf-toggle button.on{background:var(--card2);color:var(--white)}
+.perf-toggle button:hover:not(.on){color:var(--text)}
+
+.perf-chart-box{
+  position:relative;width:100%;height:320px;margin-bottom:18px;
+}
+
+.perf-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--border);border-radius:8px;overflow:hidden;
+  margin-top:16px;
+}
+.pstat{background:var(--card2);padding:14px 12px;text-align:center}
+.pstat-n{font-family:var(--font-display);font-weight:700;font-size:28px;line-height:1;margin-bottom:4px}
+.pstat-l{font-family:var(--font-mono);font-size:12px;color:var(--text);line-height:1.4}
+
+.perf-table-wrap{
+  margin-top:18px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--border);border-radius:8px;
+}
+.perf-table{
+  width:100%;font-family:var(--font-mono);font-size:11px;
+  border-collapse:collapse;
+}
+.perf-table th{
+  text-align:right;padding:10px 10px;font-weight:500;
+  color:var(--text3);letter-spacing:.04em;text-transform:uppercase;
+  font-size:10px;border-bottom:1px solid var(--border);
+  background:var(--bg2);
+}
+.perf-table th:first-child{text-align:left}
+.perf-table td{
+  padding:10px 10px;text-align:right;color:var(--text);
+  border-bottom:1px solid var(--border);
+}
+.perf-table tr:last-child td{border-bottom:none}
+.perf-table td:first-child{text-align:left;color:var(--white);font-weight:500}
+.perf-table tr.nx-highlight td{background:rgba(0,229,152,.04);color:var(--green)}
+.perf-table tr.nx-highlight td:first-child{color:var(--green)}
+
+.perf-disclaimer{
+  font-family:var(--font-mono);font-size:10px;color:var(--text3);
+  text-align:center;margin-top:14px;line-height:1.6;letter-spacing:.02em;
+}
+
+/* ── SECTION LABELS ── */
+.sec{
+  font-family:var(--font-body);font-size:16px;font-weight:600;letter-spacing:.1em;color:var(--text);
+  text-transform:uppercase;margin-bottom:28px;
+  display:flex;align-items:center;gap:16px;
+}
+.sec::after{content:'';flex:1;height:1px;background:var(--border)}
+.sec-num{color:var(--green);opacity:.85;font-family:var(--font-mono);font-size:13px}
+
+/* ── MARKET STRIP ── */
+.strip-wrap{
+  background:var(--card);border:1px solid var(--border2);border-radius:10px;
+  overflow:hidden;margin-bottom:10px;
+}
+.strip-label{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;color:var(--text3);
+  padding:8px 16px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;
+}
+.strip-inner{display:grid;grid-template-columns:repeat(6,1fr)}
+.s-cell{padding:14px 12px;text-align:center;border-right:1px solid var(--border)}
+.s-cell:last-child{border-right:none}
+.s-lbl{font-family:var(--font-mono);font-size:11px;color:var(--text3);letter-spacing:.1em;margin-bottom:6px}
+.s-val{font-family:var(--font-display);font-weight:700;font-size:22px;line-height:1;margin-bottom:3px}
+.s-sub{font-family:var(--font-mono);font-size:11px;color:var(--text2)}
+.strip-note{font-family:var(--font-mono);font-size:11px;color:var(--text3);text-align:center;padding:6px 0 44px}
+
+/* ── PERSONA ── */
+.persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border2);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.persona-card{background:var(--card);padding:28px 22px;transition:background .2s}
+.persona-card:hover{background:var(--card2)}
+.persona-icon{font-size:22px;margin-bottom:14px}
+.persona-type{font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--white);letter-spacing:.04em;margin-bottom:6px}
+.persona-role{font-family:var(--font-mono);font-size:11px;color:var(--text3);letter-spacing:.1em;margin-bottom:12px}
+.persona-benefit{font-size:15px;color:var(--text);line-height:1.75}
+.persona-benefit strong{color:var(--text);display:block;margin-bottom:4px}
+.persona-tag{
+  display:inline-block;margin-top:14px;
+  font-family:var(--font-mono);font-size:11px;padding:3px 10px;border-radius:2px;
+}
+
+/* ── DIFFERENTIATORS ── */
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px}
+.diff-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:8px;
+  padding:24px 22px;position:relative;overflow:hidden;
+}
+.diff-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.diff-card.green::before{background:linear-gradient(90deg,var(--green),transparent)}
+.diff-card.blue::before{background:linear-gradient(90deg,var(--blue),transparent)}
+.diff-card.purple::before{background:linear-gradient(90deg,var(--purple),transparent)}
+.diff-card.amber::before{background:linear-gradient(90deg,var(--amber),transparent)}
+.diff-icon{font-size:20px;margin-bottom:12px}
+.diff-title{font-family:var(--font-display);font-weight:700;font-size:17px;color:var(--white);letter-spacing:.02em;margin-bottom:8px}
+.diff-body{font-size:15px;color:var(--text);line-height:1.75}
+.diff-vs{
+  margin-top:14px;font-family:var(--font-mono);font-size:11px;
+  color:var(--text3);border-top:1px solid var(--border);padding-top:10px;line-height:1.6;
+}
+.diff-vs span{color:var(--green)}
+
+/* ── PIPELINE ── */
+.pipeline{background:var(--card);border:1px solid var(--border2);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.pipeline-row{display:grid;grid-template-columns:120px 1fr;border-bottom:1px solid var(--border)}
+.pipeline-row:last-child{border-bottom:none}
+.pipeline-step{
+  padding:22px 20px;border-right:1px solid var(--border);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+}
+.step-tag{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;
+  padding:4px 10px;border-radius:2px;margin-bottom:8px;font-weight:500;
+}
+.step-num{font-family:var(--font-display);font-weight:800;font-size:30px;color:var(--text3);line-height:1}
+.pipeline-body{padding:22px 24px}
+.pipeline-title{font-family:var(--font-display);font-weight:700;font-size:17px;color:var(--white);letter-spacing:.02em;margin-bottom:6px}
+.pipeline-desc{font-size:15px;color:var(--text);line-height:1.75}
+.pipeline-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.ptag{
+  font-family:var(--font-mono);font-size:12px;color:var(--text3);
+  border:1px solid var(--border2);padding:2px 7px;border-radius:2px;
+}
+
+/* ── PROOF NUMBERS ── */
+.proof-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:10px;overflow:hidden;margin-bottom:44px}
+.proof-cell{background:var(--card);padding:22px 12px;text-align:center}
+.proof-n{font-family:var(--font-display);font-weight:800;font-size:42px;line-height:1;margin-bottom:6px}
+.proof-d{font-family:var(--font-mono);font-size:11px;color:var(--text2);letter-spacing:.06em;line-height:1.5}
+
+/* ── LEARNING ENGINE ── */
+.learn-wrap{background:var(--card);border:1px solid var(--border2);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.learn-head{display:flex;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);background:rgba(0,229,152,.02)}
+.learn-head-l{display:flex;align-items:center;gap:12px}
+.learn-ht{font-family:var(--font-display);font-weight:600;font-size:15px;color:var(--white);letter-spacing:.04em}
+.learn-copy{font-size:15px;color:var(--text);padding:16px 20px 18px;line-height:1.8;border-bottom:1px solid var(--border)}
+.learn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.learn-cell{background:var(--card);padding:16px;text-align:center}
+.learn-lbl{font-family:var(--font-display);font-weight:600;font-size:13px;letter-spacing:.03em;margin-bottom:6px;line-height:1.3}
+.learn-stat{font-family:var(--font-mono);font-size:12px;color:var(--text);line-height:1.7}
+
+/* ── REGIME ── */
+.regime-wrap{background:var(--card);border:1px solid var(--border2);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.regime-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;border-bottom:1px solid var(--border);background:rgba(245,200,66,.02);
+}
+.regime-head-l{display:flex;align-items:center;gap:12px}
+.regime-ht{font-family:var(--font-display);font-weight:600;font-size:15px;color:var(--white);letter-spacing:.04em}
+.regime-badge{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;padding:3px 10px;border-radius:2px;border:1px solid}
+.regime-copy{font-size:15px;color:var(--text);padding:16px 20px 18px;line-height:1.8;border-bottom:1px solid var(--border)}
+.regime-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.regime-cell{background:var(--card);padding:16px;text-align:center}
+.regime-lbl{font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:.04em;margin-bottom:6px}
+.regime-stat{font-family:var(--font-mono);font-size:12px;color:var(--text);line-height:1.7}
+
+/* ── PREVIEW ── */
+.preview-wrap{background:var(--card);border:1px solid var(--border2);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.preview-head{
+  padding:14px 18px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.preview-title{font-family:var(--font-mono);font-size:11px;color:var(--text2);letter-spacing:.1em}
+.tier-toggle{display:flex;gap:1px;background:var(--border);border-radius:4px;overflow:hidden}
+.tbtn{
+  padding:6px 18px;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+  cursor:pointer;border:none;background:#07091a;color:var(--text3);transition:all .15s;
+}
+.tbtn.active-free{background:var(--card2);color:var(--text)}
+.tbtn.active-paid{background:rgba(0,229,152,.1);color:var(--green)}
+.preview-body{padding:18px}
+.ctx-row{
+  background:rgba(255,255,255,.02);border:1px solid var(--border2);border-left:4px solid var(--blue);
+  border-radius:6px;padding:12px 16px;margin-bottom:16px;
+  font-family:var(--font-mono);font-size:12px;color:var(--text2);line-height:1.6;
+}
+.sig-cols{display:grid;grid-template-columns:56px 140px 1fr 90px 110px;gap:6px;padding:4px 12px;margin-bottom:4px}
+.sig-col-h{font-family:var(--font-mono);font-size:11px;color:var(--text3);letter-spacing:.1em}
+.sig-row{
+  display:grid;grid-template-columns:56px 140px 1fr 90px 110px;gap:6px;
+  align-items:center;padding:12px;
+  background:rgba(0,229,152,.015);border:1px solid rgba(0,229,152,.12);
+  border-radius:6px;margin-bottom:5px;position:relative;
+}
+.sig-row.plain{background:var(--bg2);border-color:var(--border)}
+.conv-n{font-family:var(--font-display);font-weight:700;font-size:24px;line-height:1}
+.conv-sub{font-family:var(--font-mono);font-size:11px;color:var(--text3);opacity:.6;letter-spacing:.04em}
+.t-name{font-family:var(--font-display);font-weight:700;font-size:20px;color:#fff;line-height:1;margin-bottom:3px}
+.t-badge{font-family:var(--font-mono);font-size:11px;font-weight:500;padding:1px 6px;border-radius:2px;display:inline-block;margin-bottom:2px}
+.t-sec{font-family:var(--font-mono);font-size:11px;color:var(--text3)}
+.th-text{font-size:12px;color:var(--text2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.th-tag{font-family:var(--font-mono);font-size:11px;padding:1px 5px;border-radius:2px;display:inline-block;margin-top:4px}
+.p-main{font-family:var(--font-display);font-weight:600;font-size:18px;color:#c0d8f0}
+.p-chg{font-family:var(--font-mono);font-size:12px;margin-top:2px}
+.lvl-sl{font-family:var(--font-mono);font-size:12px;color:var(--red);margin-bottom:2px}
+.lvl-tp{font-family:var(--font-mono);font-size:12px;color:var(--green);margin-bottom:2px}
+.lvl-rr{font-family:var(--font-mono);font-size:11px;color:var(--amber)}
+.lock{
+  position:absolute;right:0;top:0;bottom:0;width:120px;
+  background:linear-gradient(90deg,transparent,var(--bg) 40%);
+  display:flex;align-items:center;justify-content:flex-end;padding-right:12px;
+  border-radius:0 6px 6px 0;
+}
+.lock-txt{font-family:var(--font-mono);font-size:11px;color:var(--text3);letter-spacing:.06em}
+body.paid .lock{display:none}
+body.paid .watch-lock{display:none!important}
+body:not(.paid) .watch-levels{display:none!important}
+body.paid .watch-levels{display:block!important}
+.watch-hdr{font-family:var(--font-mono);font-size:11px;color:var(--text2);letter-spacing:.12em;padding:12px 0 6px;border-top:1px solid var(--border);margin-top:10px}
+.watch-row{
+  display:flex;align-items:center;padding:10px 12px;
+  border:1px solid var(--border);border-radius:6px;margin-bottom:4px;
+  background:rgba(255,255,255,.01);
+}
+.w-tick{font-family:var(--font-display);font-weight:700;font-size:18px;color:#fff;width:68px;flex-shrink:0}
+.w-badge{font-family:var(--font-mono);font-size:11px;padding:1px 6px;border-radius:2px;margin-right:10px;flex-shrink:0}
+.w-thesis{font-size:12px;color:var(--text2);flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;min-width:0}
+.w-right{flex-shrink:0;text-align:right;margin-left:12px;min-width:88px}
+.w-price{font-family:var(--font-display);font-weight:600;font-size:15px;color:#b0cce0}
+.watch-lock{font-family:var(--font-mono);font-size:11px;color:var(--text3);margin-top:2px;display:flex;justify-content:flex-end;align-items:center;gap:3px}
+.watch-levels{font-family:var(--font-mono);font-size:11px;color:var(--red);margin-top:2px;white-space:nowrap}
+.gate-row{
+  border:1px dashed var(--border2);border-radius:6px;padding:10px 14px;
+  margin:6px 0;display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--font-mono);font-size:12px;color:var(--text3);
+}
+.sample-link-row{
+  text-align:center;padding:10px 0 2px;
+}
+.sample-link{
+  font-family:var(--font-mono);font-size:11px;color:var(--text2);
+  text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+  border:1px solid var(--border2);border-radius:4px;padding:7px 16px;
+  transition:all .2s;
+}
+.sample-link:hover{border-color:var(--border3);color:var(--text)}
+
+/* ── PLANS ── */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.plan{background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:28px 24px;position:relative;overflow:hidden}
+.plan.featured{border-color:rgba(0,229,152,.3);background:rgba(0,229,152,.018)}
+.plan.featured::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--green),transparent);
+}
+.plan-badge{
+  position:absolute;top:14px;right:14px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;
+  color:var(--green);border:1px solid rgba(0,229,152,.3);padding:2px 8px;border-radius:2px;
+}
+.plan-name{font-family:var(--font-display);font-weight:700;font-size:22px;color:var(--white);letter-spacing:.04em;margin-bottom:4px}
+.plan-price{font-family:var(--font-display);font-weight:800;font-size:38px;margin-bottom:2px}
+.plan-cadence{font-family:var(--font-mono);font-size:11px;color:var(--text3);margin-bottom:8px}
+.plan-urgency{
+  font-family:var(--font-mono);font-size:11px;color:var(--amber);
+  background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.2);
+  border-radius:3px;padding:5px 10px;display:inline-block;margin-bottom:18px;
+}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.plan-features li{font-size:15px;display:flex;gap:9px;align-items:flex-start;line-height:1.5}
+.chk{color:var(--green);flex-shrink:0;font-family:var(--font-mono)}
+.dim{color:var(--text3);flex-shrink:0}
+.lf{color:var(--text3)}
+.plan-cta{
+  display:block;text-align:center;padding:13px 0;border-radius:4px;
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;
+  cursor:pointer;text-decoration:none;border:none;transition:all .2s;
+}
+.cta-free{background:#07091c;color:var(--text2);border:1px solid var(--border2)}
+.cta-paid{
+  background:linear-gradient(135deg,#003520,#005c32);
+  color:var(--green);border:1px solid rgba(0,229,152,.22);
+}
+.cta-paid:hover{filter:brightness(1.18);transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,229,152,.1)}
+
+/* ── URGENCY BAR ── */
+.urgency-bar{
+  background:rgba(245,200,66,.04);border:1px solid rgba(245,200,66,.18);
+  border-radius:8px;padding:14px 20px;margin-bottom:44px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  flex-wrap:wrap;
+}
+.ub-text{font-size:14px;color:var(--text2);line-height:1.6}
+.ub-text strong{color:var(--amber)}
+.ub-action{
+  font-family:var(--font-mono);font-size:11px;color:var(--amber);
+  border:1px solid rgba(245,200,66,.3);padding:6px 14px;border-radius:3px;
+  text-decoration:none;white-space:nowrap;transition:all .2s;
+}
+.ub-action:hover{background:rgba(245,200,66,.08)}
+
+/* ── CLOSING ── */
+.closing{text-align:center;padding:0 16px 0}
+.closing-title{font-family:var(--font-display);font-weight:800;font-size:clamp(32px,5vw,52px);color:var(--white);letter-spacing:.02em;margin-bottom:16px}
+.closing-body{font-size:15px;color:var(--text2);max-width:540px;margin:0 auto 32px;line-height:1.9}
+.facts{display:flex;justify-content:center;gap:44px;flex-wrap:wrap;margin-bottom:44px}
+.fact-lbl{font-family:var(--font-mono);font-size:11px;color:var(--text3);letter-spacing:.12em;margin-bottom:5px}
+.fact-val{font-family:var(--font-body);font-size:14px;color:var(--text)}
+.divider{height:1px;background:var(--border);margin:44px 0}
+.footnote{font-family:var(--font-mono);font-size:11px;color:var(--text3);text-align:center;line-height:1.9;padding-top:20px}
+
+/* Buttons */
+.btn-primary{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;
+  padding:14px 32px;border-radius:4px;cursor:pointer;text-decoration:none;
+  background:linear-gradient(135deg,#003520,#005c32);color:var(--green);
+  border:1px solid rgba(0,229,152,.3);
+  transition:all .2s;display:inline-block;
+}
+.btn-primary:hover{filter:brightness(1.2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,229,152,.12)}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
+
+
+/* ── HERO AUDIENCE LINE ── */
+.hero-audience{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;
+  color:var(--text3);margin-bottom:18px;
+}
+
+/* ── FOUNDER + TRUST ── */
+.founder-wrap{
+  background:var(--card);border:1px solid var(--border2);border-radius:10px;
+  overflow:hidden;margin:32px 0 0;
+}
+.founder-bio{
+  display:flex;gap:22px;padding:24px;align-items:flex-start;
+}
+.founder-avatar{
+  flex-shrink:0;width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(0,229,152,.2),rgba(91,184,250,.15));
+  border:1px solid rgba(0,229,152,.3);
+  display:flex;align-items:center;justify-content:center;
+}
+.founder-initials{
+  font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--green);
+}
+.founder-name{
+  font-family:var(--font-display);font-weight:600;font-size:14px;
+  color:var(--white);letter-spacing:.04em;margin-bottom:8px;
+}
+.founder-desc{
+  font-size:14px;color:var(--text);line-height:1.75;margin-bottom:10px;
+}
+.founder-desc em{color:var(--white);font-style:normal}
+.founder-note{
+  font-family:var(--font-mono);font-size:11px;color:var(--text3);
+}
+.trust-strip{
+  border-top:1px solid var(--border);padding:12px 24px;
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+}
+.trust-label{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;
+  color:var(--text);white-space:nowrap;flex-shrink:0;
+}
+.trust-items{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.trust-item{
+  font-family:var(--font-mono);font-size:11px;color:var(--text);letter-spacing:.04em;
+}
+.trust-dot{width:3px;height:3px;border-radius:50%;background:var(--border3);flex-shrink:0}
+
+/* ── MID-PAGE CTA ── */
+.mid-cta{
+  background:var(--card);border:1px solid var(--border2);border-radius:10px;
+  padding:28px 32px;text-align:center;margin:44px 0;
+}
+.mid-cta-text{
+  font-family:var(--font-display);font-weight:600;font-size:16px;
+  color:var(--white);letter-spacing:.04em;margin-bottom:18px;
+}
+.mid-cta-form{
+  max-width:480px;margin:0 auto;
+  display:flex;gap:0;
+  border:1px solid rgba(0,229,152,.3);border-radius:5px;
+  overflow:hidden;background:rgba(9,13,28,.9);
+}
+.mid-cta-input{width:100%}
+
+/* ── COMPETITIVE CONTRAST ── */
+.compete-bar{
+  background:var(--card);border:1px solid var(--border2);border-radius:10px;
+  overflow:hidden;margin-bottom:12px;
+}
+.compete-label{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;
+  color:var(--text3);padding:12px 20px 10px;border-bottom:1px solid var(--border);
+}
+.compete-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);
+}
+.compete-col{background:var(--card2);padding:18px 20px}
+.compete-col-nexus{background:rgba(0,229,152,.04)}
+.compete-head{
+  font-family:var(--font-display);font-weight:600;font-size:13px;
+  color:var(--green);letter-spacing:.06em;margin-bottom:12px;
+}
+.compete-row{
+  font-family:var(--font-mono);font-size:12px;padding:5px 0;
+  border-bottom:1px solid var(--border);line-height:1.4;
+}
+.compete-row.good{color:var(--text)}
+.compete-row.good::first-letter{color:var(--green)}
+.compete-row.bad{color:var(--text3)}
+.compete-row.bad::first-letter{color:var(--red)}
+.compete-row:last-child{border-bottom:none}
+
+/* ── LIVE VALIDATION ── */
+.live-valid-wrap{
+  background:var(--card);border:1px solid var(--border2);border-radius:10px;
+  overflow:hidden;margin-bottom:12px;
+}
+.lv-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;
+}
+.lv-head-left{display:flex;align-items:center;gap:10px}
+.lv-title{font-family:var(--font-display);font-weight:600;font-size:14px;color:var(--white);letter-spacing:.04em}
+.lv-badge{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;
+  color:var(--green);border:1px solid rgba(0,229,152,.3);
+  border-radius:3px;padding:2px 8px;background:rgba(0,229,152,.06);
+}
+.lv-period{font-family:var(--font-mono);font-size:11px;color:var(--text3);letter-spacing:.04em}
+.lv-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--border);
+}
+.lv-stat{background:var(--card2);padding:18px 14px;text-align:center}
+.lv-n{font-family:var(--font-display);font-weight:700;font-size:28px;line-height:1;margin-bottom:6px}
+.lv-l{font-family:var(--font-mono);font-size:12px;color:var(--text2);line-height:1.4}
+.lv-note{
+  padding:14px 20px;font-size:13px;color:var(--text2);line-height:1.7;
+  border-top:1px solid var(--border);
+}
+.lv-update{
+  display:block;margin-top:6px;font-family:var(--font-mono);
+  font-size:11px;color:var(--text3);
+}
+.lv-disclaimer{
+  padding:10px 20px 14px;
+  font-family:var(--font-mono);font-size:10px;color:var(--text3);line-height:1.6;
+  letter-spacing:.02em;border-top:1px solid var(--border);
+}
+
+/* ── RESPONSIVE ── */
+
+/* Tablet (700-920px) — minor adjustments */
+@media(max-width:920px){
+  .wrap{padding:0 16px 80px}
+  .nav-wrap{padding:0 16px}
+  .hero{padding:48px 0 36px}
+  .hero-h2{font-size:clamp(14px,2.5vw,22px)}
+  .perf-stats,.lv-stats{grid-template-columns:repeat(2,1fr)}
+}
+
+/* Mobile (≤700px) — full reflow */
+@media(max-width:700px){
+  /* Nav */
+  .nav-right{gap:6px}
+  .nav-pill{display:none}
+  .x-link{display:none}
+  .nav-cta{font-size:10px;padding:6px 10px;letter-spacing:.02em}
+
+  /* Hero */
+  .hero{padding:32px 0 24px}
+  .hero-h1{font-size:clamp(32px,9vw,48px)}
+  .hero-h2{font-size:clamp(12px,3vw,16px);letter-spacing:.04em}
+  .hero-audience{font-size:11px}
+  .hero-sub{font-size:14px;margin-bottom:28px}
+  .capture-wrap{max-width:100%}
+  .capture-btn{font-size:10px;padding:14px 12px;letter-spacing:.02em}
+  .capture-note{font-size:10px}
+
+  /* Metrics strip — 2×3 wrap */
+  .proof-strip{
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:14px;padding:16px;
+  }
+  .ps-item{flex:0 0 calc(50% - 8px);justify-content:center}
+  .ps-div{display:none}
+  .ps-lbl{font-size:10px}
+  .ps-num{font-size:18px}
+
+  /* Founder */
+  .founder-bio{flex-direction:column;gap:14px;padding:18px 16px}
+  .trust-strip{flex-direction:column;align-items:flex-start;gap:8px;padding:12px 16px}
+  .trust-items{gap:6px}
+  .trust-item{font-size:9px}
+
+  /* Chart */
+  .perf-chart-box{height:220px}
+  .perf-head{padding:12px 14px}
+  .perf-body{padding:14px 12px}
+  .perf-title{font-size:12px}
+  .perf-sub{font-size:10px}
+  .perf-legend{gap:10px}
+  .leg-item{font-size:10px}
+  .perf-toolbar{flex-direction:column;align-items:flex-start;gap:6px}
+  .perf-toolbar>div:last-child{display:none}
+
+  /* Chart stat cards — 2×2 */
+  .perf-stats{grid-template-columns:repeat(2,1fr)}
+  .pstat-n{font-size:20px}
+
+  /* Chart table — horizontal scroll */
+  .perf-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .perf-table{min-width:480px;font-size:10px}
+  .perf-table th,.perf-table td{padding:8px 6px}
+
+  /* Mid-page CTA — stack form vertically */
+  .mid-cta{padding:20px 16px}
+  .mid-cta-text{font-size:13px}
+  .mid-cta-form{flex-direction:column;border-radius:6px}
+  .mid-cta-form .capture-input{border-bottom:1px solid rgba(0,229,152,.2);border-radius:0}
+  .mid-cta-form .capture-btn{border-left:none;border-top:1px solid rgba(0,229,152,.2);text-align:center;border-radius:0}
+
+  /* Sample edition market strip */
+  .strip-inner{grid-template-columns:repeat(3,1fr)}
+
+  /* Signal preview */
+  .sig-cols,.sig-row{grid-template-columns:52px 120px 1fr!important}
+  .sig-cols>*:nth-child(n+4),.sig-row>*:nth-child(n+4){display:none}
+
+  /* All 1-col grids */
+  .persona-grid,.regime-grid,.proof-row,.plans,.learn-grid,.compete-grid,
+  .pipeline-row,.diff-grid{grid-template-columns:1fr}
+
+  /* Live validation */
+  .lv-stats{grid-template-columns:repeat(2,1fr)}
+  .lv-n{font-size:22px}
+  .lv-head{flex-direction:column;align-items:flex-start;gap:6px}
+  .lv-note{padding:12px 14px;font-size:12px}
+  .lv-disclaimer{padding:8px 14px;font-size:9px}
+
+  /* Competitive grid */
+  .compete-col{padding:14px 14px}
+  .compete-head{font-size:12px}
+  .compete-row{font-size:11px}
+
+  /* Pipeline */
+  .pipeline-step{border-right:none;border-bottom:1px solid var(--border);flex-direction:row;justify-content:flex-start;gap:12px;padding:14px 16px}
+
+  /* Misc */
+  .facts{gap:20px}
+  .closing-title{font-size:24px}
+  .closing-body{font-size:14px}
+  .proof-n{font-size:36px}
+  .proof-row{gap:1px}
+  .sec{font-size:13px}
+  .sec-num{font-size:11px}
+  .plan{padding:22px 18px}
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.ani{animation:fadeUp .6s ease both}
+.d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}.d4{animation-delay:.35s}
+</style>
+</head>
+<body>
+<!-- ══ NAV ══ -->
+  <nav class="nav">
+    <div class="nav-wrap">
+      <div class="nav-logo">NEX<span>US</span></div>
+      <div class="nav-right">
+        <a href="https://x.com/NEXUS_SigInt" target="_blank" class="x-link">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          @NEXUS_SigInt
+        </a>
+        <div class="nav-pill">
+          <div class="nav-dot"></div>
+          SCANNING LIVE
+        </div>
+        <a href="#" class="nav-cta" onclick="handleSignup('free');return false">GET TODAY'S SIGNAL FREE &rarr;</a>
+      </div>
+    </div>
+  </nav>
+<div class="wrap">
+
+  <!-- ══ HERO ══ -->
+  <div class="hero">
+    <h1 class="hero-h1 ani d2">NEXUS<br><span>SIGNAL</span><br>BRIEF</h1>
+    <div class="hero-h2 ani d2">Complete trade plans before the open &mdash; entry, stop &amp; target &mdash; every trading day.</div>
+    <div class="hero-audience ani d3">For swing traders and active investors who want a complete plan &mdash; not just a ticker.</div>
+    <p class="hero-sub ani d3">
+      Human engineered. Powered by AI. A <strong>three-agent system</strong> monitors the market across <em>9 sectors</em> every trading day &mdash; running a live paper portfolio against real market data to continuously sharpen its pattern recognition, then surfacing the highest-conviction setups before the open.
+    </p>
+
+    <!-- Email capture -->
+    <div class="capture-wrap ani d4">
+      <input class="capture-input" type="email" placeholder="your@email.com" id="hero-email"/>
+      <button class="capture-btn" onclick="handleSignup(window._signupTierIntent||'free')">GET TODAY'S SIGNAL FREE &rarr;</button>
+    </div>
+    <p class="capture-note ani d4">Free forever &nbsp;&middot;&nbsp; No credit card &nbsp;&middot;&nbsp; Unsubscribe in one click &nbsp;&middot;&nbsp; <a href="#preview">See a sample edition &darr;</a></p>
+  </div>
+
+  <!-- ══ SYSTEM METRICS STRIP ══ -->
+  <div class="proof-strip ani d4">
+    <div class="ps-item">
+      <div class="ps-num" style="color:var(--blue)">9</div>
+      <div class="ps-lbl">sectors monitored daily</div>
+    </div>
+    <div class="ps-div"></div>
+    <div class="ps-item">
+      <div class="ps-num" style="color:var(--purple)">3</div>
+      <div class="ps-lbl">Agent Pipeline</div>
+    </div>
+    <div class="ps-div"></div>
+    <div class="ps-item">
+      <div class="ps-num" id="ps-trade-count" style="color:var(--amber)">1,185</div>
+      <div class="ps-lbl">backtested trades<br>5-yr sim (Apr 2021–Apr 2026)</div>
+    </div>
+    <div class="ps-div"></div>
+    <div class="ps-item">
+      <div class="ps-num" style="color:var(--green)">4</div>
+      <div class="ps-lbl">market regimes detected</div>
+    </div>
+    <div class="ps-div"></div>
+    <div class="ps-item">
+      <div class="ps-num" style="color:var(--white)">Daily</div>
+      <div class="ps-lbl">signals every trading day</div>
+    </div>
+
+  </div>
+
+
+  <!-- ══ FOUNDER + TRUST ══ -->
+  <div class="founder-wrap ani">
+    <div class="founder-bio">
+      <div class="founder-avatar">
+        <div class="founder-initials">CS</div>
+      </div>
+      <div class="founder-text">
+        <div class="founder-name">Engineered, Not Guessed</div>
+        <div class="founder-desc">
+          NEXUS was designed by an aerospace engineer with a background in complex systems and high-stakes technical environments —
+          the kind of work where signal quality, process discipline, and knowing when <em>not</em> to act matters as much as knowing when to.
+          That engineering mindset is in every layer of the system: the three-agent pipeline, the regime detection model,
+          the conviction-scoring framework, and the walk-forward validation approach.
+          This isn't a screener with a newsletter attached. It's a system built to be right, not busy.
+        </div>
+        <div class="founder-note">Founder available for questions &mdash; reply to any edition directly.</div>
+      </div>
+    </div>
+    <div class="trust-strip">
+      <div class="trust-label">BUILT ON INDUSTRY-TRUSTED PLATFORMS</div>
+      <div class="trust-items">
+        <span class="trust-item" style="color:var(--green)">&#9632; Polygon.io</span>
+        <span class="trust-dot"></span>
+        <span class="trust-item" style="color:var(--blue)">&#9632; Anthropic Claude</span>
+        <span class="trust-dot"></span>
+        <span class="trust-item" style="color:var(--purple)">&#9632; Beehiiv</span>
+        <span class="trust-dot"></span>
+        <span class="trust-item" style="color:var(--amber)">&#9632; Resend</span>
+        <span class="trust-dot"></span>
+        <span class="trust-item" style="color:var(--text)">&#9632; Railway</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PERFORMANCE CHART ══ -->
+  <div class="perf-wrap" style="margin-top:44px">
+    <div class="perf-head">
+      <div>
+        <div class="perf-title">5-YEAR WALK-FORWARD BACKTEST</div>
+        <div class="perf-sub">APR 2021 &ndash; MAR 2026 &middot; Same Polygon bars, date-aligned &middot; Deployed config (H2+H3 + SCR<sub>MAX</sub>=2 + VOL=1.5x)</div>
+      </div>
+      <div class="perf-legend" id="perf-legend"></div>
+    </div>
+    <div class="perf-body">
+
+      <div class="perf-toolbar">
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--text2);letter-spacing:.04em">CUMULATIVE RETURN (%)</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);letter-spacing:.04em">
+          HOVER ANY POINT FOR DETAIL &middot; CLICK LEGEND TO TOGGLE SERIES
+        </div>
+      </div>
+
+      <div class="perf-chart-box">
+        <canvas id="perf-chart" role="img" aria-label="Line chart comparing NEXUS strategy against SPY, QQQ, DIA, and IWM from April 2021 to March 2026">NEXUS grew $10,000 to $23,955 (+139.01%) over 5 years (deployed config). SPY: $16,971 (+70.96%). QQQ: $18,932 (+94.33%). DIA: $14,518 (+45.2%). IWM: $12,216 (+22.2%).</canvas>
+      </div>
+
+      <div class="perf-stats">
+        <div class="pstat">
+          <div class="pstat-n" style="color:var(--green)">+139.01%</div>
+          <div class="pstat-l">5-year total return<br><span style="color:var(--green);opacity:.7">vs SPY +70.96%</span></div>
+        </div>
+        <div class="pstat">
+          <div class="pstat-n" style="color:var(--white)">19.04%</div>
+          <div class="pstat-l">annualized return<br><span style="color:var(--green);opacity:.7">+8.1pp over SPY</span></div>
+        </div>
+        <div class="pstat">
+          <div class="pstat-n" style="color:var(--amber)">7.15%</div>
+          <div class="pstat-l">max drawdown<br><span style="color:var(--green);opacity:.7">vs SPY 25.34%</span></div>
+        </div>
+        <div class="pstat">
+          <div class="pstat-n" style="color:var(--purple)">2.06</div>
+          <div class="pstat-l">Sortino ratio<br><span style="color:var(--green);opacity:.7">3.03&times; SPY&apos;s 0.68</span></div>
+        </div>
+      </div>
+
+
+      <div class="perf-table-wrap">
+        <table class="perf-table">
+          <thead>
+            <tr><th>STRATEGY / INDEX</th><th>TOTAL RETURN</th><th>ANNUALIZED</th><th>MAX DD</th><th>SORTINO</th><th>WORST YEAR</th></tr>
+          </thead>
+          <tbody id="perf-tbody"></tbody>
+        </table>
+      </div>
+
+      <p class="perf-disclaimer">
+        Walk-forward backtest of the NEXUS System against market index data sourced from Polygon.io (adjusted prices, dividends reinvested).<br>
+        Simulated performance, not live trading. Past performance does not guarantee future results.
+      </p>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script>
+  const DATES=["2021-04-26", "2021-05-03", "2021-05-10", "2021-05-17", "2021-05-24", "2021-05-31", "2021-06-07", "2021-06-14", "2021-06-21", "2021-06-28", "2021-07-05", "2021-07-12", "2021-07-19", "2021-07-26", "2021-08-02", "2021-08-09", "2021-08-16", "2021-08-23", "2021-08-30", "2021-09-06", "2021-09-13", "2021-09-20", "2021-09-27", "2021-10-04", "2021-10-11", "2021-10-18", "2021-10-25", "2021-11-01", "2021-11-08", "2021-11-15", "2021-11-22", "2021-11-29", "2021-12-06", "2021-12-13", "2021-12-20", "2021-12-27", "2022-01-03", "2022-01-10", "2022-01-17", "2022-01-24", "2022-01-31", "2022-02-07", "2022-02-14", "2022-02-21", "2022-02-28", "2022-03-07", "2022-03-14", "2022-03-21", "2022-03-28", "2022-04-04", "2022-04-11", "2022-04-18", "2022-04-25", "2022-05-02", "2022-05-09", "2022-05-16", "2022-05-23", "2022-05-30", "2022-06-06", "2022-06-13", "2022-06-20", "2022-06-27", "2022-07-04", "2022-07-11", "2022-07-18", "2022-07-25", "2022-08-01", "2022-08-08", "2022-08-15", "2022-08-22", "2022-08-29", "2022-09-05", "2022-09-12", "2022-09-19", "2022-09-26", "2022-10-03", "2022-10-10", "2022-10-17", "2022-10-24", "2022-10-31", "2022-11-07", "2022-11-14", "2022-11-21", "2022-11-28", "2022-12-05", "2022-12-12", "2022-12-19", "2022-12-26", "2023-01-02", "2023-01-09", "2023-01-16", "2023-01-23", "2023-01-30", "2023-02-06", "2023-02-13", "2023-02-20", "2023-02-27", "2023-03-06", "2023-03-13", "2023-03-20", "2023-03-27", "2023-04-03", "2023-04-10", "2023-04-17", "2023-04-24", "2023-05-01", "2023-05-08", "2023-05-15", "2023-05-22", "2023-05-29", "2023-06-05", "2023-06-12", "2023-06-19", "2023-06-26", "2023-07-03", "2023-07-10", "2023-07-17", "2023-07-24", "2023-07-31", "2023-08-07", "2023-08-14", "2023-08-21", "2023-08-28", "2023-09-04", "2023-09-11", "2023-09-18", "2023-09-25", "2023-10-02", "2023-10-09", "2023-10-16", "2023-10-23", "2023-10-30", "2023-11-06", "2023-11-13", "2023-11-20", "2023-11-27", "2023-12-04", "2023-12-11", "2023-12-18", "2023-12-25", "2024-01-01", "2024-01-08", "2024-01-15", "2024-01-22", "2024-01-29", "2024-02-05", "2024-02-12", "2024-02-19", "2024-02-26", "2024-03-04", "2024-03-11", "2024-03-18", "2024-03-25", "2024-04-01", "2024-04-08", "2024-04-15", "2024-04-22", "2024-04-29", "2024-05-06", "2024-05-13", "2024-05-20", "2024-05-27", "2024-06-03", "2024-06-10", "2024-06-17", "2024-06-24", "2024-07-01", "2024-07-08", "2024-07-15", "2024-07-22", "2024-07-29", "2024-08-05", "2024-08-12", "2024-08-19", "2024-08-26", "2024-09-02", "2024-09-09", "2024-09-16", "2024-09-23", "2024-09-30", "2024-10-07", "2024-10-14", "2024-10-21", "2024-10-28", "2024-11-04", "2024-11-11", "2024-11-18", "2024-11-25", "2024-12-02", "2024-12-09", "2024-12-16", "2024-12-23", "2024-12-30", "2025-01-06", "2025-01-13", "2025-01-20", "2025-01-27", "2025-02-03", "2025-02-10", "2025-02-17", "2025-02-24", "2025-03-03", "2025-03-10", "2025-03-17", "2025-03-24", "2025-03-31", "2025-04-07", "2025-04-14", "2025-04-21", "2025-04-28", "2025-05-05", "2025-05-12", "2025-05-19", "2025-05-26", "2025-06-02", "2025-06-09", "2025-06-16", "2025-06-23", "2025-06-30", "2025-07-07", "2025-07-14", "2025-07-21", "2025-07-28", "2025-08-04", "2025-08-11", "2025-08-18", "2025-08-25", "2025-09-01", "2025-09-08", "2025-09-15", "2025-09-22", "2025-09-29", "2025-10-06", "2025-10-13", "2025-10-20", "2025-10-27", "2025-11-03", "2025-11-10", "2025-11-17", "2025-11-24", "2025-12-01", "2025-12-08", "2025-12-15", "2025-12-22", "2025-12-29", "2026-01-05", "2026-01-12", "2026-01-19", "2026-01-26", "2026-02-02", "2026-02-09", "2026-02-16", "2026-02-23", "2026-03-02", "2026-03-09", "2026-03-16", "2026-03-23", "2026-03-30"];const DOLLAR={"NEXUS":[10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10064.16, 9859.48, 9856.43, 9844.91, 9861.44, 9909.89, 9813.59, 10345.5, 10375.7, 10237.18, 10288.58, 10428.49, 10501.98, 10539.18, 10584.92, 10573.4, 10533.67, 10833.33, 10624.52, 10544.4, 10372.79, 10380.09, 10479.76, 10259.68, 10425.21, 10467.46, 10659.78, 10799.45, 10608.55, 10625.57, 10693.36, 10658.76, 10616.85, 10648.71, 10980.3, 10916.37, 11158.68, 11441.35, 11290.05, 11343.49, 11373.56, 11222.24, 11168.96, 11162.3, 11078.09, 11116.35, 11355.81, 11282.45, 11078.34, 10906.71, 10932.2, 10955.37, 10943.17, 10891.23, 10930.54, 11313.28, 11134.87, 11424.13, 11438.9, 11326.48, 11168.8, 11188.76, 11007.2, 10843.91, 10851.17, 11188.47, 11081.01, 11213.19, 11364.75, 11330.22, 11318.98, 11264.99, 11399.52, 11352.58, 11092.73, 11127.09, 11140.44, 11123.67, 11200.32, 11384.37, 11441.72, 11601.55, 11270.28, 11095.99, 11038.71, 10968.77, 11054.63, 10965.28, 10875.71, 10836.43, 10968.69, 10885.72, 11063.24, 11011.69, 11024.47, 11026.29, 10954.02, 11183.64, 11557.84, 11592.2, 11739.09, 11924.53, 11961.07, 12457.39, 12353.72, 12480.95, 12458.96, 12600.72, 12311.2, 12308.35, 12291.38, 12277.12, 12428.02, 12266.41, 12273.24, 12176.78, 12166.12, 12130.94, 12227.87, 12029.75, 11937.12, 11993.9, 12183.44, 12321.73, 12289.89, 12442.71, 12375.37, 12770.86, 12846.86, 12792.31, 12645.4, 12601.88, 12793.41, 12905.07, 12990.75, 13480.03, 13525.15, 13750.87, 13875.82, 14154.51, 14192.25, 14309.02, 14438.29, 14455.38, 14205.31, 14115.68, 14142.27, 14154.32, 14252.23, 14414.17, 14507.69, 14516.71, 14377.34, 14379.31, 14400.41, 14329.7, 14337.78, 14533.84, 14291.82, 14133.11, 14120.98, 14126.62, 14233.23, 14330.43, 14241.97, 14047.53, 14120.71, 14374.21, 14279.12, 14179.62, 14337.61, 14017.15, 13957.63, 13846.43, 14244.55, 13942.53, 14027.27, 14137.97, 14251, 14123.07, 14098.41, 14164.56, 14402.48, 14460.17, 14932.18, 15038.21, 14733.94, 14700.7, 14661.69, 14737.3, 14406.06, 14289.88, 14320.19, 14350.06, 14310.07, 14177.67, 14219.57, 14266.43, 14618.36, 14799.06, 14890.4, 15460.44, 15205.05, 15188.79, 15283.52, 15316.48, 15385.18, 15844.56, 15827.92, 15974.96, 15750.02, 15854.52, 15965.9, 16173.15, 16488.46, 16561.33, 16651.4, 16762.92, 16745.89, 16801.85, 17149.46, 17186.75, 16950.61, 17121.5, 17813.95, 17853.64, 18081.68, 18320.88, 18164.28, 18460.4, 19255.19, 19240.98, 19208.73, 19237.07, 19394.65, 19495.8, 19950.52, 20038.95, 20184.19, 20702.35, 20994.13, 21430.99, 21405.89, 21082.53, 21103.52, 21058.6, 21078.49],"SPY":[10000, 10014.13, 10007.9, 9949.95, 10037.36, 10058.19, 10109.67, 10183.19, 10077.82, 10236.11, 10385.77, 10466.22, 10176.24, 10560.57, 10478.44, 10587.15, 10703.05, 10709.99, 10829, 10849.36, 10693.71, 10393.43, 10599.36, 10264.12, 10408.99, 10708.32, 10908.5, 11016.02, 11228.9, 11192.98, 11196.33, 11125.21, 10986.09, 11172.39, 10894.85, 11428.37, 11439.14, 11147, 11128.09, 10532.31, 10773.45, 10709.99, 10512.68, 10397.98, 10455.45, 10043.58, 9985.39, 10641.27, 10917.12, 10938.44, 10534.23, 10487.54, 10261.01, 9925.05, 9534.49, 9580.47, 9504.56, 9943.73, 9860.64, 8979.67, 8760.81, 9305.09, 9129.09, 9200.69, 9146.09, 9472.23, 9836.21, 9889.37, 10269.39, 9897.99, 9641.29, 9392.5, 9841, 9304.14, 8723.69, 8778.76, 8620.96, 8783.79, 9072.34, 9248.1, 9098.2, 9461.46, 9448.77, 9480.38, 9568.5, 9553.17, 9099.88, 9169.08, 9157.59, 9287.61, 9542.4, 9593.4, 9592.44, 9813.7, 9885.54, 9752.16, 9523.96, 9685.35, 9227.75, 9428.41, 9494.26, 9840.52, 9808.43, 9912.12, 9880.75, 9949.71, 9883.38, 9889.85, 10028.26, 10057.71, 10227.25, 10387.68, 10523.22, 10331.17, 10626.9, 10528, 10795.72, 10876.18, 10962.14, 10792.61, 10730.35, 10520.34, 10602.24, 10804.1, 10738.49, 10623.07, 10350.09, 10232.27, 10351.52, 10441.32, 10068.25, 9951.63, 10432.94, 10540.7, 10877.61, 10882.88, 10935.8, 11062.71, 11301.69, 11341.92, 11381.67, 11364.67, 11414.48, 11576.59, 11763.85, 11794.5, 11996.36, 11961.16, 12116.33, 12267.43, 12243, 12280.84, 12446.3, 12503.53, 12421.16, 12079.45, 11966.19, 12213.79, 12369.68, 12473.6, 12692.7, 12677.86, 12638.59, 12826.8, 13100.74, 12996.34, 13058.6, 13296.62, 13446.28, 13281.53, 13044.71, 12389.07, 12769.57, 13400.3, 13428.56, 13497.76, 13084.22, 13477.65, 13641.2, 13739.13, 13596.42, 13992, 13975.48, 13908.43, 13644.55, 14337.78, 14083.71, 14308.33, 14454.4, 14479.54, 14530.06, 14240.32, 14085.39, 14256.36, 13921.84, 14309.52, 14352.39, 14314.07, 14483.61, 14599.75, 14300.66, 13978.83, 13423.53, 13580.85, 13746.8, 13395.03, 12077.78, 12909.65, 12305.26, 13190.54, 13493.69, 13960.15, 14244.15, 13867.24, 14192.91, 14359.81, 14431.65, 14371.06, 14794.9, 14862.67, 14961.57, 15056.39, 15252.03, 15113.86, 15227.6, 15404.32, 15384.45, 15446.23, 15536.74, 15826.01, 15968.01, 15892.34, 16082.23, 15877.01, 16074.81, 16408.61, 16363.11, 16317.62, 15939.99, 16013.27, 16289.6, 16370.06, 16300.62, 16398.79, 16471.11, 16468, 16646.15, 16562.34, 16587.96, 16652.14, 16617.18, 16325.04, 16340.37, 16435.91, 16241.71, 16020.45, 15693.59, 15133.02],"QQQ":[10000, 9840.76, 9535.46, 9495.95, 9733.04, 9774.61, 9852.76, 10084.3, 10079.91, 10353.6, 10497.91, 10608.55, 10381.7, 10786.23, 10672.36, 10793.26, 10800.57, 10924.98, 11130.76, 11169.1, 11015.72, 10704.56, 10840.68, 10321.69, 10490.59, 10908, 11062.55, 11340.63, 11651.79, 11550.8, 11688.08, 11699.5, 11304.63, 11482.01, 11143.34, 11810.44, 11757.75, 11126.36, 11123.44, 10341.6, 10626.99, 10395.16, 10171.53, 9996.49, 10151.33, 9509.12, 9313.29, 10247.34, 10681.44, 10809.94, 9978.34, 9913.94, 9647.28, 9322.37, 8698.01, 8735.77, 8590.58, 9047.8, 8992.77, 8061.65, 8040.57, 8560.43, 8258.35, 8460.62, 8471.15, 8789.33, 9228.4, 9387.64, 9749.14, 9201.77, 8910.52, 8640.05, 9095.81, 8519.45, 8031.2, 8006.62, 7798.2, 7884.26, 8150.63, 8136, 7832.74, 8355.24, 8251.32, 8275.33, 8419.64, 8359.34, 7895.97, 7826.01, 7794.4, 7919.09, 8224.39, 8458.27, 8496.62, 8886.51, 8913.15, 8815.39, 8604.05, 8782.02, 8508.91, 8956.18, 9037.85, 9371.25, 9304.51, 9332.9, 9248.31, 9430.96, 9474.87, 9565.61, 9883.21, 10198.17, 10388.43, 10552.06, 10769.84, 10469.81, 10838.92, 10723.88, 11199.54, 11012.79, 11230.86, 10982.35, 10840.68, 10651.87, 10735.59, 11052.6, 11034.45, 10849.75, 10526.3, 10574.6, 10729.74, 10813.16, 10410.97, 10221.58, 10807.31, 11041.48, 11437.52, 11391.56, 11308.14, 11577.44, 11915.82, 11953.87, 11987.24, 11853.47, 11988.41, 12344.64, 12532.56, 12541.35, 12743.03, 12603.4, 12778.44, 12997.1, 12803.03, 12805.67, 13018.76, 13024.32, 12896.99, 12617.74, 12259.46, 12667.21, 12886.75, 12969.59, 13315.87, 13404.85, 13263.76, 13606.24, 14198.4, 13873.49, 14106.49, 14557.85, 14523.02, 14118.2, 13579.02, 12743.9, 13212.54, 14087.46, 13913.88, 13941.11, 13302.7, 13852.41, 14139.27, 14286.51, 14111.76, 14562.54, 14501.65, 14501.07, 14226.21, 15040.83, 14636.3, 14828.62, 15083.28, 15290.81, 15753.01, 15305.15, 15092.64, 15354.04, 14798.47, 15272.08, 15051.66, 15165.82, 15491.91, 15752.42, 15217.34, 14549.37, 13837.48, 14131.37, 14362.32, 13725.96, 12402.01, 13391.1, 12677.75, 13828.12, 14223.87, 14865.5, 15279.98, 14906.19, 15315.11, 15534.35, 15639.43, 15562.16, 16147.29, 16158.71, 16281.06, 16514.06, 16630.27, 16512.02, 16768.14, 16892.84, 16694.08, 16696.43, 16944.36, 17319.32, 17627.26, 17525.69, 17788.54, 17621.7, 17900.65, 18385.09, 18501.89, 18242.84, 17669.99, 17713.9, 18065.45, 18273.57, 17871.38, 18125.16, 18173.76, 18089.45, 18358.17, 18185.17, 18308.11, 18328.02, 17982.03, 17619.06, 17604.13, 17799.67, 17790.01, 17573.98, 17211.6, 16341.66],"DIA":[10000, 9956.23, 10218.84, 10112.5, 10047.29, 10153.04, 10219.43, 10137.77, 9780.57, 10118.09, 10220.6, 10243.81, 10185.35, 10297.86, 10265.84, 10342.51, 10439.44, 10315.19, 10415.36, 10402.73, 10184.18, 10153.04, 10218.55, 10080.78, 10208.56, 10364.83, 10479.1, 10522.87, 10671.8, 10612.46, 10454.72, 10252.33, 10170.67, 10581.62, 10387.74, 10556.06, 10672.38, 10642.72, 10549.6, 10056.4, 10196.22, 10306.67, 10201.51, 10016.16, 10003.23, 9883.68, 9694.21, 10198.57, 10238.23, 10222.66, 10203.86, 10113.39, 9936.55, 9684.52, 9666.3, 9465.38, 9177.22, 9754.43, 9674.53, 9234.5, 8774.78, 9253.59, 9131.1, 9207.77, 9184.27, 9372.26, 9654.26, 9633.99, 9923.63, 9900.42, 9485.94, 9216.58, 9466.85, 9048.85, 8690.77, 8439.33, 8605.88, 8718.97, 9131.98, 9651.91, 9521.49, 9922.45, 9910.11, 10090.77, 10126.6, 9851.36, 9663.37, 9750.32, 9732.69, 9878.1, 10076.67, 9801.43, 9975.91, 9957.41, 9950.06, 9937.14, 9638.4, 9817.29, 9391.95, 9355.81, 9468.03, 9770.58, 9837.56, 9953.29, 9931.85, 10017.62, 9891.31, 9787.62, 9816.7, 9718.3, 9930.68, 9965.93, 10074.02, 9903.95, 10100.46, 9911.88, 10139.24, 10343.98, 10412.71, 10300.21, 10369.24, 10137.77, 10090.18, 10251.15, 10178.6, 10167.73, 9975.03, 9839.03, 9814.06, 9889.85, 9728.58, 9522.96, 10005.29, 10075.79, 10264.37, 10392.74, 10664.45, 10666.51, 10945.86, 10980.23, 11070.41, 11004.91, 11042.21, 11121.23, 11194.37, 11350.94, 11359.75, 11344.18, 11493.7, 11494.58, 11397.06, 11367.98, 11589.17, 11684.05, 11422.61, 11158.53, 11156.48, 11230.21, 11361.22, 11608.26, 11748.38, 11474.9, 11383.54, 11411.74, 11352.11, 11495.46, 11489.29, 11564.79, 11759.25, 11836.5, 11925.21, 11665.54, 11607.38, 11947.83, 12097.35, 12226.01, 11881.15, 12188.7, 12354.08, 12423.99, 12437.51, 12593.78, 12708.63, 12370.83, 12349.68, 12928.06, 12763.56, 13017.65, 13221.22, 13134.86, 12906.32, 12588.2, 12631.08, 12547.66, 12317.66, 12769.73, 13045.85, 13083.16, 13016.48, 13094.91, 12752.99, 12876.95, 12579.97, 12201.04, 12326.18, 12208.68, 11256.94, 11805.95, 11496.05, 11779.81, 12132.89, 12114.68, 12529.74, 12229.53, 12421.06, 12583.5, 12419.88, 12389.04, 12866.08, 13162.47, 13029.7, 13020.59, 13189.79, 12799.11, 12981.23, 13204.77, 13413.62, 13397.47, 13365.16, 13492.35, 13598.68, 13579.3, 13732.93, 13361.63, 13564.61, 13870.99, 13972.62, 13801.96, 13858.94, 13587.82, 14016.98, 14100.7, 14258.44, 14133.6, 14306.32, 14206.44, 14541.02, 14494.02, 14420.88, 14365.07, 14717.56, 14548.66, 14572.16, 14383.57, 13959.7, 13700.61, 13391.59, 13259.41],"IWM":[10000, 9961.46, 9983.61, 9790.04, 9743.53, 9988.48, 10072.64, 10263.11, 9839.21, 10288.8, 10151.93, 10027.46, 9521.17, 9724.93, 9791.37, 9895.02, 9794.91, 9546.42, 10028.79, 10097.45, 9816.62, 9854.71, 9879.96, 9845.85, 9814.85, 9973.42, 10073.09, 10101.44, 10710.93, 10608.74, 10308.29, 9871.1, 9510.54, 9740.88, 9529.59, 9835.22, 9853.38, 9570.78, 9492.82, 8725.64, 8648.56, 8787.21, 8920.09, 8835.49, 8969.7, 8799.61, 8714.12, 9180.99, 9130.05, 9194.28, 8764.62, 8812.9, 8534.73, 8192.33, 8087.35, 7887.58, 7799.43, 8311.48, 8285.79, 7910.61, 7316.62, 7755.58, 7592.58, 7777.73, 7666.99, 7951.36, 8294.21, 8451.45, 8874.91, 8621.99, 8370.84, 7977.06, 8300.85, 7928.33, 7410.97, 7305.1, 7468.55, 7388.82, 7649.72, 8113.04, 7914.6, 8278.7, 8137.85, 8220.23, 8329.64, 7911.94, 7723.69, 7724.57, 7723.25, 7865.88, 8285.35, 8196.31, 8397.41, 8725.64, 8429.75, 8554.66, 8305.72, 8482.46, 7803.86, 7584.6, 7609.41, 7902.2, 7702.43, 7818.48, 7864.99, 7760.45, 7727.23, 7650.6, 7800.76, 7802.53, 8062.54, 8195.87, 8236.18, 7998.32, 8295.09, 8181.7, 8483.79, 8613.57, 8700.83, 8600.73, 8459.87, 8179.04, 8150.25, 8453.67, 8146.7, 8132.97, 7825.57, 7828.67, 7663, 7542.08, 7372.43, 7185.06, 7729, 7490.7, 7897.32, 7943.39, 8190.56, 8274.27, 8727.85, 8924.52, 8890.41, 8559.98, 8559.09, 8523.65, 8680.9, 8611.36, 8829.73, 8932.49, 8854.09, 9119.86, 9161.5, 8965.72, 9083.54, 9315.2, 9056.08, 8800.94, 8555.1, 8786.32, 8943.13, 9049.88, 9216.87, 9099.93, 9114.55, 8912.12, 8802.71, 8874.47, 8986.98, 8897.5, 9441, 9604.89, 9931.79, 9254.08, 9145.11, 9417.08, 9761.69, 9748.41, 9208.89, 9604.45, 9814.4, 9759.48, 9707.21, 9800.67, 9995.13, 9695.69, 9699.68, 10547.48, 10120.48, 10576.28, 10713.59, 10583.36, 10323.8, 9829.91, 9850.73, 9941.09, 9604.45, 9986.71, 10129.78, 10031.89, 10010.63, 10009.3, 9647.41, 9507.88, 9122.52, 8986.98, 9026.84, 8878.9, 8025.78, 8166.19, 8260.1, 8598.51, 8880.23, 8894.84, 9295.27, 8972.36, 9083.54, 9386.07, 9252.75, 9266.92, 9544.65, 9881.29, 9820.16, 9848.07, 9938.87, 9519.84, 9759.04, 10060.68, 10401.75, 10416.81, 10531.98, 10557.23, 10762.76, 10690.11, 10889, 10532.87, 10781.8, 11048.46, 10906.72, 10702.07, 10519.14, 10435.86, 11018.34, 11107.81, 11244.24, 11108.7, 11136.61, 11019.67, 11526.84, 11771.79, 11729.71, 11501.15, 11739.01, 11647.77, 11720.85, 11579.11, 11113.13, 10922.66, 10729.09, 10768.07]};const PCT={"NEXUS":[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.64, -1.41, -1.44, -1.55, -1.39, -0.9, -1.86, 3.45, 3.76, 2.37, 2.89, 4.28, 5.02, 5.39, 5.85, 5.73, 5.34, 8.33, 6.25, 5.44, 3.73, 3.8, 4.8, 2.6, 4.25, 4.67, 6.6, 7.99, 6.09, 6.26, 6.93, 6.59, 6.17, 6.49, 9.8, 9.16, 11.59, 14.41, 12.9, 13.43, 13.74, 12.22, 11.69, 11.62, 10.78, 11.16, 13.56, 12.82, 10.78, 9.07, 9.32, 9.55, 9.43, 8.91, 9.31, 13.13, 11.35, 14.24, 14.39, 13.26, 11.69, 11.89, 10.07, 8.44, 8.51, 11.88, 10.81, 12.13, 13.65, 13.3, 13.19, 12.65, 14.0, 13.53, 10.93, 11.27, 11.4, 11.24, 12.0, 13.84, 14.42, 16.02, 12.7, 10.96, 10.39, 9.69, 10.55, 9.65, 8.76, 8.36, 9.69, 8.86, 10.63, 10.12, 10.24, 10.26, 9.54, 11.84, 15.58, 15.92, 17.39, 19.25, 19.61, 24.57, 23.54, 24.81, 24.59, 26.01, 23.11, 23.08, 22.91, 22.77, 24.28, 22.66, 22.73, 21.77, 21.66, 21.31, 22.28, 20.3, 19.37, 19.94, 21.83, 23.22, 22.9, 24.43, 23.75, 27.71, 28.47, 27.92, 26.45, 26.02, 27.93, 29.05, 29.91, 34.8, 35.25, 37.51, 38.76, 41.55, 41.92, 43.09, 44.38, 44.55, 42.05, 41.16, 41.42, 41.54, 42.52, 44.14, 45.08, 45.17, 43.77, 43.79, 44.0, 43.3, 43.38, 45.34, 42.92, 41.33, 41.21, 41.27, 42.33, 43.3, 42.42, 40.48, 41.21, 43.74, 42.79, 41.8, 43.38, 40.17, 39.58, 38.46, 42.45, 39.43, 40.27, 41.38, 42.51, 41.23, 40.98, 41.65, 44.02, 44.6, 49.32, 50.38, 47.34, 47.01, 46.62, 47.37, 44.06, 42.9, 43.2, 43.5, 43.1, 41.78, 42.2, 42.66, 46.18, 47.99, 48.9, 54.6, 52.05, 51.89, 52.84, 53.16, 53.85, 58.45, 58.28, 59.75, 57.5, 58.55, 59.66, 61.73, 64.88, 65.61, 66.51, 67.63, 67.46, 68.02, 71.49, 71.87, 69.51, 71.21, 78.14, 78.54, 80.82, 83.21, 81.64, 84.6, 92.55, 92.41, 92.09, 92.37, 93.95, 94.96, 99.51, 100.39, 101.84, 107.02, 109.94, 114.31, 114.06, 110.83, 111.04, 110.59, 110.78],"SPY":[0.0, 0.14, 0.08, -0.5, 0.37, 0.58, 1.1, 1.83, 0.78, 2.36, 3.86, 4.66, 1.76, 5.61, 4.78, 5.87, 7.03, 7.1, 8.29, 8.49, 6.94, 3.93, 5.99, 2.64, 4.09, 7.08, 9.09, 10.16, 12.29, 11.93, 11.96, 11.25, 9.86, 11.72, 8.95, 14.28, 14.39, 11.47, 11.28, 5.32, 7.73, 7.1, 5.13, 3.98, 4.55, 0.44, -0.15, 6.41, 9.17, 9.38, 5.34, 4.88, 2.61, -0.75, -4.66, -4.2, -4.95, -0.56, -1.39, -10.2, -12.39, -6.95, -8.71, -7.99, -8.54, -5.28, -1.64, -1.11, 2.69, -1.02, -3.59, -6.08, -1.59, -6.96, -12.76, -12.21, -13.79, -12.16, -9.28, -7.52, -9.02, -5.39, -5.51, -5.2, -4.32, -4.47, -9.0, -8.31, -8.42, -7.12, -4.58, -4.07, -4.08, -1.86, -1.14, -2.48, -4.76, -3.15, -7.72, -5.72, -5.06, -1.59, -1.92, -0.88, -1.19, -0.5, -1.17, -1.1, 0.28, 0.58, 2.27, 3.88, 5.23, 3.31, 6.27, 5.28, 7.96, 8.76, 9.62, 7.93, 7.3, 5.2, 6.02, 8.04, 7.38, 6.23, 3.5, 2.32, 3.52, 4.41, 0.68, -0.48, 4.33, 5.41, 8.78, 8.83, 9.36, 10.63, 13.02, 13.42, 13.82, 13.65, 14.14, 15.77, 17.64, 17.95, 19.96, 19.61, 21.16, 22.67, 22.43, 22.81, 24.46, 25.04, 24.21, 20.79, 19.66, 22.14, 23.7, 24.74, 26.93, 26.78, 26.39, 28.27, 31.01, 29.96, 30.59, 32.97, 34.46, 32.82, 30.45, 23.89, 27.7, 34.0, 34.29, 34.98, 30.84, 34.78, 36.41, 37.39, 35.96, 39.92, 39.75, 39.08, 36.45, 43.38, 40.84, 43.08, 44.54, 44.8, 45.3, 42.4, 40.85, 42.56, 39.22, 43.1, 43.52, 43.14, 44.84, 46.0, 43.01, 39.79, 34.24, 35.81, 37.47, 33.95, 20.78, 29.1, 23.05, 31.91, 34.94, 39.6, 42.44, 38.67, 41.93, 43.6, 44.32, 43.71, 47.95, 48.63, 49.62, 50.56, 52.52, 51.14, 52.28, 54.04, 53.84, 54.46, 55.37, 58.26, 59.68, 58.92, 60.82, 58.77, 60.75, 64.09, 63.63, 63.18, 59.4, 60.13, 62.9, 63.7, 63.01, 63.99, 64.71, 64.68, 66.46, 65.62, 65.88, 66.52, 66.17, 63.25, 63.4, 64.36, 62.42, 60.2, 56.94, 51.33],"QQQ":[0.0, -1.59, -4.65, -5.04, -2.67, -2.25, -1.47, 0.84, 0.8, 3.54, 4.98, 6.09, 3.82, 7.86, 6.72, 7.93, 8.01, 9.25, 11.31, 11.69, 10.16, 7.05, 8.41, 3.22, 4.91, 9.08, 10.63, 13.41, 16.52, 15.51, 16.88, 16.99, 13.05, 14.82, 11.43, 18.1, 17.58, 11.26, 11.23, 3.42, 6.27, 3.95, 1.72, -0.04, 1.51, -4.91, -6.87, 2.47, 6.81, 8.1, -0.22, -0.86, -3.53, -6.78, -13.02, -12.64, -14.09, -9.52, -10.07, -19.38, -19.59, -14.4, -17.42, -15.39, -15.29, -12.11, -7.72, -6.12, -2.51, -7.98, -10.89, -13.6, -9.04, -14.81, -19.69, -19.93, -22.02, -21.16, -18.49, -18.64, -21.67, -16.45, -17.49, -17.25, -15.8, -16.41, -21.04, -21.74, -22.06, -20.81, -17.76, -15.42, -15.03, -11.13, -10.87, -11.85, -13.96, -12.18, -14.91, -10.44, -9.62, -6.29, -6.95, -6.67, -7.52, -5.69, -5.25, -4.34, -1.17, 1.98, 3.88, 5.52, 7.7, 4.7, 8.39, 7.24, 12.0, 10.13, 12.31, 9.82, 8.41, 6.52, 7.36, 10.53, 10.34, 8.5, 5.26, 5.75, 7.3, 8.13, 4.11, 2.22, 8.07, 10.41, 14.38, 13.92, 13.08, 15.77, 19.16, 19.54, 19.87, 18.53, 19.88, 23.45, 25.33, 25.41, 27.43, 26.03, 27.78, 29.97, 28.03, 28.06, 30.19, 30.24, 28.97, 26.18, 22.59, 26.67, 28.87, 29.7, 33.16, 34.05, 32.64, 36.06, 41.98, 38.73, 41.06, 45.58, 45.23, 41.18, 35.79, 27.44, 32.13, 40.87, 39.14, 39.41, 33.03, 38.52, 41.39, 42.87, 41.12, 45.63, 45.02, 45.01, 42.26, 50.41, 46.36, 48.29, 50.83, 52.91, 57.53, 53.05, 50.93, 53.54, 47.98, 52.72, 50.52, 51.66, 54.92, 57.52, 52.17, 45.49, 38.37, 41.31, 43.62, 37.26, 24.02, 33.91, 26.78, 38.28, 42.24, 48.66, 52.8, 49.06, 53.15, 55.34, 56.39, 55.62, 61.47, 61.59, 62.81, 65.14, 66.3, 65.12, 67.68, 68.93, 66.94, 66.96, 69.44, 73.19, 76.27, 75.26, 77.89, 76.22, 79.01, 83.85, 85.02, 82.43, 76.7, 77.14, 80.65, 82.74, 78.71, 81.25, 81.74, 80.89, 83.58, 81.85, 83.08, 83.28, 79.82, 76.19, 76.04, 78.0, 77.9, 75.74, 72.12, 63.42],"DIA":[0, -0.44, 2.19, 1.13, 0.47, 1.53, 2.19, 1.38, -2.19, 1.18, 2.21, 2.44, 1.85, 2.98, 2.66, 3.43, 4.39, 3.15, 4.15, 4.03, 1.84, 1.53, 2.19, 0.81, 2.09, 3.65, 4.79, 5.23, 6.72, 6.12, 4.55, 2.52, 1.71, 5.82, 3.88, 5.56, 6.72, 6.43, 5.5, 0.56, 1.96, 3.07, 2.02, 0.16, 0.03, -1.16, -3.06, 1.99, 2.38, 2.23, 2.04, 1.13, -0.63, -3.15, -3.34, -5.35, -8.23, -2.46, -3.25, -7.66, -12.25, -7.46, -8.69, -7.92, -8.16, -6.28, -3.46, -3.66, -0.76, -1, -5.14, -7.83, -5.33, -9.51, -13.09, -15.61, -13.94, -12.81, -8.68, -3.48, -4.79, -0.78, -0.9, 0.91, 1.27, -1.49, -3.37, -2.5, -2.67, -1.22, 0.77, -1.99, -0.24, -0.43, -0.5, -0.63, -3.62, -1.83, -6.08, -6.44, -5.32, -2.29, -1.62, -0.47, -0.68, 0.18, -1.09, -2.12, -1.83, -2.82, -0.69, -0.34, 0.74, -0.96, 1, -0.88, 1.39, 3.44, 4.13, 3, 3.69, 1.38, 0.9, 2.51, 1.79, 1.68, -0.25, -1.61, -1.86, -1.1, -2.71, -4.77, 0.05, 0.76, 2.64, 3.93, 6.64, 6.67, 9.46, 9.8, 10.7, 10.05, 10.42, 11.21, 11.94, 13.51, 13.6, 13.44, 14.94, 14.95, 13.97, 13.68, 15.89, 16.84, 14.23, 11.59, 11.56, 12.3, 13.61, 16.08, 17.48, 14.75, 13.84, 14.12, 13.52, 14.95, 14.89, 15.65, 17.59, 18.37, 19.25, 16.66, 16.07, 19.48, 20.97, 22.26, 18.81, 21.89, 23.54, 24.24, 24.38, 25.94, 27.09, 23.71, 23.5, 29.28, 27.64, 30.18, 32.21, 31.35, 29.06, 25.88, 26.31, 25.48, 23.18, 27.7, 30.46, 30.83, 30.16, 30.95, 27.53, 28.77, 25.8, 22.01, 23.26, 22.09, 12.57, 18.06, 14.96, 17.8, 21.33, 21.15, 25.3, 22.3, 24.21, 25.83, 24.2, 23.89, 28.66, 31.62, 30.3, 30.21, 31.9, 27.99, 29.81, 32.05, 34.14, 33.97, 33.65, 34.92, 35.99, 35.79, 37.33, 33.62, 35.65, 38.71, 39.73, 38.02, 38.59, 35.88, 40.17, 41.01, 42.58, 41.34, 43.06, 42.06, 45.41, 44.94, 44.21, 43.65, 47.18, 45.49, 45.72, 43.84, 39.6, 37.01, 33.92, 32.59],"IWM":[0, -0.39, -0.16, -2.1, -2.56, -0.12, 0.73, 2.63, -1.61, 2.89, 1.52, 0.27, -4.79, -2.75, -2.09, -1.05, -2.05, -4.54, 0.29, 0.97, -1.83, -1.45, -1.2, -1.54, -1.85, -0.27, 0.73, 1.01, 7.11, 6.09, 3.08, -1.29, -4.89, -2.59, -4.7, -1.65, -1.47, -4.29, -5.07, -12.74, -13.51, -12.13, -10.8, -11.65, -10.3, -12, -12.86, -8.19, -8.7, -8.06, -12.35, -11.87, -14.65, -18.08, -19.13, -21.12, -22.01, -16.89, -17.14, -20.89, -26.83, -22.44, -24.07, -22.22, -23.33, -20.49, -17.06, -15.49, -11.25, -13.78, -16.29, -20.23, -16.99, -20.72, -25.89, -26.95, -25.31, -26.11, -23.5, -18.87, -20.85, -17.21, -18.62, -17.8, -16.7, -20.88, -22.76, -22.75, -22.77, -21.34, -17.15, -18.04, -16.03, -12.74, -15.7, -14.45, -16.94, -15.18, -21.96, -24.15, -23.91, -20.98, -22.98, -21.82, -21.35, -22.4, -22.73, -23.49, -21.99, -21.97, -19.37, -18.04, -17.64, -20.02, -17.05, -18.18, -15.16, -13.86, -12.99, -13.99, -15.4, -18.21, -18.5, -15.46, -18.53, -18.67, -21.74, -21.71, -23.37, -24.58, -26.28, -28.15, -22.71, -25.09, -21.03, -20.57, -18.09, -17.26, -12.72, -10.75, -11.1, -14.4, -14.41, -14.76, -13.19, -13.89, -11.7, -10.68, -11.46, -8.8, -8.39, -10.34, -9.16, -6.85, -9.44, -11.99, -14.45, -12.14, -10.57, -9.5, -7.83, -9, -8.85, -10.88, -11.97, -11.26, -10.13, -11.02, -5.59, -3.95, -0.68, -7.46, -8.55, -5.83, -2.38, -2.52, -7.91, -3.96, -1.86, -2.41, -2.93, -1.99, -0.05, -3.04, -3, 5.47, 1.2, 5.76, 7.14, 5.83, 3.24, -1.7, -1.49, -0.59, -3.96, -0.13, 1.3, 0.32, 0.11, 0.09, -3.53, -4.92, -8.77, -10.13, -9.73, -11.21, -19.74, -18.34, -17.4, -14.01, -11.2, -11.05, -7.05, -10.28, -9.16, -6.14, -7.47, -7.33, -4.55, -1.19, -1.8, -1.52, -0.61, -4.8, -2.41, 0.61, 4.02, 4.17, 5.32, 5.57, 7.63, 6.9, 8.89, 5.33, 7.82, 10.48, 9.07, 7.02, 5.19, 4.36, 10.18, 11.08, 12.44, 11.09, 11.37, 10.2, 15.27, 17.72, 17.3, 15.01, 17.39, 16.48, 17.21, 15.79, 11.13, 9.23, 7.29, 7.68]};const STATS={"NEXUS":{"startValue": 10000, "endValue": 21078.49, "totalReturn": 139.01, "annualizedReturn": 19.04, "maxDrawdown": 7.15, "sharpe": 1.3, "sortino": 2.06, "bestYear": {"year": "Yr3 (Apr23-Apr24)", "ret": 18.95}, "worstYear": {"year": "Yr4 (Apr24-Apr25)", "ret": 1.38}, "yearlyReturns": [{"year": "Yr1 Apr21-22", "ret": 10.66}, {"year": "Yr2 Apr22-23", "ret": -1.05}, {"year": "Yr3 Apr23-24", "ret": 18.95}, {"year": "Yr4 Apr24-25", "ret": 1.38}, {"year": "Yr5 Apr25-26", "ret": 29.64}]},"SPY":{"startValue": 10000, "endValue": 15133.02, "totalReturn": 70.96, "annualizedReturn": 10.91, "maxDrawdown": 25.36, "sharpe": 0.4, "sortino": 0.68, "bestYear": {"year": "2024", "ret": 28.79}, "worstYear": {"year": "2022", "ret": -18.18}, "yearlyReturns": [{"year": "2021", "ret": 13.91}, {"year": "2022", "ret": -18.18}, {"year": "2023", "ret": 24.34}, {"year": "2024", "ret": 28.79}, {"year": "2025", "ret": 17.99}, {"year": "2026", "ret": -0.27}]},"QQQ":{"startValue": 10000, "endValue": 16341.66, "totalReturn": 94.33, "annualizedReturn": 13.69, "maxDrawdown": 35.62, "sharpe": 0.47, "sortino": 0.68, "bestYear": {"year": "2023", "ret": 53.4}, "worstYear": {"year": "2022", "ret": -32.58}, "yearlyReturns": [{"year": "2021", "ret": 16.47}, {"year": "2022", "ret": -32.58}, {"year": "2023", "ret": 53.4}, {"year": "2024", "ret": 32.49}, {"year": "2025", "ret": 20.92}, {"year": "2026", "ret": -0.21}]},"DIA": {"startValue": 10000, "endValue": 15300.31, "totalReturn": 53, "annualizedReturn": 8.91, "maxDrawdown": 19.76, "sharpe": 0.31, "sortino": 0.46, "bestYear": {"year": "2024", "ret": 16.73}, "worstYear": {"year": "2022", "ret": -7.02}, "yearlyReturns": [{"year": "2021", "ret": 6.4}, {"year": "2022", "ret": -7.02}, {"year": "2023", "ret": 14.31}, {"year": "2024", "ret": 16.73}, {"year": "2025", "ret": 15.8}, {"year": "2026", "ret": -0.53}]},"IWM": {"startValue": 10000, "endValue": 12367.52, "totalReturn": 23.68, "annualizedReturn": 4.36, "maxDrawdown": 31.17, "sharpe": 0.07, "sortino": 0.1, "bestYear": {"year": "2024", "ret": 16.43}, "worstYear": {"year": "2022", "ret": -20.48}, "yearlyReturns": [{"year": "2021", "ret": -0.41}, {"year": "2022", "ret": -20.48}, {"year": "2023", "ret": 14.71}, {"year": "2024", "ret": 16.43}, {"year": "2025", "ret": 13.29}, {"year": "2026", "ret": 5.22}]}};
+
+  (function(){
+    const COLORS = {
+      NEXUS: { line:'#00e598', fill:'rgba(0,229,152,0.14)', label:'NEXUS' },
+      SPY:   { line:'#5bb8fa', fill:'transparent', label:'SPY (S&P 500)' },
+      QQQ:   { line:'#c4aeff', fill:'transparent', label:'QQQ (Nasdaq-100)' },
+      DIA:   { line:'#f5c842', fill:'transparent', label:'DIA (Dow 30)' },
+      IWM:   { line:'#6a7d90', fill:'transparent', label:'IWM (Russell 2000)' },
+    };
+    const ORDER = ['NEXUS','SPY','QQQ','DIA','IWM'];
+    const hidden = new Set();
+    let mode = 'pct';
+
+    function fmtUSD(v){ return '$' + Math.round(v).toLocaleString(); }
+    function fmtPct(v, dec){ dec = dec==null ? 1 : dec; return (v>=0?'+':'') + v.toFixed(dec) + '%'; }
+
+    function dashFor(k){
+      if (k === 'NEXUS') return [];
+      if (k === 'SPY')   return [8,4];
+      if (k === 'QQQ')   return [4,4];
+      if (k === 'DIA')   return [2,4];
+      return [1,3];
+    }
+
+    function buildDatasets(){
+      const src = mode === 'dollar' ? DOLLAR : PCT;
+      return ORDER.map(function(k){
+        return {
+          label: k,
+          data: src[k],
+          borderColor: COLORS[k].line,
+          backgroundColor: k === 'NEXUS' ? COLORS[k].fill : 'transparent',
+          borderWidth: k === 'NEXUS' ? 3 : 1.2,
+          borderDash: dashFor(k),
+          fill: k === 'NEXUS' ? 'origin' : false,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          pointHoverBackgroundColor: COLORS[k].line,
+          pointHoverBorderColor: '#05080f',
+          pointHoverBorderWidth: 1,
+          tension: 0.12,
+          hidden: hidden.has(k),
+          order: k === 'NEXUS' ? 0 : 1,
+        };
+      });
+    }
+
+    let chart;
+    function makeChart(){
+      const ctx = document.getElementById('perf-chart').getContext('2d');
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: { labels: DATES, datasets: buildDatasets() },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(9,13,28,0.96)',
+              titleColor: '#e8f2ff', bodyColor: '#9ab8d4',
+              titleFont: { family: "'IBM Plex Mono',monospace", size: 11, weight: '500' },
+              bodyFont:  { family: "'IBM Plex Mono',monospace", size: 11 },
+              borderColor: '#1d3050', borderWidth: 1,
+              padding: 10, cornerRadius: 6,
+              displayColors: true, boxWidth: 8, boxHeight: 8,
+              callbacks: {
+                title: function(items){ return items[0] ? items[0].label : ''; },
+                label: function(item){
+                  const v = item.raw;
+                  if (v == null) return '';
+                  return ' ' + item.dataset.label + ': ' + (mode === 'dollar' ? fmtUSD(v) : fmtPct(v));
+                }
+              }
+            },
+          },
+          scales: {
+            x: {
+              ticks: {
+                color: '#4a6a82',
+                font: { family: "'IBM Plex Mono',monospace", size: 10 },
+                maxRotation: 0, autoSkip: false, maxTicksLimit: 20,
+                callback: function(v, i){
+                  const d = DATES[i]; if (!d) return '';
+                  const parts = d.split('-');
+                  if (i === 0) return parts[0];
+                  // Show year label at first date of each year
+                  const prev = DATES[i-1] || '';
+                  if (prev.substring(0,4) !== parts[0]) return "'" + parts[0].substring(2);
+                  return '';
+                },
+                color: function(ctx) {
+                  const d = DATES[ctx.index]; if (!d) return '#4a6a82';
+                  const prev = ctx.index > 0 ? DATES[ctx.index-1] : '';
+                  return (!prev || prev.substring(0,4) !== d.substring(0,4)) ? '#7aa8c4' : '#4a6a82';
+                }
+              },
+              grid: {
+                display: true,
+                drawOnChartArea: true,
+                color: function(ctx) {
+                  const d = DATES[ctx.tick ? ctx.tick.value : ctx.index];
+                  if (!d) return 'transparent';
+                  return d.endsWith('-01-01') || d.endsWith('-01-03') || d.endsWith('-01-07') || d.endsWith('-01-10')
+                    ? 'rgba(255,255,255,0.06)' : 'transparent';
+                },
+                lineWidth: 1,
+              },
+              border: { color: '#162036' },
+            },
+            y: {
+              ticks: {
+                color: '#4a6a82',
+                font: { family: "'IBM Plex Mono',monospace", size: 10 },
+                callback: function(v){
+                  return mode === 'dollar'
+                    ? '$' + Math.round(v/1000) + 'K'
+                    : (v>=0?'+':'') + Math.round(v) + '%';
+                },
+              },
+              grid: { color: 'rgba(22,32,54,0.6)', drawTicks: false },
+              border: { display: false },
+            }
+          }
+        }
+      });
+    }
+
+    function updateChart(){
+      chart.data.datasets = buildDatasets();
+      chart.options.scales.y.ticks.callback = function(v){
+        return mode === 'dollar' ? '$' + Math.round(v/1000) + 'K' : (v>=0?'+':'') + v + '%';
+      };
+      chart.update('none');
+    }
+
+    function renderLegend(){
+      const el = document.getElementById('perf-legend');
+      el.innerHTML = '';
+      ORDER.forEach(function(k){
+        const wrap = document.createElement('div');
+        wrap.className = 'leg-item' + (hidden.has(k) ? ' muted' : '');
+        const bar = document.createElement('div');
+        bar.className = 'leg-bar' + (k === 'NEXUS' ? ' thick' : '');
+        bar.style.background = COLORS[k].line;
+        wrap.appendChild(bar);
+        wrap.appendChild(document.createTextNode(COLORS[k].label));
+        wrap.addEventListener('click', function(){
+          if (hidden.has(k)) hidden.delete(k); else hidden.add(k);
+          renderLegend(); updateChart();
+        });
+        el.appendChild(wrap);
+      });
+    }
+
+    function renderTable(){
+      const tb = document.getElementById('perf-tbody');
+      tb.innerHTML = '';
+      ORDER.forEach(function(k){
+        const s = STATS[k];
+        const tr = document.createElement('tr');
+        if (k === 'NEXUS') tr.className = 'nx-highlight';
+        tr.innerHTML =
+          '<td>' + COLORS[k].label + '</td>' +
+          '<td>' + fmtPct(s.totalReturn) + '</td>' +
+          '<td>' + fmtPct(s.annualizedReturn) + '</td>' +
+          '<td>' + s.maxDrawdown.toFixed(1) + '%</td>' +
+          '<td>' + s.sortino.toFixed(2) + '</td>' +
+          '<td>' + s.worstYear.year + ': ' + fmtPct(s.worstYear.ret) + '</td>';
+        tb.appendChild(tr);
+      });
+    }
+
+
+
+    renderLegend();
+    renderTable();
+    makeChart();
+  })();
+  </script>
+
+
+  <!-- ══ MID-PAGE CTA ══ -->
+  <div class="mid-cta ani">
+    <div class="mid-cta-text">Start reading free &mdash; today&rsquo;s signals, no card required.</div>
+    <div class="mid-cta-form">
+      <input class="capture-input mid-cta-input" type="email" placeholder="your@email.com" id="mid-email"/>
+      <button class="capture-btn" onclick="handleSignupMid()">GET TODAY'S SIGNAL FREE &rarr;</button>
+    </div>
+    <p class="capture-note" style="margin-bottom:0;margin-top:8px">Free forever &nbsp;&middot;&nbsp; Unsubscribe in one click</p>
+  </div>
+
+  <!-- ══ MARKET STRIP ══ -->
+  <div class="sec" style="margin-top:44px"><span class="sec-num">01</span> What's in every edition</div>
+  <div class="strip-wrap">
+    <div class="strip-label">
+      <div style="width:5px;height:5px;border-radius:50%;background:var(--amber);box-shadow:0 0 6px var(--amber)"></div>
+      SAMPLE EDITION &nbsp;&middot;&nbsp; ILLUSTRATIVE FORMAT &nbsp;&middot;&nbsp; APPEARS IN EVERY NEWSLETTER (FREE &amp; PAID)
+    </div>
+    <div class="strip-inner">
+      <div class="s-cell">
+        <div class="s-lbl">NEXUS CLOSE</div>
+        <div class="s-val" style="color:var(--green)">+0.91%</div>
+        <div class="s-sub" style="color:var(--green2)">BEATING MKT</div>
+      </div>
+      <div class="s-cell">
+        <div class="s-lbl">SPY</div>
+        <div class="s-val" style="color:var(--green)">+0.62%</div>
+        <div class="s-sub">sample close</div>
+      </div>
+      <div class="s-cell">
+        <div class="s-lbl">NASDAQ</div>
+        <div class="s-val" style="color:var(--green)">+1.16%</div>
+        <div class="s-sub">sample close</div>
+      </div>
+      <div class="s-cell">
+        <div class="s-lbl">WIN RATE</div>
+        <div class="s-val" style="color:var(--green)">53%</div>
+        <div class="s-sub">rolling 20</div>
+      </div>
+      <div class="s-cell">
+        <div class="s-lbl">ALPHA vs SPY</div>
+        <div class="s-val" style="color:var(--blue)">+0.7%</div>
+        <div class="s-sub">avg per trade</div>
+      </div>
+      <div class="s-cell">
+        <div class="s-lbl">SCAN GRADE</div>
+        <div class="s-val" style="color:var(--green)">A</div>
+        <div class="s-sub">6 qualified</div>
+      </div>
+    </div>
+  </div>
+  <p class="strip-note">&uarr; A sample of the market strip that opens every edition &mdash; so you always know where things stand before you read a word. Values shown are illustrative of the format.</p>
+
+  <!-- ══ WHO IS NEXUS FOR ══ -->
+  <div class="sec"><span class="sec-num">02</span> Who it&rsquo;s built for</div>
+  <div class="persona-grid">
+    <div class="persona-card">
+      <div class="persona-icon">📈</div>
+      <div class="persona-type">THE DAY TRADER</div>
+      <div class="persona-role">ACTIVE &middot; EXECUTION-FOCUSED</div>
+      <div class="persona-benefit">
+        <strong>What you get:</strong>
+        Every morning brief includes pre-market price movement for each signal,
+        plus exact entry levels, stop-loss and targets — so you can act at the open
+        with a complete plan, not a hunch. Regime detection means you're never fighting the trend.
+      </div>
+      <span class="persona-tag" style="color:var(--green);background:rgba(0,229,152,.07);border:1px solid rgba(0,229,152,.2)">Entry · Stop · Target on every pick</span>
+    </div>
+    <div class="persona-card" style="border-left:1px solid var(--border);border-right:1px solid var(--border)">
+      <div class="persona-icon">💼</div>
+      <div class="persona-type">THE BUSY PROFESSIONAL</div>
+      <div class="persona-role">TIME-CONSTRAINED &middot; RETURNS-FOCUSED</div>
+      <div class="persona-benefit">
+        <strong>What you get:</strong>
+        One email, every trading day, with the highest-conviction setups — screened,
+        scored, and ranked. No charts to pull, no screeners to run.
+        The scan grade tells you immediately if today is a high-signal day or one to sit out.
+      </div>
+      <span class="persona-tag" style="color:var(--blue);background:rgba(91,184,250,.07);border:1px solid rgba(91,184,250,.2)">3 min read · Actionable in seconds</span>
+    </div>
+    <div class="persona-card">
+      <div class="persona-icon">🎓</div>
+      <div class="persona-type">THE NOVICE INVESTOR</div>
+      <div class="persona-role">LEARNING &middot; BUILDING CONFIDENCE</div>
+      <div class="persona-benefit">
+        <strong>What you get:</strong>
+        Each signal includes a plain-English thesis explaining exactly why it was selected.
+        The daily learning note surfaces one pattern or insight from that session's data.
+        You'll understand what RSI, MACD, and conviction scoring mean by reading, not studying.
+      </div>
+      <span class="persona-tag" style="color:var(--purple);background:rgba(196,174,255,.07);border:1px solid rgba(196,174,255,.2)">Learn while you earn</span>
+    </div>
+  </div>
+
+  <!-- ══ WHAT SETS IT APART ══ -->
+  <div class="sec" style="margin-top:44px"><span class="sec-num">03</span> What sets NEXUS apart</div>
+  <div class="diff-grid">
+    <div class="diff-card green">
+      <div class="diff-icon">🎯</div>
+      <div class="diff-title">Complete Trade Plans, Not Just Tickers</div>
+      <div class="diff-body">
+        Every signal comes with entry price, stop-loss, price target, risk/reward ratio,
+        RSI, volume confirmation, and earnings proximity alert. You know exactly
+        what the setup is, why it was selected, and where to exit — before you click buy.
+      </div>
+      <div class="diff-vs">
+        Every other newsletter gives you a ticker and a thesis.<br>
+        <span>NEXUS gives you a trade plan.</span>
+      </div>
+    </div>
+    <div class="diff-card blue">
+      <div class="diff-icon">🧠</div>
+      <div class="diff-title">Regime-Aware — The System Adapts</div>
+      <div class="diff-body">
+        NEXUS continuously detects whether the market is in a BULL, CHOPPY, BEAR, or
+        CRASH regime — and automatically adjusts conviction thresholds, position sizing,
+        and sector exposure to match. You're never applying bull-market logic in a bear market.
+      </div>
+      <div class="diff-vs">
+        Other services run the same algorithm in every market condition.<br>
+        <span>NEXUS recalibrates every session.</span>
+      </div>
+    </div>
+    <div class="diff-card purple">
+      <div class="diff-icon">⚡</div>
+      <div class="diff-title">Daily Cadence — 365 Days of Edge</div>
+      <div class="diff-body">
+        Motley Fool and Seeking Alpha send 2 picks a month.
+        NEXUS sends a full briefing every single trading day — with a morning
+        pre-market edition and a week-in-review deep-dive edition. The edge compounds
+        with frequency.
+      </div>
+      <div class="diff-vs">
+        The market moves daily.<br>
+        <span>NEXUS moves with it.</span>
+      </div>
+    </div>
+    <div class="diff-card amber">
+      <div class="diff-icon">🔁</div>
+      <div class="diff-title">Self-Learning — Gets Sharper Every Session</div>
+      <div class="diff-body">
+        NEXUS runs a live paper portfolio alongside every signal it publishes. Entries,
+        stops, and targets are tracked against real market data — not backtested assumptions.
+        After each session close, the system processes the outcomes: which setups delivered,
+        where conviction was miscalibrated, and which sectors are in or out of form. Those
+        results feed directly back into the scoring model, tightening the pattern
+        recognition engine with every trading day.
+      </div>
+      <div class="diff-vs">
+        Most systems are calibrated once, then run forever.<br>
+        <span>NEXUS is recalibrated after every single session.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ COMPETITIVE CONTRAST ══ -->
+  <div class="compete-bar ani">
+    <div class="compete-label">HOW NEXUS COMPARES</div>
+    <div class="compete-grid">
+      <div class="compete-col compete-col-nexus">
+        <div class="compete-head">NEXUS</div>
+        <div class="compete-row good">&#10003; Signal every trading day</div>
+        <div class="compete-row good">&#10003; Entry, stop &amp; target on every pick</div>
+        <div class="compete-row good">&#10003; Regime-aware — adapts to market conditions</div>
+        <div class="compete-row good">&#10003; AI pipeline validates each signal</div>
+        <div class="compete-row good">&#10003; $29.99/mo or $269.99/yr</div>
+      </div>
+      <div class="compete-col">
+        <div class="compete-head" style="color:var(--text3)">Motley Fool / Alpha Picks</div>
+        <div class="compete-row bad">&#10007; 2 picks per month</div>
+        <div class="compete-row bad">&#10007; No stop-loss or price targets</div>
+        <div class="compete-row bad">&#10007; Same logic in every market environment</div>
+        <div class="compete-row bad">&#10007; Human analyst discretion, no AI pipeline</div>
+        <div class="compete-row bad">&#10007; $199&ndash;$499/yr</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ HOW IT WORKS ══ -->
+  <div class="sec" style="margin-top:44px"><span class="sec-num">04</span> How the system works</div>
+  <div class="pipeline">
+    <div class="pipeline-row">
+      <div class="pipeline-step">
+        <span class="step-tag" style="color:var(--blue);background:rgba(91,184,250,.08);border:1px solid rgba(91,184,250,.2)">ANALYST</span>
+        <div class="step-num">01</div>
+      </div>
+      <div class="pipeline-body">
+        <div class="pipeline-title">Technical Deep Scan</div>
+        <div class="pipeline-desc">Every ticker in the 7-sector universe is scored against a dynamic multi-factor model. RSI zones, MACD histogram, SMA50/200, Bollinger Band compression, ATR, ADX trend strength, OBV accumulation/distribution, volume ratio, and support/resistance proximity are evaluated and numerically scored. Setups that don't meet our proprietary thresholds are eliminated before the next stage.</div>
+        <div class="pipeline-tags">
+          <span class="ptag">RSI</span><span class="ptag">MACD</span><span class="ptag">SMA50/200</span><span class="ptag">Bollinger Bands</span><span class="ptag">ADX</span><span class="ptag">OBV</span><span class="ptag">ATR</span><span class="ptag">Volume Ratio</span><span class="ptag">Support &amp; Resistance</span>
+        </div>
+      </div>
+    </div>
+    <div class="pipeline-row">
+      <div class="pipeline-step">
+        <span class="step-tag" style="color:var(--purple);background:rgba(196,174,255,.08);border:1px solid rgba(196,174,255,.2)">INTEL</span>
+        <div class="step-num">02</div>
+      </div>
+      <div class="pipeline-body">
+        <div class="pipeline-title">Catalyst &amp; Sentiment Intelligence</div>
+        <div class="pipeline-desc">Candidates that clear the technical screen are enriched with real-time intelligence: SEC Form 4 insider transactions, 8-K material event filings, analyst upgrade/downgrade history, earnings proximity warnings, and news sentiment. Divergence between sentiment and price is flagged automatically.</div>
+        <div class="pipeline-tags">
+          <span class="ptag">SEC EDGAR</span><span class="ptag">Form 4 Insider</span><span class="ptag">8-K Events</span><span class="ptag">Analyst Ratings</span><span class="ptag">Earnings Calendar</span><span class="ptag">News Sentiment</span>
+        </div>
+      </div>
+    </div>
+    <div class="pipeline-row">
+      <div class="pipeline-step">
+        <span class="step-tag" style="color:var(--green);background:rgba(0,229,152,.08);border:1px solid rgba(0,229,152,.2)">DECISION</span>
+        <div class="step-num">03</div>
+      </div>
+      <div class="pipeline-body">
+        <div class="pipeline-title">Conviction Scoring &amp; Trade Plan</div>
+        <div class="pipeline-desc">NEXUS generates the technical score and intelligence report alongside the current market regime, portfolio state, and historical learning notes. The output is a conviction score (60–90%), specific entry price, ATR-calibrated stop-loss, price target, risk/reward ratio, and an execution note. Nothing is published unless conviction clears the regime's floor.</div>
+        <div class="pipeline-tags">
+          <span class="ptag">Conviction %</span><span class="ptag">Stop-Loss</span><span class="ptag">Target Price</span><span class="ptag">Risk/Reward</span><span class="ptag">Execution Note</span><span class="ptag">Regime Gate</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LEARNING ENGINE ══ -->
+  <div class="sec" style="margin-top:44px"><span class="sec-num">05</span> The self-improving loop</div>
+  <div class="learn-wrap">
+    <div class="learn-head">
+      <div class="learn-head-l">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(0,229,152,.5)"></div>
+        <div class="learn-ht">Live Paper Portfolio &middot; Real Data &middot; Daily Feedback Loop</div>
+      </div>
+    </div>
+    <div class="learn-copy">
+      Most trading systems are static — NEXUS operates differently. Simultaneously building a live paper portfolio based on the published signals and tracked against real market prices. After each session, every open and closed position is reviewed: scoring execution quality, flagging miscalibrated conviction, and identifying which technical patterns delivered edge. The outcomes are logged as structured learning notes that flow directly into the next scan — updating scoring weights, sector emphasis, and conviction thresholds in real time. The system doesn't just analyze the market. It learns from it, every single day.
+    </div>
+    <div class="learn-grid">
+      <div class="learn-cell">
+        <div class="learn-lbl" style="color:var(--green)">LIVE PAPER<br>PORTFOLIO</div>
+        <div class="learn-stat">Every signal tracked<br>against real prices<br><span style="color:var(--text3);font-size:11px">No hypothetical fills</span></div>
+      </div>
+      <div class="learn-cell" style="border-left:1px solid var(--border)">
+        <div class="learn-lbl" style="color:var(--blue)">REAL MARKET<br>DATA</div>
+        <div class="learn-stat">Live prices, actual<br>entries &amp; exits<br><span style="color:var(--text3);font-size:11px">Forward-testing, not backtest</span></div>
+      </div>
+      <div class="learn-cell" style="border-left:1px solid var(--border)">
+        <div class="learn-lbl" style="color:var(--purple)">POST-SESSION<br>REVIEW</div>
+        <div class="learn-stat">AI reflection scores<br>every call made<br><span style="color:var(--text3);font-size:11px">Win/loss pattern analysis</span></div>
+      </div>
+      <div class="learn-cell" style="border-left:1px solid var(--border)">
+        <div class="learn-lbl" style="color:var(--amber)">SCORING<br>UPDATES</div>
+        <div class="learn-stat">Conviction weights<br>recalibrated daily<br><span style="color:var(--text3);font-size:11px">Compounds every session</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LIVE PAPER PORTFOLIO — moved up from 05b ══ -->
+  <div class="live-valid-wrap ani" style="margin-top:10px">
+    <div class="lv-head">
+      <div class="lv-head-left">
+        <div style="width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s ease infinite"></div>
+        <div class="lv-title">PAPER PORTFOLIO TRACKING</div>
+        <div class="lv-badge">LIVE SINCE LAUNCH</div>
+      </div>
+      <div class="lv-period" id="lv-period">Updating...</div>
+    </div>
+    <div class="lv-stats">
+      <div class="lv-stat">
+        <div class="lv-n" id="lv-return" style="color:var(--green)">—</div>
+        <div class="lv-l">paper portfolio<br>return</div>
+      </div>
+      <div class="lv-stat">
+        <div class="lv-n" id="lv-wr" style="color:var(--blue)">—</div>
+        <div class="lv-l">win rate<br>closed trades</div>
+      </div>
+      <div class="lv-stat">
+        <div class="lv-n" id="lv-trades" style="color:var(--amber)">—</div>
+        <div class="lv-l">trades<br>closed</div>
+      </div>
+      <div class="lv-stat">
+        <div class="lv-n" id="lv-dd" style="color:var(--purple)">—</div>
+        <div class="lv-l">max drawdown<br>live period</div>
+      </div>
+    </div>
+    <div class="lv-note">
+      All paper trades use actual signal prices from that morning&rsquo;s edition. No look-ahead. No cherry-picking.
+      Every signal sent to subscribers is tracked from entry to exit &mdash; wins and losses published in the Friday week-in-review.
+      <span class="lv-update">Last updated: <span id="lv-lastupdate">loading...</span></span>
+    </div>
+    <div class="lv-disclaimer">
+      Paper portfolio tracks signals as published, not actual executed trades. Results will differ from live trading due to slippage, execution timing, and position sizing.
+      Past paper performance does not guarantee future live results.
+    </div>
+  </div>
+
+  <!-- ══ REGIME BLOCK ══ -->
+  <div class="sec" style="margin-top:44px"><span class="sec-num">06</span> Regime-aware intelligence</div>
+  <div class="regime-wrap">
+    <div class="regime-head">
+      <div class="regime-head-l">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px rgba(245,200,66,.5)"></div>
+        <div class="regime-ht">Dynamic Market Regime Detection</div>
+      </div>
+      <span class="regime-badge" style="color:var(--green);border-color:rgba(0,229,152,.3)">ACTIVE &mdash; BULL</span>
+    </div>
+    <div class="regime-copy">
+      Most systems apply the same rules whether the S&amp;P is ripping higher or in freefall.
+      NEXUS continuously scores four regime inputs — VIX level, SPY momentum, sector breadth,
+      and system win rate — and dynamically adjusts every parameter to match the current environment.
+      When conditions deteriorate, capital deployment drops, conviction bars rise, and volatile sectors close.
+      When conditions improve, the system scales back up automatically.
+    </div>
+    <div class="regime-grid">
+      <div class="regime-cell">
+        <div class="regime-lbl" style="color:var(--green)">BULL</div>
+        <div class="regime-stat">Full deployment<br>Max positions active<br><span style="color:var(--text3);font-size:11px">All sectors open</span></div>
+      </div>
+      <div class="regime-cell" style="border-left:1px solid var(--border)">
+        <div class="regime-lbl" style="color:var(--blue)">CHOPPY</div>
+        <div class="regime-stat">Reduced exposure<br>Higher conviction bar<br><span style="color:var(--text3);font-size:11px">Volatile sectors gated</span></div>
+      </div>
+      <div class="regime-cell" style="border-left:1px solid var(--border)">
+        <div class="regime-lbl" style="color:var(--amber)">BEAR</div>
+        <div class="regime-stat">Capital preserved<br>Defensive posture<br><span style="color:var(--text3);font-size:11px">Growth sectors closed</span></div>
+      </div>
+      <div class="regime-cell" style="border-left:1px solid var(--border)">
+        <div class="regime-lbl" style="color:var(--red)">CRASH</div>
+        <div class="regime-stat">Minimal deployment<br>Max conviction required<br><span style="color:var(--text3);font-size:11px">Only defensives</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LIVE PREVIEW ══ -->
+  <div class="sec" style="margin-top:44px" id="preview"><span class="sec-num">07</span> Sample edition &mdash; what you&rsquo;ll receive</div>
+  <div class="preview-wrap">
+    <div class="preview-head">
+      <div class="preview-title">SIGNAL BRIEF &nbsp;&middot;&nbsp; SAMPLE EDITION &nbsp;&middot;&nbsp; MORNING SCAN FORMAT</div>
+      <div class="tier-toggle">
+        <button class="tbtn active-free" id="btn-free" onclick="setTier('free')">FREE TIER</button>
+        <button class="tbtn" id="btn-paid" onclick="setTier('paid')">PREMIUM</button>
+      </div>
+    </div>
+    <div class="preview-body">
+      <div class="ctx-row">
+        SPY pre-market +0.42% &middot; QQQ +0.61% &mdash; futures pointing higher. Signals below from Mon Apr 13 post-close scan, enriched with pre-market intel. SPY +0.98% on Apr 13. Semiconductors +2.0% &bull; Healthcare +0.5% &bull; Energy +0.4% &bull; Utilities -1.2%
+      </div>
+
+      <!-- Signal table -->
+      <div class="sig-cols">
+        <div class="sig-col-h">CONV</div>
+        <div class="sig-col-h">TICKER</div>
+        <div class="sig-col-h">TODAY'S EDGE &middot; THESIS</div>
+        <div class="sig-col-h" style="text-align:center">PRICE</div>
+        <div class="sig-col-h" style="text-align:center">LEVELS</div>
+      </div>
+
+      <!-- Signal 1 — ANET (shown in both tiers; levels locked in free, unlocked in premium) -->
+      <div class="sig-row">
+        <div>
+          <div class="conv-n" style="color:var(--green)">78%</div>
+          <div class="conv-sub">CONV</div>
+        </div>
+        <div>
+          <div class="t-name">ANET</div>
+          <span class="t-badge" style="color:var(--green);background:rgba(0,229,152,.07);border:1px solid rgba(0,229,152,.2)">▲ BUY</span>
+          <div class="t-sec">Semiconductors</div>
+        </div>
+        <div>
+          <div class="th-text" style="color:var(--text);font-weight:500;margin-bottom:3px">Rosenblatt upgrade ignited +20% in 5 days — $148-150 congestion zone cleared on 1.07x volume. RSI 66 has extension room.</div>
+          <span class="th-tag" style="color:var(--purple);background:rgba(196,174,255,.07);border:1px solid rgba(196,174,255,.2)">Catalyst</span>
+          <span class="th-tag" style="color:var(--blue);background:rgba(91,184,250,.07);border:1px solid rgba(91,184,250,.2);margin-left:3px">Momentum</span>
+        </div>
+        <div style="text-align:center">
+          <div class="p-main">$152.02</div>
+          <div class="p-chg" style="color:var(--green)">+3.24%</div>
+        </div>
+        <div style="text-align:center;position:relative">
+          <div class="lvl-sl">SL $142.07</div>
+          <div class="lvl-tp">TP $171.73</div>
+          <div class="lvl-rr">R/R 2.0×</div>
+          <div class="lock"><span class="lock-txt">&#128274; PAID</span></div>
+        </div>
+      </div>
+
+      <!-- Gate row -->
+      <div id="gate-row" class="gate-row">
+        <span>+ 2 more signals with full entry, stop &amp; target</span>
+        <span style="color:var(--border3)">PAID ONLY &#128274;</span>
+      </div>
+      <div id="gate-row-hidden" class="gate-row" style="display:none;border-color:rgba(0,229,152,.15)">
+        <span style="color:var(--text2)">All 3 signals unlocked with full entry, stop &amp; target details</span>
+        <span style="color:var(--green)">&#10003; FULL ACCESS</span>
+      </div>
+
+      <!-- Watch items -->
+      <div class="watch-hdr">WATCH &mdash; developing setups</div>
+      <div class="watch-row">
+        <div class="w-tick">COP</div>
+        <span class="w-badge" style="color:var(--blue);background:rgba(91,184,250,.07);border:1px solid rgba(91,184,250,.2)">WATCH</span>
+        <div class="w-thesis">Energy — crude inventory draw accelerating; ADX 29 trend emerging, testing $108 resistance on 1.14x vol. Sector leading SPY by 6pp over 20 days.</div>
+        <div class="w-right">
+          <div class="w-price">$108.41</div>
+          <div class="watch-lock">&#128274;&nbsp;levels with Premium</div>
+          <div class="watch-levels" style="display:none">SL $104.20 &middot; TP $118.65</div>
+        </div>
+      </div>
+
+      <!-- Watch gate row -->
+      <div id="watch-gate-row" class="gate-row">
+        <span>+ more watch items — SL &amp; TP levels unlocked with Premium</span>
+        <span style="color:var(--border3)">PAID ONLY &#128274;</span>
+      </div>
+      <div id="watch-gate-row-hidden" class="gate-row" style="display:none;border-color:rgba(0,229,152,.15)">
+        <span style="color:var(--text2)">All watch items shown with full SL &amp; TP levels</span>
+        <span style="color:var(--green)">&#10003; FULL ACCESS</span>
+      </div>
+
+      <div class="sample-link-row">
+        <a href="NEXUS_Signal_Brief__Sat_Apr_11.pdf" target="_blank" class="sample-link">
+          &#128196;&nbsp; View full sample edition — Sat Apr 11 PDF
+        </a>
+      </div>
+    </div>
+  </div>
+
+    <!-- ══ PLANS ══ -->
+  <div class="sec" style="margin-top:44px" id="plans"><span class="sec-num">09</span> Choose your tier</div>
+  <div class="plans">
+    <div class="plan">
+      <div class="plan-name">Free</div>
+      <div class="plan-price" style="color:var(--text2)">$0</div>
+      <div class="plan-cadence">Always free &middot; No credit card &middot; Cancel anytime</div>
+      <ul class="plan-features">
+        <li><span class="chk">✓</span> Daily market strip (SPY, NASDAQ, DOW, VIX)</li>
+        <li><span class="chk">✓</span> Scan grade &amp; AI reflection summary</li>
+        <li><span class="chk">✓</span> Market context &amp; regime banner</li>
+        <li><span class="chk">✓</span> System win rate &amp; equity curve</li>
+        <li><span class="chk">✓</span> 1 full signal &mdash; conviction %, thesis, setup type</li>
+        <li><span class="chk">✓</span> 2 watch items &mdash; ticker &amp; thesis</li>
+        <li><span class="chk">✓</span> Friday week-in-review &amp; performance recap</li>
+        <li><span class="dim">—</span> <span class="lf">Entry price, stop-loss &amp; target</span></li>
+        <li><span class="dim">—</span> <span class="lf">Full 3–5 signals per edition</span></li>
+        <li><span class="dim">—</span> <span class="lf">Watch item price levels</span></li>
+        <li><span class="dim">—</span> <span class="lf">Signal deep-dive analysis</span></li>
+        <li><span class="dim">—</span> <span class="lf">Friday week-in-review &amp; P&amp;L recap</span></li>
+      </ul>
+      <a href="#" class="plan-cta cta-free" onclick="handleSignupPlan('free');return false">Subscribe Free &rarr;</a>
+    </div>
+    <div class="plan featured">
+      <div class="plan-badge">MOST POPULAR</div>
+      <div class="plan-name">Premium</div>
+      <div class="plan-price" style="color:var(--green)">$29.99<span style="font-size:14px;font-weight:400;color:var(--text2)">/mo</span></div>
+      <div class="plan-cadence">or $269.99/year &middot; Cancel anytime</div>
+      <ul class="plan-features">
+        <li><span class="chk">✓</span> Everything in Free</li>
+        <li><span class="chk">✓</span> <strong>3–5 full signals per edition</strong></li>
+        <li><span class="chk">✓</span> Entry price, stop-loss &amp; target on every pick</li>
+        <li><span class="chk">✓</span> Risk/reward ratio per signal</li>
+        <li><span class="chk">✓</span> RSI, volume &amp; earnings proximity indicators</li>
+        <li><span class="chk">✓</span> Pre-market price movement badge</li>
+        <li><span class="chk">✓</span> Full watch list with price levels</li>
+        <li><span class="chk">✓</span> Signal deep-dive — company overview, full technical narrative, chart</li>
+        <li><span class="chk">✓</span> Friday week-in-review: P&amp;L on every pick sent that week</li>
+      </ul>
+      <a href="#" class="plan-cta cta-paid" onclick="handleSignupPlan('paid');return false">Get Premium &rarr;</a>
+    </div>
+  </div>
+
+
+
+    <!-- ══ CLOSING ══ -->
+  <div class="divider"></div>
+  <div class="closing">
+    <div class="closing-title">Built Different.</div>
+    <p class="closing-body">
+      Every signal is the output of a documented, reproducible process — not a hot take or a screener with a headline attached.
+      Alongside every edition, NEXUS runs a live paper portfolio tracked against real market data. Every position closed generates a learning signal.
+      Every session ends with a reflection that updates conviction weights for the next scan.
+      The longer it runs, the sharper it gets. NEXUS doesn't just run — it improves.
+    </p>
+    <div class="facts">
+      <div><div class="fact-lbl">APPROACH</div><div class="fact-val">Engineer-designed</div></div>
+      <div><div class="fact-lbl">CADENCE</div><div class="fact-val">Every trading day</div></div>
+      <div><div class="fact-lbl">CONFLICTS</div><div class="fact-val">None — no sponsors</div></div>
+      <div><div class="fact-lbl">METHODOLOGY</div><div class="fact-val">Documented &amp; reproducible</div></div>
+    </div>
+  </div>
+
+  <p class="footnote">
+    NEXUS Signal Brief is published for informational and educational purposes only and does not constitute investment advice.<br>
+    Past performance of the model portfolio does not guarantee future results. All trading involves risk. Always do your own research.<br>
+    2026 NEXUS Signal Brief &nbsp;&middot;&nbsp; v5.2.9 &nbsp;&middot;&nbsp;
+    <a href="https://x.com/NEXUS_SigInt" target="_blank" style="color:var(--text2);text-decoration:none;">&#120143; @NEXUS_SigInt</a>
+  </p>
+
+</div><!-- /wrap -->
+
+<script>
+// ── NEXUS BACKEND URL ─────────────────────────────────────────────────────────
+// Landing page is served from Squarespace (nexussigintbrief.com), so all API
+// calls must use the absolute Railway backend URL — relative paths would resolve
+// to Squarespace and 404. Update this constant if the Railway URL ever changes.
+var NEXUS_API = 'https://web-production-33789.up.railway.app';
+
+function setTier(t){
+  var body=document.body;
+  var fb=document.getElementById('btn-free');
+  var pb=document.getElementById('btn-paid');
+  var gr=document.getElementById('gate-row');
+  var grh=document.getElementById('gate-row-hidden');
+  var wgr=document.getElementById('watch-gate-row');
+  var wgrh=document.getElementById('watch-gate-row-hidden');
+  if(t==='paid'){
+    body.classList.add('paid');
+    fb.className='tbtn';pb.className='tbtn active-paid';
+    gr.style.display='none';grh.style.display='flex';
+    if(wgr)wgr.style.display='none';if(wgrh)wgrh.style.display='flex';
+  }else{
+    body.classList.remove('paid');
+    fb.className='tbtn active-free';pb.className='tbtn';
+    gr.style.display='flex';grh.style.display='none';
+    if(wgr)wgr.style.display='flex';if(wgrh)wgrh.style.display='none';
+  }
+}
+
+// ── SUBSCRIBE HANDLER ────────────────────────────────────────────────────────
+// Shared core: POSTs to /api/subscribe, handles loading/success/error state
+// on whichever input + button pair is passed in.
+function doSubscribe(email, tier, inputEl, btnEl, btnOrigText) {
+  if (!email || !email.includes('@')) {
+    if (inputEl) {
+      inputEl.style.outline = '1px solid rgba(255,96,96,.6)';
+      inputEl.focus();
+      setTimeout(function(){ inputEl.style.outline = ''; }, 2000);
+    }
+    return;
+  }
+
+  // Loading state
+  if (btnEl) { btnEl.disabled = true; btnEl.textContent = 'SENDING...'; }
+
+  fetch(NEXUS_API + '/api/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, tier: tier })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if (data.ok) {
+      // Success — swap button to confirmed state
+      if (btnEl) {
+        btnEl.textContent = '✓ YOU\'RE IN';
+        btnEl.style.background = 'linear-gradient(135deg,#003520,#005c32)';
+        btnEl.style.color = 'var(--green)';
+      }
+      if (inputEl) {
+        inputEl.value = '';
+        inputEl.placeholder = 'Check your inbox!';
+        inputEl.disabled = true;
+      }
+      // Premium CTA: redirect to Beehiiv upgrade page if URL was returned
+      if (data.upgradeUrl) {
+        setTimeout(function(){ window.location.href = data.upgradeUrl; }, 1200);
+      }
+    } else {
+      // Error — restore button, show message under input
+      if (btnEl) { btnEl.disabled = false; btnEl.textContent = btnOrigText; }
+      if (inputEl) {
+        inputEl.style.outline = '1px solid rgba(255,96,96,.6)';
+        setTimeout(function(){ inputEl.style.outline = ''; }, 3000);
+        inputEl.placeholder = data.error || 'Something went wrong — try again';
+        setTimeout(function(){ inputEl.placeholder = 'your@email.com'; }, 4000);
+      }
+    }
+  })
+  .catch(function(){
+    if (btnEl) { btnEl.disabled = false; btnEl.textContent = btnOrigText; }
+    if (inputEl) {
+      inputEl.placeholder = 'Network error — try again';
+      setTimeout(function(){ inputEl.placeholder = 'your@email.com'; }, 4000);
+    }
+  });
+}
+
+function handleSignup(tier) {
+  var inputEl = document.getElementById('hero-email');
+  var btnEl   = document.querySelector('.capture-wrap .capture-btn');
+  var email   = inputEl ? inputEl.value.trim() : '';
+  doSubscribe(email, tier || 'free', inputEl, btnEl, 'GET TODAY\'S SIGNAL FREE →');
+}
+
+function handleSignupMid() {
+  var inputEl = document.getElementById('mid-email');
+  var btnEl   = document.querySelector('.mid-cta-form .capture-btn');
+  var email   = inputEl ? inputEl.value.trim() : '';
+  doSubscribe(email, 'free', inputEl, btnEl, 'GET TODAY\'S SIGNAL FREE →');
+}
+
+function handleSignupPlan(tier) {
+  // Plan CTAs have no inline email field — scroll up to hero capture and focus it
+  var inputEl = document.getElementById('hero-email');
+  if (inputEl) {
+    inputEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(function(){
+      inputEl.focus();
+      inputEl.style.outline = '1px solid rgba(0,229,152,.6)';
+      setTimeout(function(){ inputEl.style.outline = ''; }, 2500);
+    }, 400);
+  }
+  // Store tier intent so when they submit the hero form it uses the right tier
+  window._signupTierIntent = tier;
+}
+
+// Capture enter key on hero email input
+var emailInput = document.getElementById('hero-email');
+if(emailInput){
+  emailInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter') handleSignup(window._signupTierIntent || 'free');
+  });
+}
+
+// Scroll-triggered fade-in
+if('IntersectionObserver' in window){
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.style.opacity='1';
+        e.target.style.transform='translateY(0)';
+      }
+    });
+  },{threshold:.08});
+  document.querySelectorAll('.diff-card,.persona-card,.pipeline-row,.proof-cell,.pstat,.learn-cell,.regime-cell').forEach(function(el){
+    el.style.opacity='0';
+    el.style.transform='translateY(14px)';
+    el.style.transition='opacity .5s ease, transform .5s ease';
+    obs.observe(el);
+  });
+}
+
+// Live portfolio data — fetch from NEXUS backend
+(function(){
+  var launchDate = new Date('2026-03-01');
+  var now = new Date();
+  var days = Math.floor((now - launchDate) / 86400000);
+  var months = Math.floor(days / 30);
+  var period = months >= 2 ? months + '-month live period' : days + '-day live period';
+  var elPeriod = document.getElementById('lv-period');
+  if (elPeriod) elPeriod.textContent = launchDate.toLocaleDateString('en-US',{month:'short',year:'numeric'}).toUpperCase() + ' – PRESENT';
+  var elUpdate = document.getElementById('lv-lastupdate');
+  if (elUpdate) elUpdate.textContent = now.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+
+  // Fetch live performance stats from NEXUS backend
+  fetch(NEXUS_API + '/api/performance')
+    .then(function(r){ return r.json(); })
+    .then(function(json){
+      var d = json.data;
+      if (!d) return;
+
+      // Portfolio return
+      var elRet = document.getElementById('lv-return');
+      if (elRet && d.totalReturn != null) {
+        var ret = d.totalReturn;
+        elRet.textContent = (ret >= 0 ? '+' : '') + ret.toFixed(1) + '%';
+        elRet.style.color = ret >= 0 ? 'var(--green)' : 'var(--red)';
+      }
+
+      // Win rate
+      var elWr = document.getElementById('lv-wr');
+      if (elWr && d.winRate != null) elWr.textContent = d.winRate.toFixed(0) + '%';
+
+      // Closed trades count
+      var elTrades = document.getElementById('lv-trades');
+      if (elTrades && d.totalTrades != null) elTrades.textContent = d.totalTrades;
+
+      // Max drawdown
+      var elDd = document.getElementById('lv-dd');
+      if (elDd && d.maxDrawdown != null) elDd.textContent = d.maxDrawdown.toFixed(1) + '%';
+
+      // Update hero trade count metric: 1,100 backtested trades (5-yr sim, Apr 2021–Apr 2026) + live paper trades
+      var BACKTEST_TRADES = 1100;
+      var liveTrades = d.totalTrades || 47;
+      var totalTrades = BACKTEST_TRADES + liveTrades;
+      var elHeroCount = document.getElementById('ps-trade-count');
+      if (elHeroCount) elHeroCount.textContent = totalTrades.toLocaleString() + '+';
+
+      // Update last-updated timestamp to today
+      if (elUpdate) elUpdate.textContent = now.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+    })
+    .catch(function(){ /* silently fail — static fallbacks remain visible */ });
+})();
+
+</script>
+</body>
+</html>
