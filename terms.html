@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<!-- NEXUS Signal Brief — Terms of Use Page v1.0.0 -->
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Terms of Use — NEXUS Signal Brief</title>
+<meta name="description" content="Terms of Use for NEXUS Signal Brief, operated by Sigint LLC d/b/a NEXUS Signal Brief."/>
+<meta name="robots" content="noindex"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#05080f;--bg2:#07091a;--bg3:#040610;
+  --card:#090d1c;--card2:#0c1022;
+  --border:#0f1828;--border2:#162036;--border3:#1d3050;
+  --text:#b8d0e8;--text2:#7a9aba;--text3:#6888a8;
+  --green:#00e598;--green2:#00c47e;--green-dim:rgba(0,229,152,.07);
+  --blue:#5bb8fa;--amber:#f5c842;--red:#ff6060;
+  --white:#e8f2ff;
+  --font-display:'Syne',sans-serif;
+  --font-body:'Plus Jakarta Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;font-size:15px;line-height:1.6}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 90% 55% at 50% -5%, rgba(0,229,152,.03) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at 85% 85%, rgba(91,184,250,.02) 0%, transparent 50%);
+  pointer-events:none;
+}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(5,8,15,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border2);height:52px;}
+.nav-wrap{max-width:920px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:100%}
+.nav-logo{font-family:var(--font-display);font-size:22px;font-weight:800;color:#fff;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;}
+.nav-logo span{color:var(--green)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-back{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--text2);text-decoration:none;border:1px solid var(--border2);border-radius:20px;padding:5px 14px;background:rgba(9,13,28,.85);transition:all .2s;}
+.nav-back:hover{border-color:var(--border3);color:var(--text)}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--bg);background:var(--green);border:none;border-radius:4px;padding:7px 16px;cursor:pointer;white-space:nowrap;font-weight:600;transition:filter .2s;text-decoration:none;}
+.nav-cta:hover{filter:brightness(1.15)}
+
+/* ── MAIN WRAP ── */
+.wrap{max-width:780px;margin:0 auto;padding:88px 24px 100px;position:relative;z-index:1}
+
+/* ── PAGE HEADER ── */
+.page-header{padding:44px 0 36px;border-bottom:1px solid var(--border2);margin-bottom:48px}
+.page-kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--green);margin-bottom:12px;text-transform:uppercase}
+.page-title{font-family:var(--font-display);font-weight:800;font-size:clamp(28px,4vw,42px);color:var(--white);letter-spacing:.02em;line-height:1.05;margin-bottom:10px}
+.page-meta{font-family:var(--font-mono);font-size:12px;color:var(--text3);letter-spacing:.06em}
+.page-scope{font-size:14px;color:var(--text2);line-height:1.75;margin-top:18px;padding:16px 20px;background:var(--card);border:1px solid var(--border2);border-left:3px solid var(--blue);border-radius:0 6px 6px 0;}
+
+/* ── TABLE OF CONTENTS ── */
+.toc{background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:20px 24px;margin-bottom:48px}
+.toc-title{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin-bottom:14px}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.toc-list li{display:flex;align-items:baseline;gap:10px}
+.toc-num{font-family:var(--font-mono);font-size:11px;color:var(--blue);min-width:24px;flex-shrink:0}
+.toc-list a{font-size:13px;color:var(--text2);text-decoration:none;transition:color .15s}
+.toc-list a:hover{color:var(--white)}
+
+/* ── DOCUMENT SECTIONS ── */
+.doc-section{margin-bottom:44px;scroll-margin-top:70px}
+.doc-section-header{display:flex;align-items:baseline;gap:14px;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border2)}
+.doc-section-num{font-family:var(--font-mono);font-size:13px;color:var(--blue);font-weight:700;flex-shrink:0}
+.doc-section-title{font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--white);letter-spacing:.04em;text-transform:uppercase;line-height:1.3}
+.doc-section p{font-size:14px;color:var(--text);line-height:1.8;margin-bottom:14px}
+.doc-section p:last-child{margin-bottom:0}
+.doc-section p.caps{font-size:13px;font-weight:600;color:var(--white);line-height:1.7}
+.doc-section .subsection{margin:18px 0}
+.doc-section .subsection-title{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--text2);text-transform:uppercase;margin-bottom:8px;font-weight:600}
+.doc-section ul{padding-left:18px;margin-bottom:14px}
+.doc-section ul li{font-size:14px;color:var(--text);line-height:1.75;margin-bottom:6px}
+.highlight-box{background:var(--card);border:1px solid var(--border2);border-left:2px solid var(--amber);border-radius:0 6px 6px 0;padding:14px 18px;margin:16px 0}
+.highlight-box p{font-size:13px;color:var(--text2);margin:0}
+.warning-box{background:rgba(255,96,96,.04);border:1px solid rgba(255,96,96,.2);border-left:2px solid var(--red);border-radius:0 6px 6px 0;padding:14px 18px;margin:16px 0}
+.warning-box p{font-size:13px;color:var(--text);margin:0;line-height:1.7}
+.placeholder{background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.2);border-radius:4px;padding:2px 8px;font-family:var(--font-mono);font-size:12px;color:var(--amber);display:inline}
+
+/* ── CONTACT TABLE ── */
+.contact-table{width:100%;border-collapse:collapse;margin-top:16px}
+.contact-table td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--border2)}
+.contact-table tr:last-child td{border-bottom:none}
+.contact-table td:first-child{font-family:var(--font-mono);font-size:11px;color:var(--text3);letter-spacing:.06em;width:36%;text-transform:uppercase}
+.contact-table td:last-child{color:var(--text2)}
+
+/* ── FOOTNOTE ── */
+.footnote{font-family:var(--font-mono);font-size:11px;color:var(--text3);text-align:center;line-height:1.9;margin-top:60px;padding-top:28px;border-top:1px solid var(--border2)}
+.footnote a{color:var(--text2);text-decoration:none}
+.footnote a:hover{color:var(--text)}
+
+@media(max-width:600px){
+  .wrap{padding:80px 16px 80px}
+  .page-header{padding:32px 0 28px}
+  .toc{padding:16px 18px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-wrap">
+    <a href="/" class="nav-logo">NEX<span>US</span></a>
+    <div class="nav-right">
+      <a href="/" class="nav-back">← Back to Site</a>
+      <a href="https://nexussigintbrief.beehiiv.com" target="_blank" rel="noopener" class="nav-cta">Get Today's Signal</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-kicker">Legal</div>
+    <h1 class="page-title">Terms of Use</h1>
+    <div class="page-meta">Last Updated: May 29, 2026 &nbsp;·&nbsp; Sigint LLC d/b/a NEXUS Signal Brief</div>
+    <div class="page-scope">
+      <strong style="color:var(--white)">PLEASE READ THESE TERMS OF USE CAREFULLY BEFORE USING THIS SITE.</strong><br><br>
+      Sigint, LLC d/b/a Nexus Signal Brief ("Nexus Signal Brief," "we," or "us") provides its website located at www.nexussigintbrief.com (together with all other websites and services operated by or on behalf of Nexus Signal Brief, the "Site"), to you, an individual user ("you") for your individual usage, subject to compliance with the terms and conditions set forth herein.
+    </div>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <div class="toc-title">Sections</div>
+    <ol class="toc-list">
+      <li><span class="toc-num">1</span><a href="#s1">Agreement</a></li>
+      <li><span class="toc-num">2</span><a href="#s2">Changes to the TOU</a></li>
+      <li><span class="toc-num">3</span><a href="#s3">Important Securities Disclaimer</a></li>
+      <li><span class="toc-num">4</span><a href="#s4">No Investment Recommendations or Professional Advice</a></li>
+      <li><span class="toc-num">5</span><a href="#s5">Copyright, Linking Policy, Trademarks, and DMCA</a></li>
+      <li><span class="toc-num">6</span><a href="#s6">User Conduct</a></li>
+      <li><span class="toc-num">7</span><a href="#s7">Disclosure</a></li>
+      <li><span class="toc-num">8</span><a href="#s8">Disclaimer of Warranties</a></li>
+      <li><span class="toc-num">9</span><a href="#s9">Limitation of Liability</a></li>
+      <li><span class="toc-num">10</span><a href="#s10">Indemnification</a></li>
+      <li><span class="toc-num">11</span><a href="#s11">Termination</a></li>
+      <li><span class="toc-num">12</span><a href="#s12">Additional Terms — Paid Subscriptions</a></li>
+      <li><span class="toc-num">13</span><a href="#s13">Additional Terms — Marketplace and Premium Subscription Services</a></li>
+      <li><span class="toc-num">14</span><a href="#s14">Dispute Resolution; Mandatory Arbitration; Class Action Waiver</a></li>
+      <li><span class="toc-num">15</span><a href="#s15">Privacy Policy; Cookies; State Privacy Rights</a></li>
+      <li><span class="toc-num">16</span><a href="#s16">Accessibility</a></li>
+      <li><span class="toc-num">17</span><a href="#s17">Force Majeure</a></li>
+      <li><span class="toc-num">18</span><a href="#s18">Miscellaneous</a></li>
+      <li><span class="toc-num">—</span><a href="#contact">Contact Information</a></li>
+    </ol>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="doc-section" id="s1">
+    <div class="doc-section-header">
+      <span class="doc-section-num">1</span>
+      <span class="doc-section-title">Agreement</span>
+    </div>
+    <p>By using the Site, you agree to be bound by our Terms of Use (the "TOU"). Your continued use of the Site after any changes are posted constitutes your acceptance of the modified TOU. If you do not agree to the terms and conditions contained in the TOU and NEXUS Signal Brief's Privacy Policy, please do not access or otherwise use the Site or any information contained herein.</p>
+    <p>You affirm that you are over the age of 18, as the Site is not intended for children under 18. If it comes to NEXUS Signal Brief's attention through reliable means that a registered user is a child under 18 years of age, NEXUS Signal Brief will cancel that user's account and delete any associated personal information in accordance with its Privacy Policy.</p>
+    <p class="caps">BY CLICKING "I ACCEPT," CHECKING AN ACCEPTANCE BOX, OR ACCESSING OR USING THE SITE, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREE TO BE BOUND BY THESE TOU AND OUR PRIVACY POLICY. IF YOU DO NOT AGREE, DO NOT ACCESS OR USE THE SITE. Your electronic acceptance of these TOU constitutes your binding agreement hereto and has the same legal force and effect as a written, signed agreement pursuant to the Electronic Signatures in Global and National Commerce Act (E-SIGN Act), 15 U.S.C. § 7001 et seq.</p>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="doc-section" id="s2">
+    <div class="doc-section-header">
+      <span class="doc-section-num">2</span>
+      <span class="doc-section-title">Changes to the TOU</span>
+    </div>
+    <p>We reserve the right at any time to:</p>
+    <ul>
+      <li>Change the terms and conditions of the TOU;</li>
+      <li>Change the Site, including eliminating or discontinuing any content or feature of the Site; or</li>
+      <li>Impose fees, charges or other conditions for use of the Site or parts thereof.</li>
+    </ul>
+    <p>NEXUS Signal Brief may modify the Site at any time, and you accept those modifications if you continue to use the Site after they are posted. For material changes to the TOU, NEXUS Signal Brief will provide notice by email to the address associated with your account and/or by posting a prominent notice on the Site at least thirty (30) days prior to such changes taking effect, unless a shorter period is required by law. You should review the Site frequently to see recent changes.</p>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="doc-section" id="s3">
+    <div class="doc-section-header">
+      <span class="doc-section-num">3</span>
+      <span class="doc-section-title">Important Securities Disclaimer</span>
+    </div>
+    <p>You understand that no content published on the Site constitutes a recommendation that any particular security, portfolio of securities, transaction or investment strategy is suitable for any specific person, nor does any content constitute individualized investment advice. You further understand that neither NEXUS Signal Brief nor its affiliates are advising you personally concerning the nature, potential, value or suitability of any particular security, portfolio of securities, transaction, investment strategy or other matter. No content published on the Site constitutes investment advice or a recommendation in connection with a particular security. All such content is impersonal commentary of general and regular circulation and is not tailored to the investment needs of any specific person. You understand that an investment in any security is subject to a number of risks, and that discussions of any security published on the Site are not intended to provide, and should not be relied upon as, a comprehensive list or description of all relevant risk factors applicable to any particular investment decision.</p>
+    <p>In addition, please note that some of the stocks about which content is published on the Site may have a low market capitalization and/or insufficient public float. Such stocks are subject to more risk than stocks of larger companies, including greater volatility, lower liquidity and less publicly available information. Content on the Site may have an effect on their stock prices. Content published on the Site is general commentary and is not intended to influence the price of any security.</p>
+    <p>You understand that the Site may contain opinions from time to time with regard to securities mentioned in other NEXUS Signal Brief publications, and that opinions in one newsletter or publication may be different from those in another newsletter or publication. Any views or opinions expressed may not reflect those of NEXUS Signal Brief as a whole. We require all employees and contributors to disclose every stock in which they, their immediate family, or any entity under their control, have a personal interest, if such stock is mentioned in a newsletter, blog, post, or content which they write. Employees and contributors are also required to obtain pre-clearance for trades in securities covered by the Site and are subject to applicable blackout periods. In cases where NEXUS Signal Brief becomes aware that one of its employees or contributors has violated his or her disclosure or pre-clearance obligation, NEXUS Signal Brief will take appropriate corrective action, which may include termination of employment or the contributor relationship.</p>
+    <p>You understand that performance data is supplied by sources believed to be reliable, that the calculations on our Site are made using such data, and that such calculations are not guaranteed by these sources, the information providers, or any other person or entity, and may not be complete.</p>
+    <p>From time to time, reference may be made on our Site to prior publications we have published. These references may be selective, may reference only a portion of a publication, and are likely not to be current. As markets change continuously, previously published information and data may not be current and should not be relied upon.</p>
+    <p>All content on the Site is presented only as of the date published or indicated, and may be superseded by subsequent market events or for other reasons. In addition, you are responsible for setting the cache settings on your browser to ensure you are receiving the most recent data.</p>
+    <p><em style="color:var(--text2)">This Section shall survive any termination of these TOU.</em></p>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="doc-section" id="s4">
+    <div class="doc-section-header">
+      <span class="doc-section-num">4</span>
+      <span class="doc-section-title">No Investment Recommendations or Professional Advice</span>
+    </div>
+    <p>The content on the Site is being provided for general informational purposes only and is published on a regular basis for general circulation. NEXUS Signal Brief is a publisher of bona fide financial information and opinions of general and regular circulation, offering only impersonal commentary not tailored to any individual's particular investment needs. NEXUS Signal Brief is not a registered investment adviser, broker-dealer, or securities dealer under applicable federal or state securities laws, including the Investment Advisers Act of 1940, as amended, and does not provide services regulated thereunder. NEXUS Signal Brief is not a fiduciary by virtue of any person's use of or access to the Site, and no fiduciary, advisory, or professional relationship of any kind is created by your use of the Site or any content thereon.</p>
+    <p>The Site does not provide tax, legal, insurance or investment advice, and nothing on the Site should be construed as an offer to sell, a solicitation of an offer to buy, or a recommendation for any security by NEXUS Signal Brief or any third party. You alone are solely responsible for determining whether any investment, security or strategy, or any other product or service, is appropriate or suitable for you based on your investment objectives and personal and financial situation. Any interactive features of the Site are part of the Site's general-circulation content and do not constitute personalized or individualized investment advice. You should consult an attorney, tax professional, or registered investment adviser regarding your specific legal, tax, or investment situation.</p>
+    <p>Past performance is no guarantee of future results. Inherent in any investment is the potential for loss. It should not be assumed that any investments in securities, companies, sectors or markets identified and described were or will be profitable.</p>
+    <p>Nothing on the Site should be construed as personalized investment advice. <em style="color:var(--text2)">This Section shall survive any termination of these TOU.</em></p>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="doc-section" id="s5">
+    <div class="doc-section-header">
+      <span class="doc-section-num">5</span>
+      <span class="doc-section-title">Copyright, Linking Policy, Trademarks, and DMCA</span>
+    </div>
+    <p>The Site and the content contained herein, as well as all copyrights, including, without limitation, the text, documents, newsletters, articles, products, software, graphics, photos, sounds, videos, interactive features, services, links, third-party apps, and any other content on the Site and the trademarks, service marks and logos contained therein are the property of NEXUS Signal Brief and its third-party licensors or providers. You may access and use the content and download and/or print out copies of any content from the Site, solely for your personal, non-commercial use. If you download or print a copy of the content for personal use, you must retain all copyright and other proprietary notices contained therein. You acknowledge that you do not acquire any ownership rights by using the Site. NEXUS Signal Brief reserves all rights not expressly granted in and to the Site.</p>
+    <p>The Site contains links to other Internet websites or links to content created by third parties. We neither control nor endorse such other websites or content, nor have we reviewed or approved any content that appears on such other websites or on our Site. Please read the terms of use and privacy policy of any such third-party sites that you interact with before you engage in any activity. You are solely responsible and liable for your use of links to all third-party sites.</p>
+    <p>If you are interested in reprinting, republishing or distributing content from NEXUS Signal Brief, please contact NEXUS Signal Brief to obtain written consent. NEXUS Signal Brief™ is a trademark and/or service mark of NEXUS Signal Brief or an affiliate. All other trademarks, service marks, and logos used on our websites are the trademarks, service marks, or logos of their respective owners.</p>
+    <div class="subsection">
+      <div class="subsection-title">DMCA Copyright Infringement Policy</div>
+      <p>NEXUS Signal Brief respects the intellectual property rights of others and expects users of the Site to do the same. If you believe that material located on or in connection with the Site infringes your copyright, please send a notice of claimed infringement to our designated DMCA agent at: <span class="placeholder">[legal@nexussigintbrief.com]</span></p>
+      <p>Your notice must include: (a) identification of the copyrighted work claimed to have been infringed; (b) identification of the material that is claimed to be infringing and sufficient information to locate it on the Site; (c) your contact information; (d) a statement that you have a good faith belief that use of the material is not authorized by the copyright owner; and (e) a statement under penalty of perjury that the information in your notice is accurate and that you are authorized to act on behalf of the copyright owner.</p>
+    </div>
+    <p><em style="color:var(--text2)">This Section shall survive any termination of these TOU.</em></p>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="doc-section" id="s6">
+    <div class="doc-section-header">
+      <span class="doc-section-num">6</span>
+      <span class="doc-section-title">User Conduct</span>
+    </div>
+    <p>You may not use, copy, display, sell, license, de-compile, republish, upload, post, transmit, distribute, create derivative works or otherwise exploit content from the Site to online bulletin boards, message boards, newsgroups, chat rooms, or in any other manner, without our prior written permission. Modification of the content or use of the content for any purpose other than your own personal, non-commercial use is a violation of our copyright and other proprietary rights and can subject you to legal liability.</p>
+    <p>In addition, in connection with your use of the Site, you agree not to:</p>
+    <ul>
+      <li>Restrict or inhibit any other visitor from using the Site, including, without limitation, by means of "hacking" or defacing any portion of the Site;</li>
+      <li>Use the Site for any unlawful purpose;</li>
+      <li>Express or imply that any statements you make are endorsed by us, without our prior written consent;</li>
+      <li>Modify, adapt, sublicense, translate, sell, reverse engineer, decompile or disassemble any portion of the Site;</li>
+      <li>Disable, damage or alter the functioning or appearance of the Site;</li>
+      <li>"Frame" or "mirror" any part of the Site without our prior written authorization;</li>
+      <li>Use any robot, spider, site search/retrieval application, or other manual or automatic device or process to download, retrieve, index, "data mine", "scrape", "harvest" or in any way reproduce or circumvent the navigational structure or presentation of the Site or its contents;</li>
+      <li>Harvest or collect information about visitors to the Site without their express consent;</li>
+      <li>Send unsolicited or unauthorized advertisements, spam, chain letters, etc. to other users of the Site;</li>
+      <li>Transmit any content which contains software viruses, or other harmful computer code, files or programs.</li>
+    </ul>
+    <p>By submitting any content, comments, feedback, or other material to the Site, you grant NEXUS Signal Brief a non-exclusive, worldwide, royalty-free, perpetual, irrevocable license to use, reproduce, modify, publish, distribute, and display such content in connection with operating and promoting the Site.</p>
+    <p>You also agree to comply with all applicable laws, rules and regulations in connection with your use of the Site. We aim to prevent, detect and not knowingly facilitate money laundering and terrorism financing activities. You may not use the Site in a manner which violates our anti-money laundering, counterterrorist financing or similar regulatory obligations.</p>
+    <p>We reserve the right to close, suspend, or limit access to your account and/or the Site in the event your use violates such obligations or if, after reasonable inquiry, we are unable to obtain information required to verify your identity.</p>
+    <p>In order to access some of the services of the Site, you will have to create an account. By creating this account, you agree to the following:</p>
+    <ul>
+      <li>You may only maintain a single account;</li>
+      <li>You may never share your account username or password or knowingly provide or authorize access to your account;</li>
+      <li>You may never use another user's account without permission;</li>
+      <li>When creating your account, you must provide accurate and complete information;</li>
+      <li>You are solely responsible for the activity that occurs on your account, and you must keep your account password secure;</li>
+      <li>You must notify us immediately of any breach of security or unauthorized use of your account.</li>
+    </ul>
+    <p>You will be liable for any use made of your account or password and the losses of NEXUS Signal Brief or others due to such unauthorized use. We will not be liable for your losses caused by any unauthorized use of your account.</p>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="doc-section" id="s7">
+    <div class="doc-section-header">
+      <span class="doc-section-num">7</span>
+      <span class="doc-section-title">Disclosure</span>
+    </div>
+    <p>We reserve the right to access, read, preserve, and disclose any user information we believe is reasonably necessary to (a) comply with any applicable law, regulation, legal process, subpoena or governmental or regulatory request, (b) enforce these TOU, including investigation of potential violations, (c) detect, prevent, or otherwise address fraud, security or technical issues, (d) respond to user support requests, or (e) protect the rights, property or safety of NEXUS Signal Brief, its users, or the public. All such disclosures will be handled in accordance with our Privacy Policy and applicable law.</p>
+    <p><em style="color:var(--text2)">This Section shall survive any termination of these TOU.</em></p>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="doc-section" id="s8">
+    <div class="doc-section-header">
+      <span class="doc-section-num">8</span>
+      <span class="doc-section-title">Disclaimer of Warranties</span>
+    </div>
+    <p class="caps">THE SITE, AND ANY PRODUCT OR SERVICE OBTAINED OR ACCESSED THROUGH THE SITE, IS PROVIDED "AS IS" AND WITHOUT REPRESENTATIONS OR WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, NEXUS SIGNAL BRIEF, ITS OFFICERS, DIRECTORS, EMPLOYEES, AFFILIATES, SUPPLIERS, ADVERTISERS, AGENTS, INFORMATION PROVIDERS AND ANY OTHER THIRD PARTY INVOLVED IN OR RELATED TO THE MAKING OR COMPILING OF THE SITE DISCLAIM ALL WARRANTIES, EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF TITLE AND NON-INFRINGEMENT, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, AND ALL WARRANTIES RELATING TO THE ORIGINALITY, ADEQUACY, ACCURACY, TIMELINESS, MERCHANTABILITY OR COMPLETENESS OF ANY INFORMATION ON OUR SITE.</p>
+    <p class="caps">NEXUS SIGNAL BRIEF DOES NOT WARRANT THAT YOUR USE OF THE SITE WILL BE UNINTERRUPTED, ERROR-FREE OR SECURE, OR THAT THE SITE OR THE SERVER(S) ON WHICH THE SITE IS HOSTED ARE FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS. YOU ASSUME TOTAL RESPONSIBILITY AND RISK FOR YOUR USE OF THE SITE AND YOUR RELIANCE THEREON. IN THE EVENT OF A DATA SECURITY BREACH AFFECTING YOUR PERSONAL INFORMATION, NEXUS SIGNAL BRIEF WILL NOTIFY YOU IN ACCORDANCE WITH APPLICABLE LAW.</p>
+    <p>Some jurisdictions do not allow the exclusion of implied warranties, so the above exclusions may not apply to you.</p>
+    <p><em style="color:var(--text2)">This Section shall survive any termination of these TOU.</em></p>
+  </div>
+
+  <!-- SECTION 9 -->
+  <div class="doc-section" id="s9">
+    <div class="doc-section-header">
+      <span class="doc-section-num">9</span>
+      <span class="doc-section-title">Limitation of Liability</span>
+    </div>
+    <p class="caps">NEITHER NEXUS SIGNAL BRIEF NOR ITS AFFILIATES AND THEIR RESPECTIVE OFFICERS, DIRECTORS, EMPLOYEES, SUPPLIERS, ADVERTISERS, AGENTS, SPONSORS, INFORMATION PROVIDERS NOR ANY OTHER THIRD PARTY INVOLVED IN OR RELATED TO THE MAKING OR COMPILING OF THE SITE ARE LIABLE FOR LOST PROFITS, LOST SAVINGS OR ANY INDIRECT, INCIDENTAL, CONSEQUENTIAL, SPECIAL, EXEMPLARY, PUNITIVE OR OTHER DAMAGES UNDER ANY CONTRACT, NEGLIGENCE, STRICT LIABILITY OR OTHER THEORY ARISING OUT OF OR RELATING IN ANY WAY TO THE SITE AND/OR ANY CONTENT CONTAINED THEREIN, OR ANY PRODUCT OR SERVICE USED OR PURCHASED THROUGH NEXUS SIGNAL BRIEF.</p>
+    <p class="caps">THE SOLE AND EXCLUSIVE MAXIMUM LIABILITY OF NEXUS SIGNAL BRIEF FOR ALL DAMAGES, LOSSES, AND CAUSES OF ACTION (WHETHER IN CONTRACT, TORT, INCLUDING, WITHOUT LIMITATION, NEGLIGENCE, OR OTHERWISE) SHALL NOT EXCEED THE GREATER OF: (A) THE TOTAL AMOUNT PAID TO US BY YOU FOR ACCESS TO THE SITE OR ANY SERVICES DURING THE SIX (6) MONTHS PRIOR TO BRINGING THE CLAIM, OR (B) ONE HUNDRED DOLLARS ($100.00).</p>
+    <p>Some jurisdictions do not allow the limitation or exclusion of liability for incidental or consequential damages, so the above limitations may not apply to you.</p>
+    <p><em style="color:var(--text2)">This Section shall survive any termination of these TOU.</em></p>
+  </div>
+
+  <!-- SECTION 10 -->
+  <div class="doc-section" id="s10">
+    <div class="doc-section-header">
+      <span class="doc-section-num">10</span>
+      <span class="doc-section-title">Indemnification</span>
+    </div>
+    <p>As a condition of your use of the Site, you agree to indemnify, defend and hold us, our officers, directors, employees, agents, representatives, information providers, and any other third party involved in or related to the making or compiling of the Site harmless from and against any and all claims, damages, losses, costs (including reasonable attorneys' fees), or other expenses that arise directly or indirectly out of or from (a) your violation of the TOU; (b) your use of, or inability to use, the Site, or any third party's use of the Site through your account; (c) your violation of the rights of any third party; or (d) any claim that any content you submitted or posted on the Site caused damage to a third party. This defense and indemnification obligation will survive these TOU and your use of the Site.</p>
+  </div>
+
+  <!-- SECTION 11 -->
+  <div class="doc-section" id="s11">
+    <div class="doc-section-header">
+      <span class="doc-section-num">11</span>
+      <span class="doc-section-title">Termination</span>
+    </div>
+    <p>You understand and agree that NEXUS Signal Brief may, under certain circumstances, terminate your access to and use of the Site. Cause for such termination shall include but not be limited to: (i) breaches or violations of the TOU or other agreements or guidelines; (ii) requests by law enforcement or other government or regulatory authorities; or (iii) repeat violations of third-party copyrights or other intellectual property rights.</p>
+    <p>For paid Subscribers, except in cases of material breach, fraud, illegal activity, or violation of applicable law, NEXUS Signal Brief will provide at least fifteen (15) days' prior written notice before terminating a Subscription and will offer a reasonable opportunity to cure any curable breach. If NEXUS Signal Brief terminates a Subscription for reasons other than a breach of these TOU, you will be entitled to a pro-rated refund of prepaid fees for the unused portion of your Subscription term.</p>
+  </div>
+
+  <!-- SECTION 12 -->
+  <div class="doc-section" id="s12">
+    <div class="doc-section-header">
+      <span class="doc-section-num">12</span>
+      <span class="doc-section-title">Additional Terms — Paid Subscriptions</span>
+    </div>
+    <p>By subscribing to NEXUS Signal Brief subscription products (the "Subscription"), you agree to pay the applicable Subscription fees set forth on the Site at the time of your enrollment. NEXUS Signal Brief reserves the right to revise Subscription fees upon no less than thirty (30) days' prior written notice to subscribers by email and/or prominent notice on the Site.</p>
+    <div class="warning-box">
+      <p><strong>AUTOMATIC RENEWAL NOTICE:</strong> YOUR SUBSCRIPTION WILL AUTOMATICALLY RENEW AT THE END OF EACH SUBSCRIPTION PERIOD (MONTHLY OR ANNUALLY, AS APPLICABLE) AT THE THEN-CURRENT SUBSCRIPTION RATE, AND YOUR PAYMENT METHOD WILL BE CHARGED AUTOMATICALLY UNLESS YOU CANCEL BEFORE THE RENEWAL DATE. YOU MAY CANCEL YOUR SUBSCRIPTION AT ANY TIME THROUGH YOUR SUBSCRIPTION SETTINGS PAGE OR BY CONTACTING US AT <span class="placeholder">[support@nexussigintbrief.com]</span>.</p>
+    </div>
+    <p>We remind you that all the rules applicable to setting up an account under Section 6 above apply to your Subscriptions. Unless we notify you in writing otherwise, you are not permitted to share content available through your Subscriptions.</p>
+    <p>Unless stated otherwise in writing, Subscription fees are nonrefundable, except as expressly provided in the 30-day money back guarantee described below or as required by applicable law. You may cancel your Subscription by updating your preferences in your Subscription Settings page, by contacting us by email at <span class="placeholder">[support@nexussigintbrief.com]</span>, or by another designated cancellation method communicated to you at the time of your subscription.</p>
+    <p>During any free trial portion of a Subscription, you may cancel your trial subscription at any time (and not be billed) by notifying us as provided above. You must cancel your trial Subscription no later than one (1) day before the free trial period expires in order to avoid automatic conversion to a paid Subscription and associated billing.</p>
+    <p>For Subscription products expressly offering a limited 30-day money back guarantee, you must cancel your Subscription no later than one (1) day before the 30-day limited money back guarantee period expires in order to receive a refund. The refund will equal the pro-rated amount of the Subscription fee corresponding to the unused days remaining in your then-current Subscription term. Not all Subscription products carry this guarantee; please review the product page at the time of enrollment to confirm whether this guarantee applies.</p>
+    <p>NEXUS Signal Brief reserves the right to cancel a Subscription at any time. If we cancel a Subscription due to your breach of these Terms of Use, you will not be eligible for any refund. If we cancel a Subscription for reasons other than your breach, you will be entitled to a pro-rated refund for the unused portion of your prepaid Subscription term.</p>
+  </div>
+
+  <!-- SECTION 13 -->
+  <div class="doc-section" id="s13">
+    <div class="doc-section-header">
+      <span class="doc-section-num">13</span>
+      <span class="doc-section-title">Additional Terms — Marketplace and Premium Subscription Services</span>
+    </div>
+    <p>Although we obtain information contained in our marketing promotions from sources we believe to be reliable, we cannot guarantee its accuracy. The opinions expressed in the promotions are those of NEXUS Signal Brief, its editors, marketers and contributors, and may change without notice. The information in the promotion may become outdated and we have no obligation to update it. The information in the promotion is not intended to constitute individual investment advice and is not designed to meet your personal financial situation.</p>
+    <p>The information provided in our promotions is proprietary content, published on a general and regular basis and made available to the general subscribing public. NEXUS Signal Brief reserves all rights to the content of these services. Forwarding, copying, disseminating, or distributing the content in the Marketplace service in whole or in part, including substantial quotation of any portion of the publication or any release of specific investment recommendations, is strictly prohibited.</p>
+  </div>
+
+  <!-- SECTION 14 -->
+  <div class="doc-section" id="s14">
+    <div class="doc-section-header">
+      <span class="doc-section-num">14</span>
+      <span class="doc-section-title">Dispute Resolution; Mandatory Arbitration; Class Action Waiver</span>
+    </div>
+    <div class="highlight-box">
+      <p><strong style="color:var(--amber)">PLEASE READ THIS SECTION CAREFULLY.</strong> It affects your legal rights, including your right to file a lawsuit in court and to have a jury trial.</p>
+    </div>
+    <div class="subsection">
+      <div class="subsection-title">Informal Resolution</div>
+      <p>Before initiating any formal legal proceeding, you agree to first contact NEXUS Signal Brief at <span class="placeholder">[legal@nexussigintbrief.com]</span> and provide a written description of your dispute, the relief sought, and your contact information. The parties agree to attempt in good faith to resolve the dispute informally for a period of thirty (30) days before commencing arbitration or litigation.</p>
+    </div>
+    <div class="subsection">
+      <div class="subsection-title">Binding Arbitration</div>
+      <p>Except for disputes that qualify for small claims court, any dispute, claim, or controversy arising out of or relating to the TOU, the Privacy Policy, or your use of the Site (collectively, "Disputes") shall be resolved exclusively by binding arbitration administered by the American Arbitration Association ("AAA") under its Consumer Arbitration Rules, or if applicable, its Commercial Arbitration Rules, as modified by this Section. The arbitration shall be conducted in Bucks County, Pennsylvania, or, if you prefer, by telephone or video conference. The arbitrator's award shall be final and binding and may be entered as a judgment in any court of competent jurisdiction.</p>
+    </div>
+    <div class="subsection">
+      <div class="subsection-title">Class Action Waiver</div>
+      <p class="caps">YOU AND NEXUS SIGNAL BRIEF AGREE THAT EACH MAY BRING CLAIMS AGAINST THE OTHER ONLY IN YOUR OR ITS INDIVIDUAL CAPACITY AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS, CONSOLIDATED, OR REPRESENTATIVE PROCEEDING. The arbitrator may not consolidate more than one person's claims and may not otherwise preside over any form of a representative or class proceeding.</p>
+    </div>
+    <div class="subsection">
+      <div class="subsection-title">Exceptions</div>
+      <p>Notwithstanding the foregoing, either party may seek emergency injunctive or other equitable relief in any court of competent jurisdiction to prevent irreparable harm pending arbitration, and claims for intellectual property infringement may be brought in court.</p>
+    </div>
+    <div class="subsection">
+      <div class="subsection-title">Opt-Out Right</div>
+      <p>You may opt out of the arbitration agreement by sending written notice to <span class="placeholder">[legal@nexussigintbrief.com]</span> within thirty (30) days of first agreeing to these TOU. Your notice must include your name, address, and a clear statement that you wish to opt out of arbitration.</p>
+    </div>
+    <p><em style="color:var(--text2)">This Section shall survive any termination of these TOU.</em></p>
+  </div>
+
+  <!-- SECTION 15 -->
+  <div class="doc-section" id="s15">
+    <div class="doc-section-header">
+      <span class="doc-section-num">15</span>
+      <span class="doc-section-title">Privacy Policy; Cookies; State Privacy Rights</span>
+    </div>
+    <p>Your use of the Site is also governed by our Privacy Policy, which is incorporated herein by reference and available at <span class="placeholder">[www.nexussigintbrief.com/privacy]</span>. Our Privacy Policy describes how we collect, use, store, and share information about you when you use the Site.</p>
+    <div class="subsection">
+      <div class="subsection-title">Cookies</div>
+      <p>The Site uses cookies and similar tracking technologies to enhance your experience. By using the Site, you consent to our use of cookies in accordance with our Cookie Policy, which forms part of our Privacy Policy. You may adjust your browser settings to decline cookies, but doing so may affect the functionality of the Site.</p>
+    </div>
+    <div class="subsection">
+      <div class="subsection-title">California Residents — CCPA Rights</div>
+      <p>If you are a California resident, you have certain rights under the California Consumer Privacy Act ("CCPA"), as amended by the California Privacy Rights Act, including the right to know what personal information we collect, the right to delete your personal information, the right to correct inaccurate personal information, the right to opt out of the sale or sharing of your personal information, and the right to non-discrimination for exercising your rights. To exercise these rights, please contact us at <span class="placeholder">[privacy@nexussigintbrief.com]</span> or visit our Privacy Policy for additional information. We do not sell personal information as defined under the CCPA.</p>
+    </div>
+    <div class="subsection">
+      <div class="subsection-title">Other State Privacy Rights</div>
+      <p>Residents of other states may have similar rights under applicable state privacy laws. Please review our Privacy Policy for state-specific information or contact us at <span class="placeholder">[privacy@nexussigintbrief.com]</span>.</p>
+    </div>
+    <div class="subsection">
+      <div class="subsection-title">Data Security</div>
+      <p>We implement reasonable technical and organizational measures to protect your personal information. In the event of a data security breach affecting your personal information, we will notify you as required by applicable law.</p>
+    </div>
+    <p><em style="color:var(--text2)">This Section shall survive any termination of these TOU.</em></p>
+  </div>
+
+  <!-- SECTION 16 -->
+  <div class="doc-section" id="s16">
+    <div class="doc-section-header">
+      <span class="doc-section-num">16</span>
+      <span class="doc-section-title">Accessibility</span>
+    </div>
+    <p>NEXUS Signal Brief is committed to ensuring that the Site is accessible to individuals with disabilities in accordance with applicable law, including the Americans with Disabilities Act ("ADA") and applicable state accessibility standards. We strive to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA. If you experience accessibility barriers on the Site, please contact us at <a href="mailto:support@nexussigintbrief.com" style="color:var(--green);text-decoration:none">support@nexussigintbrief.com</a> and we will make reasonable efforts to assist you and address the issue.</p>
+  </div>
+
+  <!-- SECTION 17 -->
+  <div class="doc-section" id="s17">
+    <div class="doc-section-header">
+      <span class="doc-section-num">17</span>
+      <span class="doc-section-title">Force Majeure</span>
+    </div>
+    <p>NEXUS Signal Brief shall not be liable for any delay or failure to perform its obligations under these TOU where such delay or failure results from events beyond its reasonable control, including without limitation acts of God, natural disasters, pandemic or epidemic, war, terrorism, riots, civil unrest, government action, labor disputes, power failures, internet or telecommunications outages, cyberattacks, or any other circumstances beyond NEXUS Signal Brief's reasonable control. In such events, NEXUS Signal Brief's performance shall be excused for the duration of the force majeure event, and NEXUS Signal Brief will make reasonable efforts to resume performance as soon as practicable.</p>
+  </div>
+
+  <!-- SECTION 18 -->
+  <div class="doc-section" id="s18">
+    <div class="doc-section-header">
+      <span class="doc-section-num">18</span>
+      <span class="doc-section-title">Miscellaneous</span>
+    </div>
+    <p>The Site is directed solely to individuals residing in jurisdictions in which provision of the Site's content is legal. We make no representation that materials provided on the Site are appropriate or available for use in other locations. Those who choose to access the Site from other locations do so on their own initiative and at their own risk, and are responsible for compliance with local laws, if and to the extent applicable.</p>
+    <p>The TOU, together with all NEXUS Signal Brief policies referred to herein (including the Privacy Policy), constitutes the entire agreement between you and NEXUS Signal Brief relating to your use of the Site and supersedes any and all prior or contemporaneous written or oral agreements on that subject between us.</p>
+    <p>The TOU and the relationship between you and NEXUS Signal Brief are governed by and construed in accordance with the laws of the Commonwealth of Pennsylvania, without regard to its principles of conflict of laws. Subject to the mandatory arbitration provisions in Section 14, you and NEXUS Signal Brief agree to submit to the personal and exclusive jurisdiction of the United States District Court for the Eastern District of Pennsylvania or, if federal jurisdiction does not exist, the Court of Common Pleas of Bucks County, Pennsylvania, and each party waives any jurisdictional, venue, or inconvenient forum objections to such courts.</p>
+    <p>If any provision of the TOU is found to be unlawful, void, or for any reason unenforceable, then that provision shall be deemed severable from the TOU and shall not affect the validity and enforceability of any remaining provisions. No waiver by either party of any breach or default hereunder shall be deemed to be a waiver of any preceding or subsequent breach or default.</p>
+    <p>Sections 3, 4, 5, 7, 8, 9, 10, 14, and 15 shall survive any termination or expiration of these TOU.</p>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="doc-section" id="contact">
+    <div class="doc-section-header">
+      <span class="doc-section-num">—</span>
+      <span class="doc-section-title">Contact Information</span>
+    </div>
+    <p>If you have any questions about these Terms of Use, please contact us:</p>
+    <table class="contact-table">
+      <tr>
+        <td>Legal / DMCA</td>
+        <td><span class="placeholder">[legal@nexussigintbrief.com]</span></td>
+      </tr>
+      <tr>
+        <td>Privacy / CCPA Inquiries</td>
+        <td><span class="placeholder">[privacy@nexussigintbrief.com]</span></td>
+      </tr>
+      <tr>
+        <td>All Other Inquiries</td>
+        <td><span class="placeholder">[support@nexussigintbrief.com]</span></td>
+      </tr>
+      <tr>
+        <td>Company</td>
+        <td>Sigint, LLC d/b/a NEXUS Signal Brief</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- FOOTER -->
+  <p class="footnote">
+    &copy; 2026 SIGINT LLC &nbsp;&middot;&nbsp; NEXUS Signal Brief &nbsp;&middot;&nbsp;
+    <a href="/disclaimers">Disclaimers</a> &nbsp;&middot;&nbsp;
+    <a href="https://x.com/NEXUS_SigInt" target="_blank">&#120143; @NEXUS_SigInt</a>
+    <br>
+    NEXUS Signal Brief is published for informational and educational purposes only and does not constitute investment advice.<br>
+    Past performance does not guarantee future results. All investing involves risk.
+  </p>
+
+</div>
+</body>
+</html>

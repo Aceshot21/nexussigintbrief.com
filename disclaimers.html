@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<!-- NEXUS Signal Brief — Disclaimers Page v1.0.0 -->
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Required Disclosures &amp; Disclaimers — NEXUS Signal Brief</title>
+<meta name="description" content="Required financial disclosures and disclaimers for NEXUS Signal Brief, published in connection with the publisher's exclusion under Section 202(a)(11)(D) of the Investment Advisers Act of 1940."/>
+<meta name="robots" content="noindex"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#05080f;--bg2:#07091a;--bg3:#040610;
+  --card:#090d1c;--card2:#0c1022;
+  --border:#0f1828;--border2:#162036;--border3:#1d3050;
+  --text:#b8d0e8;--text2:#7a9aba;--text3:#6888a8;
+  --green:#00e598;--green2:#00c47e;--green-dim:rgba(0,229,152,.07);
+  --blue:#5bb8fa;--amber:#f5c842;--red:#ff6060;
+  --white:#e8f2ff;
+  --font-display:'Syne',sans-serif;
+  --font-body:'Plus Jakarta Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;font-size:15px;line-height:1.6}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 90% 55% at 50% -5%, rgba(0,229,152,.03) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at 85% 85%, rgba(91,184,250,.02) 0%, transparent 50%);
+  pointer-events:none;
+}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(5,8,15,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border2);height:52px;}
+.nav-wrap{max-width:920px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:100%}
+.nav-logo{font-family:var(--font-display);font-size:22px;font-weight:800;color:#fff;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;}
+.nav-logo span{color:var(--green)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-back{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--text2);text-decoration:none;border:1px solid var(--border2);border-radius:20px;padding:5px 14px;background:rgba(9,13,28,.85);transition:all .2s;}
+.nav-back:hover{border-color:var(--border3);color:var(--text)}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--bg);background:var(--green);border:none;border-radius:4px;padding:7px 16px;cursor:pointer;white-space:nowrap;font-weight:600;transition:filter .2s;text-decoration:none;}
+.nav-cta:hover{filter:brightness(1.15)}
+
+/* ── MAIN WRAP ── */
+.wrap{max-width:780px;margin:0 auto;padding:88px 24px 100px;position:relative;z-index:1}
+
+/* ── PAGE HEADER ── */
+.page-header{padding:44px 0 36px;border-bottom:1px solid var(--border2);margin-bottom:48px}
+.page-kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--green);margin-bottom:12px;text-transform:uppercase}
+.page-title{font-family:var(--font-display);font-weight:800;font-size:clamp(28px,4vw,42px);color:var(--white);letter-spacing:.02em;line-height:1.05;margin-bottom:10px}
+.page-meta{font-family:var(--font-mono);font-size:12px;color:var(--text3);letter-spacing:.06em}
+.page-scope{font-size:14px;color:var(--text2);line-height:1.75;margin-top:18px;padding:16px 20px;background:var(--card);border:1px solid var(--border2);border-left:3px solid var(--green);border-radius:0 6px 6px 0;}
+
+/* ── TABLE OF CONTENTS ── */
+.toc{background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:20px 24px;margin-bottom:48px}
+.toc-title{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin-bottom:14px}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.toc-list li{display:flex;align-items:baseline;gap:10px}
+.toc-num{font-family:var(--font-mono);font-size:11px;color:var(--green);min-width:20px;flex-shrink:0}
+.toc-list a{font-size:13px;color:var(--text2);text-decoration:none;transition:color .15s}
+.toc-list a:hover{color:var(--white)}
+
+/* ── DOCUMENT SECTIONS ── */
+.doc-section{margin-bottom:44px;scroll-margin-top:70px}
+.doc-section-header{display:flex;align-items:baseline;gap:14px;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border2)}
+.doc-section-num{font-family:var(--font-mono);font-size:13px;color:var(--green);font-weight:700;flex-shrink:0}
+.doc-section-title{font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--white);letter-spacing:.04em;text-transform:uppercase;line-height:1.3}
+.doc-section p{font-size:14px;color:var(--text);line-height:1.8;margin-bottom:14px}
+.doc-section p:last-child{margin-bottom:0}
+.doc-section p.caps{font-size:13px;font-weight:600;color:var(--white);line-height:1.7}
+.doc-section .subsection{margin:18px 0}
+.doc-section .subsection-title{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--text2);text-transform:uppercase;margin-bottom:8px;font-weight:600}
+.doc-section ul{padding-left:18px;margin-bottom:14px}
+.doc-section ul li{font-size:14px;color:var(--text);line-height:1.75;margin-bottom:5px}
+.highlight-box{background:var(--card);border:1px solid var(--border2);border-left:2px solid var(--amber);border-radius:0 6px 6px 0;padding:14px 18px;margin:16px 0}
+.highlight-box p{font-size:13px;color:var(--text2);margin:0}
+
+/* ── FOOTNOTE ── */
+.footnote{font-family:var(--font-mono);font-size:11px;color:var(--text3);text-align:center;line-height:1.9;margin-top:60px;padding-top:28px;border-top:1px solid var(--border2)}
+.footnote a{color:var(--text2);text-decoration:none}
+.footnote a:hover{color:var(--text)}
+
+@media(max-width:600px){
+  .wrap{padding:80px 16px 80px}
+  .page-header{padding:32px 0 28px}
+  .toc{padding:16px 18px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-wrap">
+    <a href="/" class="nav-logo">NEX<span>US</span></a>
+    <div class="nav-right">
+      <a href="/" class="nav-back">← Back to Site</a>
+      <a href="https://nexussigintbrief.beehiiv.com" target="_blank" rel="noopener" class="nav-cta">Get Today's Signal</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-kicker">Legal</div>
+    <h1 class="page-title">Required Disclosures<br>&amp; Disclaimers</h1>
+    <div class="page-meta">Effective Date: May 29, 2026 &nbsp;·&nbsp; Sigint LLC d/b/a NEXUS Signal Brief</div>
+    <div class="page-scope">
+      These disclaimers are published on the NEXUS Signal Brief website and are incorporated by reference into the newsletter's Terms of Use.
+      Sections 1, 2, 4 (Conflict Disclosure only), 5, 6, and 7 must also appear, in summary form, in each individual newsletter issue.
+      The full text of all sections governs the relationship between NEXUS Signal Brief and its subscribers.
+      These disclaimers supersede any prior version and should be read in conjunction with the <a href="/terms" style="color:var(--green);text-decoration:none">Terms of Use</a>.
+      Access to paid subscription content constitutes acceptance of these disclaimers pending execution of formal Terms of Use.
+    </div>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <div class="toc-title">Sections</div>
+    <ol class="toc-list">
+      <li><span class="toc-num">1</span><a href="#s1">Not Investment Advice — General Information Only</a></li>
+      <li><span class="toc-num">2</span><a href="#s2">NEXUS Signal Brief Is Not a Registered Investment Adviser</a></li>
+      <li><span class="toc-num">3</span><a href="#s3">Anti-Fraud Provisions Apply — Accuracy Commitment</a></li>
+      <li><span class="toc-num">4</span><a href="#s4">Potential Conflicts of Interest — Publisher's Personal Securities Holdings</a></li>
+      <li><span class="toc-num">5</span><a href="#s5">Impersonal and General Nature of Recommendations</a></li>
+      <li><span class="toc-num">6</span><a href="#s6">General and Regular Publication Schedule</a></li>
+      <li><span class="toc-num">7</span><a href="#s7">No Broker-Dealer Relationship or Trading Platform</a></li>
+      <li><span class="toc-num">8</span><a href="#s8">Social Media and External Communications Standards</a></li>
+      <li><span class="toc-num">9</span><a href="#s9">Forward-Looking Statements and No Guarantees</a></li>
+      <li><span class="toc-num">10</span><a href="#s10">No Professional or Advisory Relationship Created</a></li>
+      <li><span class="toc-num">11</span><a href="#s11">Limitation of Liability</a></li>
+      <li><span class="toc-num">12</span><a href="#s12">Accuracy of Information; No Obligation to Update</a></li>
+      <li><span class="toc-num">13</span><a href="#s13">State Securities Laws</a></li>
+      <li><span class="toc-num">14</span><a href="#s14">Governing Law; Venue; Dispute Resolution</a></li>
+    </ol>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="doc-section" id="s1">
+    <div class="doc-section-header">
+      <span class="doc-section-num">1</span>
+      <span class="doc-section-title">Not Investment Advice — General Information Only</span>
+    </div>
+    <p class="caps">THE CONTENT PUBLISHED IN NEXUS SIGNAL BRIEF IS FOR GENERAL INFORMATIONAL AND EDUCATIONAL PURPOSES ONLY AND DOES NOT CONSTITUTE INVESTMENT ADVICE, A RECOMMENDATION, OR A SOLICITATION TO BUY OR SELL ANY SECURITY OR OTHER FINANCIAL INSTRUMENT. Nothing contained in this newsletter should be construed as personalized investment advice tailored to your individual financial situation, investment objectives, risk tolerance, or needs.</p>
+    <p>NEXUS Signal Brief is a general-circulation financial publication. The stock analyses, price observations, and commentary published herein are impersonal in nature and are directed to the general public. They are not directed to any specific subscriber or investor and are not based upon any subscriber's particular financial circumstances, investment goals, or risk profile. The information published applies equally and uniformly to all subscribers within the same subscription tier.</p>
+    <p>You should not rely on any content in this newsletter as the basis for any investment decision. Before making any investment decision, you should consult with a qualified investment adviser, financial planner, broker-dealer, or other licensed financial professional who can evaluate your specific circumstances and provide advice tailored to your needs.</p>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="doc-section" id="s2">
+    <div class="doc-section-header">
+      <span class="doc-section-num">2</span>
+      <span class="doc-section-title">NEXUS Signal Brief Is Not a Registered Investment Adviser</span>
+    </div>
+    <p>NEXUS Signal Brief and its publisher, Sigint LLC, are not registered as investment advisers with the U.S. Securities and Exchange Commission (the "SEC") or with any state securities regulatory authority. NEXUS Signal Brief publishes its newsletter in reliance upon the publisher's exclusion from the definition of "investment adviser" set forth in Section 202(a)(11)(D) of the Investment Advisers Act of 1940 (the "Act"), as interpreted by the U.S. Supreme Court in <em style="color:var(--text2)">Lowe v. SEC</em>, 472 U.S. 181 (1985), and applicable SEC guidance.</p>
+    <p>Sigint LLC does not: (i) provide personalized investment advice tailored to any individual subscriber; (ii) hold discretionary authority over any subscriber's investments or account; (iii) act as an investment manager or portfolio manager; (iv) maintain a client relationship with subscribers; or (v) act as a fiduciary with respect to any subscriber's investment decisions.</p>
+    <p>The publisher's exclusion is not a registration exemption. It means that NEXUS Signal Brief, as operated, does not fall within the statutory definition of an investment adviser. This status depends on the newsletter continuing to be published in a manner that is bona fide, impersonal, and of general and regular circulation. Nothing herein constitutes a representation that the publisher's exclusion has been confirmed by the SEC or any state regulatory authority.</p>
+    <div class="subsection">
+      <div class="subsection-title">Evolving Regulatory Landscape</div>
+      <p>Sigint LLC will monitor developments in future regulatory guidance or rulemaking and consult with qualified securities counsel promptly if the SEC proposes or adopts changes to the governing framework. These disclaimers will be updated accordingly.</p>
+    </div>
+    <div class="subsection">
+      <div class="subsection-title">Publisher's Operational Commitments</div>
+      <p>To preserve the bona fide character of this publication, NEXUS Signal Brief affirmatively commits to the following operational practices: (i) no auto-trading, signal forwarding, or broker-integration feature will be added without prior legal review; (ii) subscriber personal financial information, including investment objectives, risk tolerance, net worth, or account details, will not be solicited for the purpose of customizing recommendations; (iii) the fixed publication schedule will be maintained and will not be accelerated in response to market events; (iv) individualized advisory communications will not be provided through any channel; and (v) these practices will be reviewed annually for continued compliance.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="doc-section" id="s3">
+    <div class="doc-section-header">
+      <span class="doc-section-num">3</span>
+      <span class="doc-section-title">Anti-Fraud Provisions Apply — Accuracy Commitment</span>
+    </div>
+    <p>Sigint LLC represents and commits that: (i) all analyses, commentary, and recommendations published in the newsletter are based on publicly available information and the publisher's good-faith analytical judgment; (ii) the newsletter will not publish materially false or misleading statements about any security; (iii) the newsletter will not make unsubstantiated or exaggerated performance claims; and (iv) any error discovered in published content that is material to the analysis presented will be promptly corrected in a subsequent issue.</p>
+    <div class="subsection">
+      <div class="subsection-title">No Selective Performance Marketing</div>
+      <p>Historical entry, stop, and target price levels from prior newsletter issues will not be selectively cited in marketing materials, social media posts, or promotional content as implied evidence of investment performance or returns, unless accompanied by a full and fair presentation of all recommendations made during the relevant period, including recommendations that did not achieve their target prices. Partial or cherry-picked performance presentations are materially misleading and inconsistent with the accuracy commitment in this Section.</p>
+    </div>
+    <p>Subscribers who believe any published content is materially inaccurate or misleading may contact NEXUS Signal Brief at the contact information provided on the website. Nothing in these disclaimers limits the rights of the SEC or any other regulatory authority to bring an action for fraud or deceptive practices under applicable law.</p>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="doc-section" id="s4">
+    <div class="doc-section-header">
+      <span class="doc-section-num">4</span>
+      <span class="doc-section-title">Potential Conflicts of Interest — Publisher's Personal Securities Holdings</span>
+    </div>
+    <p>Definition of "Principal." For purposes of this Section, "Principal" means any manager, officer, controlling member, or beneficial owner of ten percent (10%) or more of Sigint LLC, and any immediate family member of such person residing in the same household, and any entity in which any such person holds a controlling or majority ownership interest.</p>
+    <p>Sigint LLC shall disclose any direct or indirect ownership interest in or any sale, trade, acquisition, or other disposition of the securities discussed or recommended, or the lack thereof, in each newsletter.</p>
+    <div class="subsection">
+      <div class="subsection-title">Limitation on Systematic Promotion of Personally Held Securities</div>
+      <p>Sigint LLC acknowledges that disclosure alone may not preserve the bona fide character of the publication if the newsletter's recommendations consistently and predominantly involve securities in which a Principal holds a personal financial interest. Accordingly, Sigint LLC commits to monitoring the proportion of recommendations involving personally held securities and will seek legal counsel if that proportion becomes material, as a pattern of systematically recommending personally held positions may constitute "touting" within the meaning of SEC enforcement guidance regardless of disclosure.</p>
+    </div>
+    <p>Sigint LLC does not receive compensation from any issuer of securities, broker-dealer, market maker, or other third party in connection with any recommendation published in this newsletter. Sigint LLC does not maintain a referral relationship with any broker-dealer and does not enable securities trading through its website or any affiliated platform.</p>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="doc-section" id="s5">
+    <div class="doc-section-header">
+      <span class="doc-section-num">5</span>
+      <span class="doc-section-title">Impersonal and General Nature of Recommendations</span>
+    </div>
+    <p>All analyses, stock recommendations, price observations, entry points, stop levels, and target prices published in NEXUS Signal Brief are impersonal in nature. They are not tailored or adjusted to reflect the individual financial situation, investment objectives, tax status, risk tolerance, time horizon, or investment experience of any subscriber.</p>
+    <p>Sigint LLC does not and will not: (i) solicit personal financial information from subscribers for the purpose of customizing recommendations; (ii) conduct suitability assessments of subscribers; (iii) adjust its published recommendations based on any subscriber's individual circumstances; or (iv) provide one-on-one advisory consultations through any channel.</p>
+    <div class="highlight-box">
+      <p><strong style="color:var(--amber)">Entry, Stop, and Target Prices Are Not Personalized Trading Instructions.</strong> The entry, stop, and target price levels published in the premium tier represent the publisher's technical analysis and market observations as of the date of publication. They are general analytical parameters published uniformly to all premium subscribers and are not personalized trading instructions directed to any individual subscriber. These levels are not predictions or guarantees of future price movements. Whether any such levels are appropriate for a given subscriber's portfolio, risk tolerance, or financial circumstances is a determination that each subscriber must make independently or in consultation with a licensed financial professional.</p>
+    </div>
+    <p>A securities recommendation that is suitable for one investor may be entirely unsuitable for another. Past performance of any recommended security is not indicative of future results. All investing involves risk, including the possible loss of principal.</p>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="doc-section" id="s6">
+    <div class="doc-section-header">
+      <span class="doc-section-num">6</span>
+      <span class="doc-section-title">General and Regular Publication Schedule</span>
+    </div>
+    <p>NEXUS Signal Brief is published on a regular, predetermined schedule: Monday through Friday each week, excluding federal securities market holidays, with a weekly performance summary also distributed each week. This schedule is fixed and is not timed to, accelerated by, or triggered by specific market events, earnings announcements, economic data releases, or other occurrences. If a scheduled issue cannot be published due to unforeseen circumstances, subscribers will be notified in advance or at the earliest practicable opportunity, and the issue will be published on the next available business day. Any such interruption does not alter the predetermined and non-event-driven character of the publication schedule.</p>
+    <p>The fixed publication schedule is an essential characteristic of this newsletter's status as a bona fide publication of general and regular circulation. NEXUS Signal Brief will not issue special or unscheduled stock recommendations outside its regular publishing schedule in response to specific market events.</p>
+    <div class="subsection">
+      <div class="subsection-title">Weekly Performance Summary</div>
+      <p>The weekly performance summary distributed by NEXUS Signal Brief is a factual historical report of price data for securities discussed in prior issues. It is published to provide subscribers with objective price history as of the weekly reporting date. The weekly performance summary does not constitute advice to hold, exit, or modify previously recommended positions. It is not a portfolio monitoring service and does not create a continuing advisory relationship between NEXUS Signal Brief and its subscribers.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="doc-section" id="s7">
+    <div class="doc-section-header">
+      <span class="doc-section-num">7</span>
+      <span class="doc-section-title">No Broker-Dealer Relationship or Trading Platform</span>
+    </div>
+    <p>NEXUS Signal Brief and Sigint LLC do not maintain any affiliation, referral arrangement, revenue-sharing agreement, or other relationship with any broker-dealer, securities dealer, or trading platform. The newsletter does not provide, link to, or facilitate access to any trading platform. No subscriber is directed to any specific broker-dealer as a result of the recommendations published in this newsletter.</p>
+    <p>Any decision to execute a transaction in a security discussed in this newsletter is solely your own and must be made through your own broker-dealer or other licensed intermediary.</p>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="doc-section" id="s8">
+    <div class="doc-section-header">
+      <span class="doc-section-num">8</span>
+      <span class="doc-section-title">Social Media and External Communications Standards</span>
+    </div>
+    <p>NEXUS Signal Brief markets its services through social media and may maintain accounts on various social media platforms. All social media communications by or on behalf of NEXUS Signal Brief — including posts, comments, replies, reposts, and direct messages on any platform — are subject to the same impersonal, non-personalized standards that govern the newsletter itself.</p>
+    <p>Any social media posts that reference securities discussed in the newsletter will be consistent with the content of the published newsletter and will not constitute independent investment advice.</p>
+    <div class="subsection">
+      <div class="subsection-title">FTC Endorsement and Influencer Disclosure</div>
+      <p>NEXUS Signal Brief will not engage or compensate social media influencers, content creators, or other third parties to promote the newsletter or specific securities in a manner that constitutes an undisclosed paid endorsement. Any promotional arrangement with social media personalities — including complimentary subscriptions, referral fees, affiliate arrangements, or any other material consideration — will be disclosed clearly and conspicuously in accordance with the Federal Trade Commission's Endorsement Guides (16 C.F.R. Part 255) and any applicable state equivalents. This commitment applies whether the promotional content is published by the influencer independently or at the direction of NEXUS Signal Brief.</p>
+    </div>
+    <p>Subscribers and followers are reminded that social media communications from NEXUS Signal Brief do not substitute for the full content and disclosures contained in the published newsletter.</p>
+  </div>
+
+  <!-- SECTION 9 -->
+  <div class="doc-section" id="s9">
+    <div class="doc-section-header">
+      <span class="doc-section-num">9</span>
+      <span class="doc-section-title">Forward-Looking Statements and No Guarantees</span>
+    </div>
+    <p>Certain statements and analyses in this newsletter may constitute forward-looking statements, including statements regarding anticipated price movements, price targets, and the expected performance of specific securities. These forward-looking statements are based on publicly available information and the publisher's analysis as of the date of publication. They are subject to change without notice and may prove to be materially incorrect.</p>
+    <p class="caps">NO REPRESENTATION OR WARRANTY IS MADE THAT ANY SECURITY DISCUSSED IN THIS NEWSLETTER WILL ACHIEVE THE PRICE LEVELS REFERENCED, INCLUDING ANY ENTRY, STOP, OR TARGET PRICES PUBLISHED IN THE PREMIUM TIER. These price parameters are technical analytical observations published uniformly to all premium subscribers and are not guarantees, predictions, or personalized trading instructions. Past performance of securities discussed in prior issues is not a guarantee of future performance. You could lose some or all of the money you invest.</p>
+    <p>NEXUS Signal Brief does not track or report the performance of its recommendations for the purpose of making performance claims in marketing materials. Any reference to past recommendations in the newsletter is for informational and educational context only and does not constitute a representation of actual subscriber returns.</p>
+  </div>
+
+  <!-- SECTION 10 -->
+  <div class="doc-section" id="s10">
+    <div class="doc-section-header">
+      <span class="doc-section-num">10</span>
+      <span class="doc-section-title">No Professional or Advisory Relationship Created</span>
+    </div>
+    <p>Your subscription to NEXUS Signal Brief — whether free or paid — does not create an investment advisory relationship, a client relationship, a fiduciary relationship, or any other professional relationship between you and NEXUS Signal Brief, Sigint LLC, or any of its Principals. NEXUS Signal Brief owes no fiduciary duty to any subscriber.</p>
+    <p>No communication between you and NEXUS Signal Brief — including any communication through the website, email, or social media — constitutes the rendering of personalized investment advice, and no such communication should be construed as creating an advisory relationship. NEXUS Signal Brief will not respond to subscriber communications in a manner that constitutes individualized investment advice.</p>
+  </div>
+
+  <!-- SECTION 11 -->
+  <div class="doc-section" id="s11">
+    <div class="doc-section-header">
+      <span class="doc-section-num">11</span>
+      <span class="doc-section-title">Limitation of Liability</span>
+    </div>
+    <p class="caps">TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, NEXUS SIGNAL BRIEF AND SIGINT LLC SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF OR IN CONNECTION WITH YOUR USE OF OR RELIANCE ON ANY INFORMATION PUBLISHED IN THIS NEWSLETTER, INCLUDING ANY INVESTMENT DECISIONS MADE ON THE BASIS OF CONTENT PUBLISHED HEREIN.</p>
+    <p>You acknowledge that you are solely responsible for your investment decisions and that NEXUS Signal Brief is not liable for any loss, damage, or adverse outcome arising from your reliance on the newsletter's content.</p>
+    <div class="subsection">
+      <div class="subsection-title">Limitation on Scope of Disclaimer</div>
+      <p>Notwithstanding the foregoing, nothing in this Section limits or purports to limit the liability of NEXUS Signal Brief or Sigint LLC for: (i) fraud or intentional misrepresentation; (ii) gross negligence or willful misconduct; (iii) any liability that cannot be excluded or limited by applicable law, including any liability under the anti-fraud provisions of the Investment Advisers Act of 1940; or (iv) any violation of applicable federal or state securities laws. Some jurisdictions do not permit the exclusion or limitation of certain damages; in such jurisdictions the foregoing limitations apply only to the fullest extent permitted by law.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 12 -->
+  <div class="doc-section" id="s12">
+    <div class="doc-section-header">
+      <span class="doc-section-num">12</span>
+      <span class="doc-section-title">Accuracy of Information; No Obligation to Update</span>
+    </div>
+    <p>The information contained in each issue of NEXUS Signal Brief is based on publicly available sources believed to be reliable as of the date of publication. However, NEXUS Signal Brief makes no representation or warranty as to the accuracy, completeness, or timeliness of any information published. NEXUS Signal Brief is under no obligation to update any information published in a prior issue, even if circumstances change materially after the date of publication.</p>
+    <p>Consistent with the accuracy commitment in Section 3, if NEXUS Signal Brief becomes aware that a prior published statement was materially false or misleading at the time of publication, it will issue a correction in the next scheduled newsletter issue. This correction obligation is distinct from and does not modify the no-update rule above: it applies only to errors in the original analysis at the time of publication and does not create any obligation to update analyses that were accurate when published but have been rendered obsolete or inaccurate by subsequent market developments, company events, or changes in circumstance.</p>
+  </div>
+
+  <!-- SECTION 13 -->
+  <div class="doc-section" id="s13">
+    <div class="doc-section-header">
+      <span class="doc-section-num">13</span>
+      <span class="doc-section-title">State Securities Laws</span>
+    </div>
+    <p>In addition to federal law, the offer and sale of securities and the activities of investment advisers are regulated under the laws of individual states. The publisher's exclusion under Section 202(a)(11)(D) of the Act is a federal exclusion and does not automatically exempt NEXUS Signal Brief from state investment adviser registration requirements or state publisher registration requirements that may independently apply.</p>
+    <p>Subscribers are strongly encouraged to consult with a licensed professional familiar with the securities and investment adviser laws of their state of residence regarding their rights and any applicable protections. NEXUS Signal Brief will seek legal review of its state compliance obligations prior to marketing the newsletter to subscribers in states with known independent registration requirements.</p>
+  </div>
+
+  <!-- SECTION 14 -->
+  <div class="doc-section" id="s14">
+    <div class="doc-section-header">
+      <span class="doc-section-num">14</span>
+      <span class="doc-section-title">Governing Law; Venue; Dispute Resolution</span>
+    </div>
+    <p>These disclaimers, the Terms of Use, and all matters relating to the subscription to and use of NEXUS Signal Brief shall be governed by and construed in accordance with the laws of the Commonwealth of Pennsylvania, without regard to its conflict-of-law principles, except to the extent that mandatory consumer protection laws of a subscriber's state of residence apply by their own terms.</p>
+    <p>Any dispute, claim, or controversy arising out of or relating to these disclaimers, the Terms of Use, or your subscription to NEXUS Signal Brief that cannot be resolved informally shall be submitted first to non-binding mediation administered by a mutually agreed mediator in Bucks County, Pennsylvania. If mediation does not resolve the dispute within sixty (60) days of submission, either party may pursue its available remedies in the Court of Common Pleas of Bucks County, Pennsylvania, or in the United States District Court for the Eastern District of Pennsylvania, as appropriate based on jurisdiction. Each party consents to personal jurisdiction and venue in those courts for such purposes.</p>
+    <p>Notwithstanding the foregoing, nothing in this Section limits the right of the SEC or any state securities regulator to bring an action in any court of competent jurisdiction.</p>
+    <div class="highlight-box">
+      <p>These disclaimers have been prepared in connection with NEXUS Signal Brief's reliance on the publisher's exclusion under Section 202(a)(11)(D) of the Investment Advisers Act of 1940. They should be reviewed and updated whenever the newsletter's operations change materially, applicable law or SEC guidance changes, or the subscriber base expands into new states. This document does not constitute legal advice and should be reviewed periodically with qualified securities counsel.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <p class="footnote">
+    &copy; 2026 SIGINT LLC &nbsp;&middot;&nbsp; NEXUS Signal Brief &nbsp;&middot;&nbsp;
+    <a href="/terms">Terms of Use</a> &nbsp;&middot;&nbsp;
+    <a href="https://x.com/NEXUS_SigInt" target="_blank">&#120143; @NEXUS_SigInt</a>
+    <br>
+    NEXUS Signal Brief is published for informational and educational purposes only and does not constitute investment advice.<br>
+    Past performance does not guarantee future results. All investing involves risk.
+  </p>
+
+</div>
+</body>
+</html>
