@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<!-- NEXUS Signal Brief — Privacy Policy Page v1.0.0 -->
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Privacy Policy — NEXUS Signal Brief</title>
+<meta name="description" content="Privacy Policy for NEXUS Signal Brief, operated by Sigint LLC d/b/a NEXUS Signal Brief."/>
+<meta name="robots" content="noindex"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#05080f;--bg2:#07091a;--bg3:#040610;
+  --card:#090d1c;--card2:#0c1022;
+  --border:#0f1828;--border2:#162036;--border3:#1d3050;
+  --text:#b8d0e8;--text2:#7a9aba;--text3:#6888a8;
+  --green:#00e598;--green2:#00c47e;--green-dim:rgba(0,229,152,.07);
+  --blue:#5bb8fa;--amber:#f5c842;--red:#ff6060;
+  --white:#e8f2ff;
+  --font-display:'Syne',sans-serif;
+  --font-body:'Plus Jakarta Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;font-size:15px;line-height:1.6}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 90% 55% at 50% -5%, rgba(0,229,152,.03) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at 85% 85%, rgba(91,184,250,.02) 0%, transparent 50%);
+  pointer-events:none;
+}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(5,8,15,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border2);height:52px;}
+.nav-wrap{max-width:920px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:100%}
+.nav-logo{font-family:var(--font-display);font-size:22px;font-weight:800;color:#fff;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;}
+.nav-logo span{color:var(--green)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-back{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--text2);text-decoration:none;border:1px solid var(--border2);border-radius:20px;padding:5px 14px;background:rgba(9,13,28,.85);transition:all .2s;}
+.nav-back:hover{border-color:var(--border3);color:var(--text)}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--bg);background:var(--green);border:none;border-radius:4px;padding:7px 16px;cursor:pointer;white-space:nowrap;font-weight:600;transition:filter .2s;text-decoration:none;}
+.nav-cta:hover{filter:brightness(1.15)}
+
+/* ── MAIN WRAP ── */
+.wrap{max-width:780px;margin:0 auto;padding:88px 24px 100px;position:relative;z-index:1}
+
+/* ── PAGE HEADER ── */
+.page-header{padding:44px 0 36px;border-bottom:1px solid var(--border2);margin-bottom:48px}
+.page-kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--green);margin-bottom:12px;text-transform:uppercase}
+.page-title{font-family:var(--font-display);font-weight:800;font-size:clamp(28px,4vw,42px);color:var(--white);letter-spacing:.02em;line-height:1.05;margin-bottom:10px}
+.page-meta{font-family:var(--font-mono);font-size:12px;color:var(--text3);letter-spacing:.06em}
+.page-scope{font-size:14px;color:var(--text2);line-height:1.75;margin-top:18px;padding:16px 20px;background:var(--card);border:1px solid var(--border2);border-left:3px solid var(--blue);border-radius:0 6px 6px 0;}
+
+/* ── TABLE OF CONTENTS ── */
+.toc{background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:20px 24px;margin-bottom:48px}
+.toc-title{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin-bottom:14px}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.toc-list li{display:flex;align-items:baseline;gap:10px}
+.toc-num{font-family:var(--font-mono);font-size:11px;color:var(--blue);min-width:24px;flex-shrink:0}
+.toc-list a{font-size:13px;color:var(--text2);text-decoration:none;transition:color .15s}
+.toc-list a:hover{color:var(--white)}
+
+/* ── DOCUMENT SECTIONS ── */
+.doc-section{margin-bottom:44px;scroll-margin-top:70px}
+.doc-section-header{display:flex;align-items:baseline;gap:14px;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border2)}
+.doc-section-num{font-family:var(--font-mono);font-size:13px;color:var(--blue);font-weight:700;flex-shrink:0}
+.doc-section-title{font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--white);letter-spacing:.04em;text-transform:uppercase;line-height:1.3}
+.doc-section p{font-size:14px;color:var(--text);line-height:1.8;margin-bottom:14px}
+.doc-section p:last-child{margin-bottom:0}
+.doc-section p.caps{font-size:13px;font-weight:600;color:var(--white);line-height:1.7}
+.doc-section .subsection{margin:18px 0}
+.doc-section .subsection-title{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--text2);text-transform:uppercase;margin-bottom:8px;font-weight:600}
+.doc-section ul{padding-left:18px;margin-bottom:14px}
+.doc-section ul li{font-size:14px;color:var(--text);line-height:1.75;margin-bottom:6px}
+.highlight-box{background:var(--card);border:1px solid var(--border2);border-left:2px solid var(--amber);border-radius:0 6px 6px 0;padding:14px 18px;margin:16px 0}
+.highlight-box p{font-size:13px;color:var(--text2);margin:0}
+.warning-box{background:rgba(255,96,96,.04);border:1px solid rgba(255,96,96,.2);border-left:2px solid var(--red);border-radius:0 6px 6px 0;padding:14px 18px;margin:16px 0}
+.warning-box p{font-size:13px;color:var(--text);margin:0;line-height:1.7}
+
+/* ── PROVIDER TABLE ── */
+.provider-table{width:100%;border-collapse:collapse;margin:16px 0}
+.provider-table th{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:var(--text3);text-transform:uppercase;padding:8px 14px;border-bottom:1px solid var(--border3);text-align:left}
+.provider-table td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--border2);color:var(--text2);vertical-align:top}
+.provider-table tr:last-child td{border-bottom:none}
+.provider-table td:first-child{font-family:var(--font-mono);font-size:12px;color:var(--white);width:28%}
+.provider-table td:nth-child(2){width:30%}
+
+/* ── CONTACT TABLE ── */
+.contact-table{width:100%;border-collapse:collapse;margin-top:16px}
+.contact-table td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--border2)}
+.contact-table tr:last-child td{border-bottom:none}
+.contact-table td:first-child{font-family:var(--font-mono);font-size:11px;color:var(--text3);letter-spacing:.06em;width:36%;text-transform:uppercase}
+.contact-table td:last-child{color:var(--text2)}
+
+/* ── FOOTNOTE ── */
+.footnote{font-family:var(--font-mono);font-size:11px;color:var(--text3);text-align:center;line-height:1.9;margin-top:60px;padding-top:28px;border-top:1px solid var(--border2)}
+.footnote a{color:var(--text2);text-decoration:none}
+.footnote a:hover{color:var(--text)}
+
+@media(max-width:600px){
+  .wrap{padding:80px 16px 80px}
+  .page-header{padding:32px 0 28px}
+  .toc{padding:16px 18px}
+  .provider-table{font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-wrap">
+    <a href="/" class="nav-logo">NEX<span>US</span></a>
+    <div class="nav-right">
+      <a href="/" class="nav-back">← Back to Site</a>
+      <a href="https://nexussigintbrief.com/#subscribe" class="nav-cta">Subscribe</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-kicker">Legal · Sigint LLC d/b/a NEXUS Signal Brief</div>
+    <h1 class="page-title">Privacy Policy</h1>
+    <div class="page-meta">Last Updated: May 29, 2026 &nbsp;·&nbsp; Sigint LLC d/b/a NEXUS Signal Brief</div>
+    <div class="page-scope">
+      This Privacy Policy describes how Sigint LLC d/b/a NEXUS Signal Brief ("NEXUS Signal Brief," "we," or "us") collects, uses, and shares information about you when you visit <a href="https://www.nexussigintbrief.com" style="color:var(--green);text-decoration:none">www.nexussigintbrief.com</a> (the "Site") or subscribe to the NEXUS Signal Brief newsletter. This Policy is incorporated by reference into our <a href="/terms" style="color:var(--green);text-decoration:none">Terms of Use</a> and should be read together with our <a href="/disclaimers" style="color:var(--green);text-decoration:none">Disclaimers</a>. By using the Site or subscribing to the newsletter, you agree to the practices described in this Policy. If you do not agree, please do not use the Site.
+    </div>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <ol class="toc-list">
+      <li><span class="toc-num">01</span><a href="#s1">Information We Collect</a></li>
+      <li><span class="toc-num">02</span><a href="#s2">How We Use Your Information</a></li>
+      <li><span class="toc-num">03</span><a href="#s3">How We Share Your Information</a></li>
+      <li><span class="toc-num">04</span><a href="#s4">Third-Party Service Providers</a></li>
+      <li><span class="toc-num">05</span><a href="#s5">Cookies and Tracking Technologies</a></li>
+      <li><span class="toc-num">06</span><a href="#s6">Data Retention</a></li>
+      <li><span class="toc-num">07</span><a href="#s7">Data Security</a></li>
+      <li><span class="toc-num">08</span><a href="#s8">Your Privacy Rights</a></li>
+      <li><span class="toc-num">09</span><a href="#s9">California Residents — CCPA Rights</a></li>
+      <li><span class="toc-num">10</span><a href="#s10">Other State Privacy Rights</a></li>
+      <li><span class="toc-num">11</span><a href="#s11">Children's Privacy</a></li>
+      <li><span class="toc-num">12</span><a href="#s12">Changes to This Policy</a></li>
+      <li><span class="toc-num">13</span><a href="#s13">Governing Law</a></li>
+      <li><span class="toc-num">14</span><a href="#s14">Contact Us</a></li>
+    </ol>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="doc-section" id="s1">
+    <div class="doc-section-header">
+      <span class="doc-section-num">01</span>
+      <span class="doc-section-title">Information We Collect</span>
+    </div>
+    <div class="subsection">
+      <div class="subsection-title">A. Information You Provide Directly</div>
+      <p>When you subscribe to NEXUS Signal Brief or create an account, we collect information you provide, which may include:</p>
+      <ul>
+        <li>Your name and email address (required to deliver the newsletter)</li>
+        <li>Your subscription tier selection (Free, Premium, or ULTRA)</li>
+        <li>Communications you send to us, including support requests, accessibility inquiries, and any other correspondence</li>
+      </ul>
+      <p>We do not solicit or collect personal financial information such as your investment objectives, risk tolerance, net worth, account balances, or investment experience. Consistent with our <a href="/disclaimers" style="color:var(--green);text-decoration:none">Disclaimers</a> and <a href="/terms" style="color:var(--green);text-decoration:none">Terms of Use</a>, NEXUS Signal Brief does not customize its recommendations based on any individual subscriber's financial circumstances.</p>
+    </div>
+    <div class="subsection">
+      <div class="subsection-title">B. Payment Information</div>
+      <p>Paid subscriptions are processed through our third-party newsletter and subscription platform, Beehiiv. Payment card information (such as credit card numbers) is collected and processed directly by Beehiiv's payment processor. NEXUS Signal Brief does not receive, store, or process your full payment card details. We may receive limited transaction information such as the last four digits of your card, billing country, and subscription status for account management purposes.</p>
+    </div>
+    <div class="subsection">
+      <div class="subsection-title">C. Automatically Collected Information</div>
+      <p>When you visit the Site or open our newsletter emails, certain information is collected automatically, which may include:</p>
+      <ul>
+        <li>IP address and approximate geographic location (country or region)</li>
+        <li>Browser type, version, and operating system</li>
+        <li>Pages visited, time spent on pages, and referring URLs</li>
+        <li>Newsletter open rates, click-through activity, and email client type</li>
+        <li>Device identifiers and screen resolution</li>
+      </ul>
+      <p>This information is collected through cookies, web beacons, and similar tracking technologies described further in Section 5 below, as well as through analytics provided by our service providers.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="doc-section" id="s2">
+    <div class="doc-section-header">
+      <span class="doc-section-num">02</span>
+      <span class="doc-section-title">How We Use Your Information</span>
+    </div>
+    <p>We use the information we collect for the following purposes:</p>
+    <ul>
+      <li>To deliver the NEXUS Signal Brief newsletter and any other subscription content you have enrolled in</li>
+      <li>To process and manage your subscription, including billing, renewals, and cancellations</li>
+      <li>To communicate with you about your account, subscription status, and any changes to our services, policies, or terms</li>
+      <li>To respond to your inquiries, support requests, and accessibility needs</li>
+      <li>To monitor and improve the quality, reliability, and performance of the Site and newsletter</li>
+      <li>To detect, prevent, and address fraud, security incidents, and violations of our <a href="/terms" style="color:var(--green);text-decoration:none">Terms of Use</a></li>
+      <li>To comply with applicable legal obligations, respond to lawful requests from government or regulatory authorities, and enforce our rights</li>
+      <li>To analyze aggregate, non-identifying usage trends for internal reporting and service improvement</li>
+    </ul>
+    <p>We do not use your personal information to build individual financial profiles or to tailor investment recommendations to your specific circumstances. All newsletter content is impersonal in nature and published uniformly to all subscribers within the same subscription tier.</p>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="doc-section" id="s3">
+    <div class="doc-section-header">
+      <span class="doc-section-num">03</span>
+      <span class="doc-section-title">How We Share Your Information</span>
+    </div>
+    <p>We do not sell your personal information to third parties. We do not share your personal information with third parties for their own direct marketing purposes. We may share your information in the following limited circumstances:</p>
+    <ul>
+      <li><strong style="color:var(--white)">Service Providers.</strong> We share information with third-party vendors and service providers that perform services on our behalf, such as newsletter delivery, subscription management, payment processing, web hosting, and analytics. These providers are described in Section 4 below and are contractually required to use your information only to perform services for us.</li>
+      <li><strong style="color:var(--white)">Legal Compliance.</strong> We may disclose your information if required to do so by law, regulation, legal process, subpoena, or governmental or regulatory request, or to protect the rights, property, or safety of NEXUS Signal Brief, our subscribers, or the public.</li>
+      <li><strong style="color:var(--white)">Business Transfers.</strong> If Sigint LLC is involved in a merger, acquisition, sale of assets, or other business transaction, your information may be transferred as part of that transaction. We will provide notice before your personal information is transferred and becomes subject to a different privacy policy.</li>
+      <li><strong style="color:var(--white)">With Your Consent.</strong> We may share your information for other purposes with your explicit consent.</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="doc-section" id="s4">
+    <div class="doc-section-header">
+      <span class="doc-section-num">04</span>
+      <span class="doc-section-title">Third-Party Service Providers</span>
+    </div>
+    <p>NEXUS Signal Brief relies on the following third-party platforms and services to operate. Each provider has its own privacy policy governing its data practices. We encourage you to review their respective policies.</p>
+    <table class="provider-table">
+      <thead>
+        <tr>
+          <th>Provider</th>
+          <th>Purpose</th>
+          <th>Data Involved</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Beehiiv</td>
+          <td>Newsletter platform, subscriber management, subscription billing</td>
+          <td>Name, email, subscription tier, payment transaction data</td>
+        </tr>
+        <tr>
+          <td>Resend</td>
+          <td>Transactional email delivery</td>
+          <td>Email address, email delivery metadata</td>
+        </tr>
+        <tr>
+          <td>Railway</td>
+          <td>Application hosting and infrastructure</td>
+          <td>Server logs, IP addresses, request metadata</td>
+        </tr>
+        <tr>
+          <td>Squarespace</td>
+          <td>Domain registration</td>
+          <td>Domain registrant contact information</td>
+        </tr>
+        <tr>
+          <td>Polygon.io</td>
+          <td>Market data provider (no subscriber data transmitted)</td>
+          <td>No personal subscriber data shared</td>
+        </tr>
+        <tr>
+          <td>Google Fonts</td>
+          <td>Web font delivery</td>
+          <td>IP address (transmitted to Google servers on page load)</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box">
+      <p>NEXUS Signal Brief does not maintain any affiliation, referral arrangement, or revenue-sharing relationship with any broker-dealer, securities dealer, or trading platform. No subscriber data is shared with any broker-dealer or financial institution in connection with newsletter recommendations.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="doc-section" id="s5">
+    <div class="doc-section-header">
+      <span class="doc-section-num">05</span>
+      <span class="doc-section-title">Cookies and Tracking Technologies</span>
+    </div>
+    <p>The Site uses cookies and similar tracking technologies to support basic functionality and to understand how visitors use the Site. A cookie is a small text file placed on your device by a website you visit.</p>
+    <div class="subsection">
+      <div class="subsection-title">Types of Cookies We Use</div>
+      <ul>
+        <li><strong style="color:var(--white)">Essential Cookies.</strong> Required for the Site to function, including maintaining session state and remembering your subscription login. These cannot be disabled without affecting Site functionality.</li>
+        <li><strong style="color:var(--white)">Functional Cookies.</strong> Used to remember your preferences and improve your experience on the Site.</li>
+        <li><strong style="color:var(--white)">Analytics Cookies.</strong> Used to collect aggregate, anonymized information about how visitors interact with the Site (pages visited, session duration, referral sources). This data is used solely for internal service improvement and is not sold or shared with advertising networks.</li>
+      </ul>
+    </div>
+    <div class="subsection">
+      <div class="subsection-title">Email Tracking</div>
+      <p>Our newsletter emails may contain web beacons (small transparent images) that allow us to determine whether an email was opened and which links were clicked. This information is used to assess newsletter performance and improve content. If you prefer not to be tracked in this way, you may disable image loading in your email client.</p>
+    </div>
+    <div class="subsection">
+      <div class="subsection-title">Managing Cookies</div>
+      <p>You may adjust your browser settings to refuse cookies or to alert you when cookies are being sent. Please note that disabling certain cookies may affect the functionality of the Site, including your ability to log in to your subscriber account. Instructions for managing cookies are available in your browser's help documentation.</p>
+    </div>
+    <p>By continuing to use the Site, you consent to our use of cookies as described in this Section. This Cookie Policy forms part of and is incorporated into this Privacy Policy, as referenced in our <a href="/terms" style="color:var(--green);text-decoration:none">Terms of Use</a>.</p>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="doc-section" id="s6">
+    <div class="doc-section-header">
+      <span class="doc-section-num">06</span>
+      <span class="doc-section-title">Data Retention</span>
+    </div>
+    <p>We retain your personal information for as long as necessary to fulfill the purposes for which it was collected, including to provide your subscription, comply with legal obligations, resolve disputes, and enforce our agreements. Specifically:</p>
+    <ul>
+      <li>Subscriber account and email information is retained for the duration of your subscription and for a reasonable period thereafter in case you resubscribe or for legal compliance purposes.</li>
+      <li>Billing and transaction records may be retained for up to seven (7) years in accordance with applicable tax and accounting requirements.</li>
+      <li>Communications and support correspondence are retained for as long as reasonably necessary to resolve the matter and for a period thereafter.</li>
+      <li>Automatically collected usage and analytics data is retained in aggregate or anonymized form and may be retained indefinitely for service improvement purposes.</li>
+    </ul>
+    <p>When your personal information is no longer required for these purposes, we will delete or anonymize it in accordance with our internal data retention procedures and applicable law.</p>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="doc-section" id="s7">
+    <div class="doc-section-header">
+      <span class="doc-section-num">07</span>
+      <span class="doc-section-title">Data Security</span>
+    </div>
+    <p>We implement reasonable technical and organizational measures designed to protect your personal information against unauthorized access, disclosure, alteration, or destruction. These measures include encrypted data transmission (HTTPS), access controls, and reliance on reputable third-party infrastructure providers with their own security programs.</p>
+    <div class="warning-box">
+      <p>No method of transmission over the internet or electronic storage is completely secure. While we strive to protect your personal information, we cannot guarantee absolute security. In the event of a data security breach affecting your personal information, we will notify you as required by applicable federal and state law.</p>
+    </div>
+    <p>You are responsible for maintaining the confidentiality of your account credentials. Please notify us immediately at <a href="mailto:support@nexussigintbrief.com" style="color:var(--green);text-decoration:none">support@nexussigintbrief.com</a> if you suspect unauthorized access to your account.</p>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="doc-section" id="s8">
+    <div class="doc-section-header">
+      <span class="doc-section-num">08</span>
+      <span class="doc-section-title">Your Privacy Rights</span>
+    </div>
+    <p>Depending on your location and applicable law, you may have certain rights with respect to your personal information, including the right to:</p>
+    <ul>
+      <li><strong style="color:var(--white)">Access.</strong> Request a copy of the personal information we hold about you.</li>
+      <li><strong style="color:var(--white)">Correction.</strong> Request that we correct inaccurate or incomplete personal information.</li>
+      <li><strong style="color:var(--white)">Deletion.</strong> Request that we delete your personal information, subject to certain legal exceptions (such as our obligation to retain billing records).</li>
+      <li><strong style="color:var(--white)">Opt-Out of Communications.</strong> Unsubscribe from marketing or newsletter communications at any time by using the unsubscribe link in any email we send, or by contacting us at <a href="mailto:support@nexussigintbrief.com" style="color:var(--green);text-decoration:none">support@nexussigintbrief.com</a>. Note that unsubscribing from the newsletter will cancel your subscription to the service.</li>
+      <li><strong style="color:var(--white)">Data Portability.</strong> Where applicable, request that we provide your personal information in a structured, commonly used, machine-readable format.</li>
+    </ul>
+    <p>To exercise any of these rights, please contact us at <a href="mailto:privacy@nexussigintbrief.com" style="color:var(--green);text-decoration:none">privacy@nexussigintbrief.com</a>. We will respond to your request within the timeframe required by applicable law. We may need to verify your identity before processing certain requests.</p>
+  </div>
+
+  <!-- SECTION 9 -->
+  <div class="doc-section" id="s9">
+    <div class="doc-section-header">
+      <span class="doc-section-num">09</span>
+      <span class="doc-section-title">California Residents — CCPA Rights</span>
+    </div>
+    <p>If you are a California resident, you have specific rights under the California Consumer Privacy Act ("CCPA"), as amended by the California Privacy Rights Act ("CPRA"), including:</p>
+    <ul>
+      <li><strong style="color:var(--white)">Right to Know.</strong> The right to know what personal information we collect, use, disclose, and sell about you.</li>
+      <li><strong style="color:var(--white)">Right to Delete.</strong> The right to request deletion of personal information we have collected from you, subject to certain exceptions.</li>
+      <li><strong style="color:var(--white)">Right to Correct.</strong> The right to request correction of inaccurate personal information we maintain about you.</li>
+      <li><strong style="color:var(--white)">Right to Opt Out of Sale or Sharing.</strong> The right to opt out of the sale or sharing of your personal information. We do not sell personal information as defined under the CCPA, and we do not share personal information with third parties for cross-context behavioral advertising.</li>
+      <li><strong style="color:var(--white)">Right to Limit Use of Sensitive Personal Information.</strong> To the extent we collect sensitive personal information (as defined by the CPRA), you have the right to limit its use to purposes authorized by law.</li>
+      <li><strong style="color:var(--white)">Right to Non-Discrimination.</strong> The right not to receive discriminatory treatment for exercising your CCPA rights.</li>
+    </ul>
+    <p>To exercise your CCPA rights, please contact us at <a href="mailto:privacy@nexussigintbrief.com" style="color:var(--green);text-decoration:none">privacy@nexussigintbrief.com</a> or by mail at the address in Section 14. We will respond to verifiable consumer requests within the timeframes required by the CCPA. We may need to verify your identity before processing your request. You may also designate an authorized agent to submit requests on your behalf; authorized agents must provide written authorization from you and verification of their own identity.</p>
+    <div class="highlight-box">
+      <p>We do not sell personal information as defined under the CCPA. We do not use or disclose sensitive personal information for purposes beyond those permitted by the CPRA without your consent.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 10 -->
+  <div class="doc-section" id="s10">
+    <div class="doc-section-header">
+      <span class="doc-section-num">10</span>
+      <span class="doc-section-title">Other State Privacy Rights</span>
+    </div>
+    <p>Residents of certain other states — including Virginia, Colorado, Connecticut, Texas, and others — may have similar privacy rights under their respective state laws, including rights to access, correct, delete, and opt out of certain processing of personal information. We will honor such rights to the extent required by applicable law. To submit a request, please contact us at <a href="mailto:privacy@nexussigintbrief.com" style="color:var(--green);text-decoration:none">privacy@nexussigintbrief.com</a>.</p>
+    <p>Please note that the availability and scope of these rights vary by state and may be subject to exceptions. We will respond to requests within the timeframes required by your state's applicable law.</p>
+  </div>
+
+  <!-- SECTION 11 -->
+  <div class="doc-section" id="s11">
+    <div class="doc-section-header">
+      <span class="doc-section-num">11</span>
+      <span class="doc-section-title">Children's Privacy</span>
+    </div>
+    <p>The Site and the NEXUS Signal Brief newsletter are not directed to individuals under the age of 18, and we do not knowingly collect personal information from children under 18. If we become aware that we have inadvertently collected personal information from a child under 18, we will take prompt steps to delete that information in accordance with our <a href="/terms" style="color:var(--green);text-decoration:none">Terms of Use</a> and applicable law. If you believe we may have collected information from a minor, please contact us at <a href="mailto:privacy@nexussigintbrief.com" style="color:var(--green);text-decoration:none">privacy@nexussigintbrief.com</a>.</p>
+  </div>
+
+  <!-- SECTION 12 -->
+  <div class="doc-section" id="s12">
+    <div class="doc-section-header">
+      <span class="doc-section-num">12</span>
+      <span class="doc-section-title">Changes to This Policy</span>
+    </div>
+    <p>We reserve the right to update or modify this Privacy Policy at any time. When we make material changes, we will notify you by email to the address associated with your account and/or by posting a prominent notice on the Site at least thirty (30) days before the changes take effect, unless a shorter period is required by law. The "Last Updated" date at the top of this page reflects the most recent revision.</p>
+    <p>Your continued use of the Site or subscription to the newsletter after any changes become effective constitutes your acceptance of the revised Privacy Policy. If you do not agree to the updated Policy, you should cancel your subscription and discontinue use of the Site before the effective date of the changes.</p>
+  </div>
+
+  <!-- SECTION 13 -->
+  <div class="doc-section" id="s13">
+    <div class="doc-section-header">
+      <span class="doc-section-num">13</span>
+      <span class="doc-section-title">Governing Law</span>
+    </div>
+    <p>This Privacy Policy and any disputes arising under it shall be governed by and construed in accordance with the laws of the Commonwealth of Pennsylvania, without regard to its conflict-of-law principles, except to the extent that mandatory privacy or consumer protection laws of a subscriber's state of residence apply by their own terms. Any disputes relating to this Privacy Policy are subject to the dispute resolution provisions set forth in our <a href="/terms" style="color:var(--green);text-decoration:none">Terms of Use</a>.</p>
+  </div>
+
+  <!-- SECTION 14 -->
+  <div class="doc-section" id="s14">
+    <div class="doc-section-header">
+      <span class="doc-section-num">14</span>
+      <span class="doc-section-title">Contact Us</span>
+    </div>
+    <p>If you have questions, concerns, or requests relating to this Privacy Policy or the handling of your personal information, please contact us using the information below.</p>
+    <table class="contact-table">
+      <tr>
+        <td>Privacy / CCPA Inquiries</td>
+        <td><a href="mailto:privacy@nexussigintbrief.com" style="color:var(--green);text-decoration:none">privacy@nexussigintbrief.com</a></td>
+      </tr>
+      <tr>
+        <td>Subscription Support</td>
+        <td><a href="mailto:support@nexussigintbrief.com" style="color:var(--green);text-decoration:none">support@nexussigintbrief.com</a></td>
+      </tr>
+      <tr>
+        <td>Accessibility</td>
+        <td><a href="mailto:accessibility@nexussigintbrief.com" style="color:var(--green);text-decoration:none">accessibility@nexussigintbrief.com</a></td>
+      </tr>
+      <tr>
+        <td>Mailing Address</td>
+        <td>Sigint, LLC d/b/a NEXUS Signal Brief<br/>Bucks County, Pennsylvania</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- FOOTNOTE -->
+  <div class="footnote">
+    <p>© Sigint LLC. All rights reserved. &nbsp;·&nbsp;
+      <a href="/terms">Terms of Use</a> &nbsp;·&nbsp;
+      <a href="/disclaimers">Disclaimers</a> &nbsp;·&nbsp;
+      <a href="/">nexussigintbrief.com</a>
+    </p>
+    <p style="margin-top:6px">This Privacy Policy was last reviewed in connection with NEXUS Signal Brief's reliance on the publisher's exclusion under Section 202(a)(11)(D) of the Investment Advisers Act of 1940. It should be reviewed and updated whenever the newsletter's operations or data practices change materially, or when applicable law changes.</p>
+  </div>
+
+</div><!-- /wrap -->
+</body>
+</html>
