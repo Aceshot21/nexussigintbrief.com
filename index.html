@@ -906,7 +906,7 @@ body.paid .watch-levels{display:block!important}
           <div class="nav-dot"></div>
           SCANNING LIVE
         </div>
-        <a href="https://nexussigintbrief.beehiiv.com" target="_blank" rel="noopener" class="nav-cta">Get Today's Signal</a>
+        <button type="button" class="nav-cta" onclick="nexusJoin('free')">Get Today's Signal</button>
       </div>
     </div>
   </nav>
@@ -944,7 +944,7 @@ body.paid .watch-levels{display:block!important}
 
     <!-- Subscribe CTA -->
     <div class="capture-wrap ani d4">
-      <a class="capture-btn" href="https://nexussigintbrief.beehiiv.com" target="_blank" rel="noopener">Get Today's Signal</a>
+      <button type="button" class="capture-btn" onclick="nexusJoin('free')">Get Today's Signal</button>
     </div>
     <p class="capture-note ani d4"><a href="#preview">See a sample edition &darr;</a></p>
   </div>
@@ -1262,7 +1262,7 @@ body.paid .watch-levels{display:block!important}
   <div class="mid-cta ani">
     <div class="mid-cta-text">Start reading free &mdash; today&rsquo;s signals, no card required.</div>
     <div class="mid-cta-form">
-      <a class="capture-btn" href="https://nexussigintbrief.beehiiv.com" target="_blank" rel="noopener">Get Today's Signal</a>
+      <button type="button" class="capture-btn" onclick="nexusJoin('free')">Get Today's Signal</button>
     </div>
   </div>
 
@@ -1770,7 +1770,7 @@ body.paid .watch-levels{display:block!important}
         <li><span class="dim">—</span> <span class="lf">Full watch list with price levels</span></li>
         <li><span class="dim">—</span> <span class="lf">Signal deep-dive analysis</span></li>
       </ul>
-      <a href="https://nexussigintbrief.beehiiv.com" target="_blank" rel="noopener" class="plan-cta cta-free">Get Free Signal</a>
+      <button type="button" class="plan-cta cta-free" onclick="nexusJoin('free')">Get Free Signal</button>
     </div>
 
     <!-- PREMIUM -->
@@ -1814,7 +1814,7 @@ body.paid .watch-levels{display:block!important}
         </li>
         <li><span class="chk">✓</span> Friday week-in-review: P&amp;L on every pick sent that week</li>
       </ul>
-      <a href="https://nexussigintbrief.beehiiv.com" target="_blank" rel="noopener" class="plan-cta cta-paid">Get Today's Trade Plan</a>
+      <button type="button" class="plan-cta cta-paid" onclick="nexusJoin('premium')">Get Today's Trade Plan</button>
     </div>
 
     <!-- ULTRA -->
@@ -1924,7 +1924,7 @@ body.paid .watch-levels{display:block!important}
           </span>
         </li>
       </ul>
-      <a href="https://nexussigintbrief.beehiiv.com" target="_blank" rel="noopener" class="plan-cta cta-ultra">Go Ultra</a>
+      <button type="button" class="plan-cta cta-ultra" onclick="nexusJoin('ultra')">Go Ultra</button>
     </div>
 
   </div>
@@ -1967,6 +1967,116 @@ body.paid .watch-levels{display:block!important}
 // calls must use the absolute Railway backend URL — relative paths would resolve
 // to Squarespace and 404. Update this constant if the Railway URL ever changes.
 var NEXUS_API = 'https://web-production-33789.up.railway.app';
+
+// v10.1.0: styled inline capture (name + email). Free -> /api/subscribe,
+// paid -> /api/checkout (Stripe-hosted Checkout). Replaces the prompt() capture.
+var _nexusModal = null;
+function _nexusBuildModal(){
+  if (_nexusModal) return _nexusModal;
+  var css = ''
+    + '#nexusOverlay{position:fixed;inset:0;background:rgba(3,5,10,.80);backdrop-filter:blur(5px);'
+    + 'display:none;align-items:center;justify-content:center;z-index:99999;padding:20px}'
+    + '#nexusOverlay.open{display:flex}'
+    + '#nexusModal{width:100%;max-width:400px;background:var(--card2,#0c1022);border:1px solid var(--border3,#1d3050);'
+    + 'border-radius:14px;padding:26px 24px;box-shadow:0 24px 70px rgba(0,0,0,.6);position:relative;'
+    + 'font-family:var(--font-body,system-ui);animation:nxIn .18s ease}'
+    + '@keyframes nxIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}'
+    + '#nexusModal .nx-close{position:absolute;top:10px;right:13px;background:none;border:none;'
+    + 'color:var(--text3,#6888a8);font-size:24px;line-height:1;cursor:pointer;padding:4px}'
+    + '#nexusModal h3{font-family:var(--font-display,system-ui);font-weight:800;font-size:20px;'
+    + 'color:var(--white,#e8f2ff);margin:0 0 4px;letter-spacing:.01em}'
+    + '#nexusModal .nx-sub{font-family:var(--font-mono,monospace);font-size:12px;color:var(--text2,#7a9aba);'
+    + 'margin:0 0 18px;letter-spacing:.02em;line-height:1.5}'
+    + '#nexusModal label{display:block;font-family:var(--font-mono,monospace);font-size:11px;letter-spacing:.1em;'
+    + 'text-transform:uppercase;color:var(--text3,#6888a8);margin:0 0 6px}'
+    + '#nexusModal label .opt{text-transform:none;letter-spacing:0;color:var(--text3,#6888a8);opacity:.7}'
+    + '#nexusModal input{width:100%;box-sizing:border-box;background:var(--bg,#05080f);'
+    + 'border:1px solid var(--border2,#162036);border-radius:8px;padding:11px 13px;color:var(--white,#e8f2ff);'
+    + 'font-size:15px;font-family:var(--font-body,system-ui);margin:0 0 14px;outline:none;transition:border-color .15s}'
+    + '#nexusModal input:focus{border-color:var(--green,#00e598)}'
+    + '#nexusModal input::placeholder{color:var(--text3,#6888a8);opacity:.6}'
+    + '#nexusModal .nx-go{width:100%;background:var(--green,#00e598);color:#04120c;border:none;border-radius:8px;'
+    + 'padding:13px;font-family:var(--font-display,system-ui);font-weight:800;font-size:15px;cursor:pointer;'
+    + 'letter-spacing:.02em;transition:opacity .15s}'
+    + '#nexusModal .nx-go:hover{opacity:.9}'
+    + '#nexusModal .nx-go[disabled]{opacity:.5;cursor:default}'
+    + '#nexusModal .nx-msg{font-family:var(--font-mono,monospace);font-size:12px;margin:12px 0 0;min-height:15px;line-height:1.5}'
+    + '#nexusModal .nx-msg.err{color:var(--red,#ff6060)}'
+    + '#nexusModal .nx-msg.ok{color:var(--green,#00e598)}'
+    + '#nexusModal .nx-fine{font-family:var(--font-mono,monospace);font-size:10px;color:var(--text3,#6888a8);'
+    + 'margin:14px 0 0;line-height:1.5}';
+  var style = document.createElement('style'); style.textContent = css; document.head.appendChild(style);
+
+  var ov = document.createElement('div'); ov.id = 'nexusOverlay';
+  ov.innerHTML =
+      '<div id="nexusModal" role="dialog" aria-modal="true" aria-labelledby="nxTitle">'
+    + '<button class="nx-close" type="button" aria-label="Close">&times;</button>'
+    + '<h3 id="nxTitle">Start your free brief</h3>'
+    + '<p class="nx-sub" id="nxSub">Daily signal, market strip, and the Friday recap.</p>'
+    + '<label for="nxName">First name <span class="opt">(optional)</span></label>'
+    + '<input id="nxName" type="text" autocomplete="given-name" placeholder="Chris">'
+    + '<label for="nxEmail">Email</label>'
+    + '<input id="nxEmail" type="email" autocomplete="email" placeholder="you@example.com">'
+    + '<button class="nx-go" id="nxGo" type="button">Get the brief</button>'
+    + '<p class="nx-msg" id="nxMsg"></p>'
+    + '<p class="nx-fine">Informational only \u2014 not financial advice. Unsubscribe anytime.</p>'
+    + '</div>';
+  document.body.appendChild(ov);
+
+  function close(){ ov.classList.remove('open'); }
+  ov.addEventListener('click', function(e){ if (e.target === ov) close(); });
+  ov.querySelector('.nx-close').addEventListener('click', close);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+
+  _nexusModal = { ov: ov, close: close };
+  return _nexusModal;
+}
+
+function nexusJoin(tier){
+  var m = _nexusBuildModal();
+  var titleEl = document.getElementById('nxTitle');
+  var subEl   = document.getElementById('nxSub');
+  var goEl    = document.getElementById('nxGo');
+  var msgEl   = document.getElementById('nxMsg');
+  var nameEl  = document.getElementById('nxName');
+  var emailEl = document.getElementById('nxEmail');
+
+  msgEl.textContent = ''; msgEl.className = 'nx-msg'; goEl.disabled = false;
+  if (tier === 'free'){
+    titleEl.textContent = 'Start your free brief';
+    subEl.textContent   = 'Daily signal, market strip, and the Friday recap.';
+    goEl.textContent    = 'Get the brief';
+  } else {
+    titleEl.textContent = tier === 'ultra' ? 'Go Ultra \u2014 $49.99/mo' : 'NEXUS Premium \u2014 $29.99/mo';
+    subEl.textContent   = 'Continue to secure checkout (powered by Stripe).';
+    goEl.textContent    = 'Continue to checkout';
+  }
+  m.ov.classList.add('open');
+  setTimeout(function(){ emailEl.focus(); }, 50);
+
+  goEl.onclick = function(){
+    var name  = nameEl.value.trim();
+    var email = emailEl.value.trim();
+    if (email.indexOf('@') < 0){ msgEl.className = 'nx-msg err'; msgEl.textContent = 'Please enter a valid email address.'; emailEl.focus(); return; }
+    goEl.disabled = true; msgEl.className = 'nx-msg'; msgEl.textContent = 'Working\u2026';
+    var path = tier === 'free' ? '/api/subscribe' : '/api/checkout';
+    var body = tier === 'free' ? { name: name, email: email } : { name: name, email: email, tier: tier };
+    fetch(NEXUS_API + path, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if (tier === 'free'){
+        if (j.ok){ msgEl.className = 'nx-msg ok'; msgEl.textContent = (name ? name + ', you' : 'You') + '\u2019re in \u2014 check your inbox for a welcome email.'; nameEl.value = ''; emailEl.value = ''; }
+        else { msgEl.className = 'nx-msg err'; msgEl.textContent = j.error || 'Signup failed.'; goEl.disabled = false; }
+      } else if (j.ok && j.url){ window.location = j.url; }
+      else { msgEl.className = 'nx-msg err'; msgEl.textContent = j.error || 'Could not start checkout.'; goEl.disabled = false; }
+    })
+    .catch(function(){ msgEl.className = 'nx-msg err'; msgEl.textContent = 'Could not reach the server. Please try again.'; goEl.disabled = false; });
+  };
+  emailEl.onkeydown = function(e){ if (e.key === 'Enter') goEl.onclick(); };
+  nameEl.onkeydown  = function(e){ if (e.key === 'Enter') emailEl.focus(); };
+}
 
 function setTier(t){
   var body=document.body;
