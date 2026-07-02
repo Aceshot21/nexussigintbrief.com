@@ -1,7 +1,21 @@
 <!DOCTYPE html>
-<!-- NEXUS Signal Brief Ad Page — v10_2 -->
+<!-- NEXUS Signal Brief Ad Page — v10_4 -->
 <!--
   CHANGELOG
+  ─────────────────────────────────────────────────────────────────────────────
+  v10_4 — 2026-07-01
+    · UI: "Go Ultra" button now matches the Free / Premium button width. The
+      Ultra card spans the full 2-col grid row (grid-column:1/-1), so its
+      block-level button was ~2x wider. Capped .cta-ultra to width:calc(50% - 30px)
+      — one column's button width — and centered it. Resets to width:auto in the
+      ≤920px single-column layout so it stays full-width there like the others.
+  ─────────────────────────────────────────────────────────────────────────────
+  v10_3 — 2026-07-01
+    · UI: enlarged plan signup buttons on the Free / Premium / Ultra price cards.
+      Bumped the shared .plan-cta rule (padding 13px→17px, font-size 12px→14px,
+      added font-weight:500). All three buttons inherit this base class — tier
+      classes (cta-free/cta-paid/cta-ultra) set color only — so sizing stays
+      consistent across all three by construction.
   ─────────────────────────────────────────────────────────────────────────────
   v10_2 — 2026-07-01
     · FIX: live portfolio card fetch → /api/performance/public (new whitelisted
@@ -510,8 +524,8 @@ body.paid .watch-levels{display:block!important}
 .dim{color:var(--text3);flex-shrink:0}
 .lf{color:var(--text3)}
 .plan-cta{
-  display:block;text-align:center;padding:13px 0;border-radius:4px;
-  font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;
+  display:block;text-align:center;padding:17px 0;border-radius:4px;
+  font-family:var(--font-mono);font-size:14px;font-weight:500;letter-spacing:.06em;
   cursor:pointer;text-decoration:none;border:none;transition:all .2s;
 }
 .cta-free{background:#07091c;color:var(--text2);border:1px solid var(--border2)}
@@ -534,6 +548,10 @@ body.paid .watch-levels{display:block!important}
 .cta-ultra{
   background:linear-gradient(135deg,#2a1e00,#3d2c00);
   color:#d4a017;border:1px solid rgba(212,160,23,.3);
+  /* Ultra card spans the full 2-col row (grid-column:1/-1); cap the button to a
+     single column's button width so it matches Free/Premium, then center it.
+     (W-12)/2 - 48px  ==  50% - 30px  of this card's content box. */
+  width:calc(50% - 30px);margin-left:auto;margin-right:auto;
 }
 .cta-ultra:hover{filter:brightness(1.18);transform:translateY(-1px);box-shadow:0 6px 20px rgba(212,160,23,.12)}
 
@@ -775,6 +793,7 @@ body.paid .watch-levels{display:block!important}
   .hero-h2{font-size:clamp(14px,2.5vw,22px)}
   .perf-stats,.lv-stats{grid-template-columns:repeat(2,1fr)}
   .plans{grid-template-columns:1fr}
+  .cta-ultra{width:auto}  /* single-column: Ultra button goes full width like the rest */
 }
 
 /* Mobile (≤700px) — full reflow */
