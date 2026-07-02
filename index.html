@@ -1,7 +1,31 @@
 <!DOCTYPE html>
-<!-- NEXUS Signal Brief Ad Page — v9_3_1 -->
+<!-- NEXUS Signal Brief Ad Page — v10_2 -->
 <!--
   CHANGELOG
+  ─────────────────────────────────────────────────────────────────────────────
+  v10_2 — 2026-07-01
+    · FIX: live portfolio card fetch → /api/performance/public (new whitelisted
+      lite endpoint in proxy v10.7.0). Old /api/performance is auth-gated and
+      returned 401 to this tokenless fetch — card showed em-dashes forever.
+    · FIX: "Last updated" timestamp no longer stamped before the fetch; set only
+      on successful response, "temporarily unavailable" on failure.
+    · Hero trade count: removed phantom `|| 47` live-trade fallback.
+    · lv-badge now shows computed live-period length (uses previously dead
+      `period` var); id="lv-badge" added.
+    · Trust strip: Beehiiv → Stripe (Beehiiv removed as SOR in proxy v10.0.0).
+    · Annual pricing removed everywhere — no annual Stripe price IDs exist, so
+      the offer was unpurchasable: compete grid ("$269.99/yr"), Premium plan
+      card ("or $269.99/year"), Ultra plan card ("or $419.99/year"). Replaced
+      with "Billed monthly · Cancel anytime".
+    · Live section: disclosure added for Apr 14–May 1, 2026 simulated backfill
+      window (backtest splice, flags stripped by proxy migration); "All paper
+      trades" softened to "Paper trades".
+    · Date labels corrected Jun 2021 → May 2021 (chart DATES begin 2021-05-10):
+      ps-lbl, perf-sub, canvas aria-label, perf disclaimer.
+  ─────────────────────────────────────────────────────────────────────────────
+  v10_1 — (header entry backfilled; change shipped without changelog note)
+    · Styled inline capture (name + email); free → /api/subscribe, paid →
+      /api/checkout (Stripe-hosted Checkout). Replaced prompt() capture.
   ─────────────────────────────────────────────────────────────────────────────
   v9_3_1 — 2026-06-14
     · Performance chart: updated to v9.1.1 backtest results (BT-9, v9.1.0b)
@@ -958,7 +982,7 @@ body.paid .watch-levels{display:block!important}
     <div class="ps-div"></div>
     <div class="ps-item">
       <div class="ps-num" id="ps-trade-count" style="color:var(--amber)">1,528</div>
-      <div class="ps-lbl">backtested trades<br>5-yr sim (Jun 2021–Jun 2026)</div>
+      <div class="ps-lbl">backtested trades<br>5-yr sim (May 2021–Jun 2026)</div>
     </div>
     <div class="ps-div"></div>
     <div class="ps-item">
@@ -999,7 +1023,7 @@ body.paid .watch-levels{display:block!important}
         <span class="trust-dot"></span>
         <span class="trust-item" style="color:var(--blue)">&#9632; Anthropic Claude</span>
         <span class="trust-dot"></span>
-        <span class="trust-item" style="color:var(--purple)">&#9632; Beehiiv</span>
+        <span class="trust-item" style="color:var(--purple)">&#9632; Stripe</span>
         <span class="trust-dot"></span>
         <span class="trust-item" style="color:var(--amber)">&#9632; Resend</span>
         <span class="trust-dot"></span>
@@ -1013,7 +1037,7 @@ body.paid .watch-levels{display:block!important}
     <div class="perf-head">
       <div>
         <div class="perf-title">5-YEAR WALK-FORWARD BACKTEST</div>
-        <div class="perf-sub">JUN 2021 &ndash; JUN 2026 &middot; Same Polygon bars, date-aligned &middot; Deployed config (v9.1.0b)</div>
+        <div class="perf-sub">MAY 2021 &ndash; JUN 2026 &middot; Same Polygon bars, date-aligned &middot; Deployed config (v9.1.0b)</div>
       </div>
       <div class="perf-legend" id="perf-legend"></div>
     </div>
@@ -1027,7 +1051,7 @@ body.paid .watch-levels{display:block!important}
       </div>
 
       <div class="perf-chart-box">
-        <canvas id="perf-chart" role="img" aria-label="Line chart comparing NEXUS strategy against SPY, QQQ, DIA, and IWM from Jun 2021 to Jun 2026">NEXUS grew $10,000 to $32,102 (+221.0%) over 5 years. SPY: $17,987 (+74.7%). QQQ: $22,157 (+109.4%). DIA: $14,842 (+47.2%). IWM: $12,524 (+20.9%).</canvas>
+        <canvas id="perf-chart" role="img" aria-label="Line chart comparing NEXUS strategy against SPY, QQQ, DIA, and IWM from May 2021 to Jun 2026">NEXUS grew $10,000 to $32,102 (+221.0%) over 5 years. SPY: $17,987 (+74.7%). QQQ: $22,157 (+109.4%). DIA: $14,842 (+47.2%). IWM: $12,524 (+20.9%).</canvas>
       </div>
 
       <div class="perf-stats">
@@ -1060,7 +1084,7 @@ body.paid .watch-levels{display:block!important}
       </div>
 
       <p class="perf-disclaimer">
-        Walk-forward backtest of the NEXUS System (v9.1.0b configuration) against market index data sourced from Polygon.io (adjusted prices, dividends reinvested). Period: Jun 2021–Jun 2026.<br>
+        Walk-forward backtest of the NEXUS System (v9.1.0b configuration) against market index data sourced from Polygon.io (adjusted prices, dividends reinvested). Period: May 2021–Jun 2026.<br>
         Simulated performance, not live trading. Past performance does not guarantee future results.
       </p>
     </div>
@@ -1580,7 +1604,7 @@ body.paid .watch-levels{display:block!important}
         <div class="compete-row good">&#10003; Entry, stop &amp; target on every pick</div>
         <div class="compete-row good">&#10003; Regime-aware — adapts to market conditions</div>
         <div class="compete-row good">&#10003; AI pipeline validates each signal</div>
-        <div class="compete-row good">&#10003; $29.99/mo or $269.99/yr</div>
+        <div class="compete-row good">&#10003; $29.99/mo &mdash; cancel anytime</div>
       </div>
       <div class="compete-col">
         <div class="compete-head" style="color:var(--text3)">Motley Fool / Alpha Picks</div>
@@ -1675,7 +1699,7 @@ body.paid .watch-levels{display:block!important}
       <div class="lv-head-left">
         <div style="width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s ease infinite"></div>
         <div class="lv-title">PAPER PORTFOLIO TRACKING</div>
-        <div class="lv-badge">LIVE SINCE LAUNCH</div>
+        <div class="lv-badge" id="lv-badge">LIVE SINCE LAUNCH</div>
       </div>
       <div class="lv-period" id="lv-period">Updating...</div>
     </div>
@@ -1698,12 +1722,13 @@ body.paid .watch-levels{display:block!important}
       </div>
     </div>
     <div class="lv-note">
-      All paper trades use actual signal prices from that day&rsquo;s edition. No look-ahead. No cherry-picking.
+      Paper trades use actual signal prices from that day&rsquo;s edition. No look-ahead. No cherry-picking.
       Every signal sent to subscribers is tracked from entry to exit &mdash; wins and losses published in the Friday week-in-review.
       <span class="lv-update">Last updated: <span id="lv-lastupdate">loading...</span></span>
     </div>
     <div class="lv-disclaimer">
       Paper portfolio tracks signals as published, not actual executed trades. Results will differ from live trading due to slippage, execution timing, and position sizing.
+      A brief system-downtime gap (Apr 14 &ndash; May 1, 2026) is backfilled with simulated results from the deployed configuration and is included in the figures above.
       Past paper performance does not guarantee future live results.
     </div>
   </div>
@@ -1778,7 +1803,7 @@ body.paid .watch-levels{display:block!important}
       <div class="plan-badge">MOST POPULAR</div>
       <div class="plan-name">Premium</div>
       <div class="plan-price" style="color:var(--green)">$29.99<span style="font-size:14px;font-weight:400;color:var(--text2)">/mo</span></div>
-      <div class="plan-cadence">or $269.99/year &middot; Cancel anytime</div>
+      <div class="plan-cadence">Billed monthly &middot; Cancel anytime</div>
       <div class="plan-urgency" style="margin-top:10px">
         🌅 Pre-Market Brief &mdash; delivered ~8:00 AM ET
       </div>
@@ -1822,7 +1847,7 @@ body.paid .watch-levels{display:block!important}
       <div class="plan-badge badge-ultra">ACTIVE TRADER</div>
       <div class="plan-name" style="color:#d4a017">Ultra</div>
       <div class="plan-price" style="color:#d4a017">$49.99<span style="font-size:14px;font-weight:400;color:var(--text2)">/mo</span></div>
-      <div class="plan-cadence">or $419.99/year &middot; Cancel anytime</div>
+      <div class="plan-cadence">Billed monthly &middot; Cancel anytime</div>
 
       <!-- Daily schedule timeline -->
       <div class="ultra-schedule" style="margin-top:16px">
@@ -2143,14 +2168,19 @@ if('IntersectionObserver' in window){
   var now = new Date();
   var days = Math.floor((now - launchDate) / 86400000);
   var months = Math.floor(days / 30);
-  var period = months >= 2 ? months + '-month live period' : days + '-day live period';
+  var period = months >= 2 ? months + '-MONTH LIVE PERIOD' : days + '-DAY LIVE PERIOD';
   var elPeriod = document.getElementById('lv-period');
   if (elPeriod) elPeriod.textContent = launchDate.toLocaleDateString('en-US',{month:'short',year:'numeric'}).toUpperCase() + ' – PRESENT';
+  var elBadge = document.getElementById('lv-badge');
+  if (elBadge) elBadge.textContent = period; // v10.2: badge shows computed live-period length
   var elUpdate = document.getElementById('lv-lastupdate');
-  if (elUpdate) elUpdate.textContent = now.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  // v10.2: do NOT stamp today's date before the fetch — a failed fetch previously
+  // left "Last updated: <today>" above four em-dashes. Timestamp is set only on
+  // a successful response (below); the catch handler marks it unavailable.
 
-  // Fetch live performance stats from NEXUS backend
-  fetch(NEXUS_API + '/api/performance')
+  // Fetch live performance stats from NEXUS backend (v10.2: public lite endpoint —
+  // /api/performance is auth-gated and returned 401 to this tokenless fetch)
+  fetch(NEXUS_API + '/api/performance/public')
     .then(function(r){ return r.json(); })
     .then(function(json){
       var d = json.data;
@@ -2176,17 +2206,20 @@ if('IntersectionObserver' in window){
       var elDd = document.getElementById('lv-dd');
       if (elDd && d.maxDrawdown != null) elDd.textContent = d.maxDrawdown.toFixed(1) + '%';
 
-      // Update hero trade count metric: 1,528 backtested trades (v9.1.0b, Jun 2021–Jun 2026) + live paper trades
+      // Update hero trade count metric: 1,528 backtested trades (v9.1.0b, May 2021–Jun 2026) + live paper trades
       var BACKTEST_TRADES = 1528; // v9.3.1: updated to v9.1.0b sim trade count
-      var liveTrades = d.totalTrades || 47;
+      var liveTrades = d.totalTrades || 0; // v10.2: no phantom fallback — 0 if field missing
       var totalTrades = BACKTEST_TRADES + liveTrades;
       var elHeroCount = document.getElementById('ps-trade-count');
       if (elHeroCount) elHeroCount.textContent = totalTrades.toLocaleString() + '+';
 
-      // Update last-updated timestamp to today
+      // Stamp last-updated only on confirmed live data (v10.2)
       if (elUpdate) elUpdate.textContent = now.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
     })
-    .catch(function(){ /* silently fail — static fallbacks remain visible */ });
+    .catch(function(){
+      // v10.2: static fallbacks remain visible, but never imply freshness
+      if (elUpdate) elUpdate.textContent = 'temporarily unavailable';
+    });
 })();
 
 </script>
