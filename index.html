@@ -1,7 +1,34 @@
 <!DOCTYPE html>
-<!-- NEXUS Signal Brief Ad Page — v10_4 -->
+<!-- NEXUS Signal Brief Ad Page — v10_5 -->
 <!--
   CHANGELOG
+  ─────────────────────────────────────────────────────────────────────────────
+  v10_5 — 2026-07-08
+    · NAV/IA: pricing moved from section 07 to section 03 (proof → sample →
+      price → mechanics). Remaining sections renumbered 03→04, 04→05, 05→06,
+      06→07. Section content unchanged, block moved verbatim.
+    · FIX: hero's "See a sample edition ↓" pointed at #preview, which had no
+      target anywhere in the document. id="preview" added to the section-01
+      heading. Link was dead since it shipped.
+    · FIX: scroll-behavior:smooth with no scroll-margin-top — every #plans jump
+      landed the heading behind 88px of fixed chrome (nav 52 + price-strip 36).
+      Added scroll-margin-top:104px to .sec/#preview/#plans/#performance.
+    · NAV: section links (Sample · Performance · Pricing) added left-of-center.
+      Page previously had 4 internal links total across 7 sections. Hidden at
+      ≤700px alongside .nav-pill / .x-link.
+    · FIX: .price-strip had zero ≤700px overrides — .ps-card is white-space:
+      nowrap, inner is justify-content:flex-end, bar is a hard 36px. Three cards
+      + separators + "3× DAILY" badge overflowed on phones. Added mobile block;
+      badge (.ps-badge) and separators hidden, cards shrunk, inner centered.
+    · FIX: .wrap padding-top 88px exactly equalled chrome height — content began
+      flush against the bars. 88→112px desktop, 88→108px ≤920px.
+    · UI: .plan-tagline added — one-line differentiator under each price so a
+      tier is decidable without parsing 10 feature rows.
+    · UI: Ultra plan-badge "ACTIVE TRADER" → "3× DAILY · ACTIVE TRADER", matching
+      the price-strip badge. Ultra kept full-width (grid-column:1/-1): its inner
+      .ultra-schedule is a 3-col timeline and will not survive a 1/3-width column.
+    · id="performance" added to .perf-wrap as a nav target.
+    · NOT CHANGED: "Learn while you earn" persona tag, per owner direction.
   ─────────────────────────────────────────────────────────────────────────────
   v10_4 — 2026-07-01
     · UI: "Go Ultra" button now matches the Free / Premium button width. The
@@ -103,6 +130,8 @@
   --font-mono:'IBM Plex Mono',monospace;
 }
 html{scroll-behavior:smooth}
+/* Fixed chrome = nav(52) + price-strip(36) = 88px; offset every jump target. */
+.sec,#preview,#plans,#performance{scroll-margin-top:104px}
 body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;font-size:15px;line-height:1.6}
 
 /* ── BACKGROUND ATMOSPHERE ── */
@@ -120,7 +149,7 @@ body::after{
   pointer-events:none;
 }
 
-.wrap{max-width:920px;margin:0 auto;padding:88px 24px 100px;position:relative;z-index:1}
+.wrap{max-width:920px;margin:0 auto;padding:112px 24px 100px;position:relative;z-index:1}
 .wrap > :first-child{margin-top:0}
 
 /* ── NAV ── */
@@ -134,6 +163,13 @@ body::after{
 }
 .nav-logo span{color:var(--green)}
 .nav-right{display:flex;align-items:center;gap:10px}
+.nav-links{display:flex;align-items:center;gap:18px;margin-left:28px}
+.nav-links a{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text3);text-decoration:none;transition:color .15s;
+}
+.nav-links a:hover{color:var(--green)}
+.nav-left{display:flex;align-items:center}
 .nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(5,8,15,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border2);padding-top:0;padding-bottom:0;height:52px;margin-bottom:0;}
 .nav-wrap{max-width:920px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:100%}
 .nav-cta{
@@ -511,6 +547,10 @@ body.paid .watch-levels{display:block!important}
 .plan-name{font-family:var(--font-display);font-weight:700;font-size:22px;color:var(--white);letter-spacing:.04em;margin-bottom:4px}
 .plan-price{font-family:var(--font-display);font-weight:800;font-size:38px;margin-bottom:2px}
 .plan-cadence{font-family:var(--font-mono);font-size:11px;color:var(--text3);margin-bottom:8px}
+.plan-tagline{
+  font-size:13px;font-weight:600;color:var(--text2);line-height:1.45;
+  margin:8px 0 2px;padding-top:8px;border-top:1px solid var(--border);
+}
 .plan-urgency{
   font-family:var(--font-mono);font-size:11px;color:var(--amber);
   background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.2);
@@ -787,7 +827,7 @@ body.paid .watch-levels{display:block!important}
 
 /* Tablet (700-920px) — minor adjustments */
 @media(max-width:920px){
-  .wrap{padding:88px 16px 80px}
+  .wrap{padding:108px 16px 80px}
   .nav-wrap{padding:0 16px}
   .hero{padding:48px 0 36px}
   .hero-h2{font-size:clamp(14px,2.5vw,22px)}
@@ -802,6 +842,14 @@ body.paid .watch-levels{display:block!important}
   .nav-right{gap:6px}
   .nav-pill{display:none}
   .x-link{display:none}
+  .nav-links{display:none}
+
+  /* Pricing nav strip — cards are white-space:nowrap; shrink + drop chrome to fit 360px */
+  .price-strip{padding:0 10px}
+  .price-strip-inner{justify-content:center;gap:4px}
+  .ps-card{font-size:10px;padding:3px 8px;gap:5px;letter-spacing:.03em}
+  .ps-sep{display:none}
+  .ps-badge{display:none}
   .nav-cta{font-size:10px;padding:6px 10px;letter-spacing:.02em}
 
   /* Hero */
@@ -939,7 +987,14 @@ body.paid .watch-levels{display:block!important}
 <!-- ══ NAV ══ -->
   <nav class="nav">
     <div class="nav-wrap">
-      <div class="nav-logo">NEX<span>US</span></div>
+      <div class="nav-left">
+        <div class="nav-logo">NEX<span>US</span></div>
+        <div class="nav-links">
+          <a href="#preview">Sample</a>
+          <a href="#performance">Performance</a>
+          <a href="#plans">Pricing</a>
+        </div>
+      </div>
       <div class="nav-right">
         <a href="https://x.com/NEXUS_SigInt" target="_blank" class="x-link">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -970,7 +1025,7 @@ body.paid .watch-levels{display:block!important}
     <a href="#plans" class="ps-card ultra">
       <span style="font-weight:700">Ultra</span>
       <span class="ps-price">$49.99<span style="font-weight:400;font-size:10px">/mo</span></span>
-      <span style="font-size:9px;background:rgba(212,160,23,.15);border:1px solid rgba(212,160,23,.3);color:#d4a017;padding:1px 5px;border-radius:2px;letter-spacing:.05em">3&times; DAILY</span>
+      <span class="ps-badge" style="font-size:9px;background:rgba(212,160,23,.15);border:1px solid rgba(212,160,23,.3);color:#d4a017;padding:1px 5px;border-radius:2px;letter-spacing:.05em">3&times; DAILY</span>
     </a>
   </div>
 </div>
@@ -1052,7 +1107,7 @@ body.paid .watch-levels{display:block!important}
   </div>
 
   <!-- ══ PERFORMANCE CHART ══ -->
-  <div class="perf-wrap" style="margin-top:44px">
+  <div class="perf-wrap" id="performance" style="margin-top:44px">
     <div class="perf-head">
       <div>
         <div class="perf-title">5-YEAR WALK-FORWARD BACKTEST</div>
@@ -1309,7 +1364,7 @@ body.paid .watch-levels{display:block!important}
     </div>
   </div>
 
-  <div class="sec" style="margin-top:44px"><span class="sec-num">01</span> What's in every edition</div>
+  <div class="sec" style="margin-top:44px" id="preview"><span class="sec-num">01</span> What's in every edition</div>
   <div class="strip-wrap">
     <div class="strip-label">
       <div style="width:5px;height:5px;border-radius:50%;background:var(--amber);box-shadow:0 0 6px var(--amber)"></div>
@@ -1551,247 +1606,8 @@ body.paid .watch-levels{display:block!important}
     </div>
   </div>
 
-  <!-- ══ WHAT SETS IT APART ══ -->
-  <div class="sec" style="margin-top:44px"><span class="sec-num">03</span> What sets NEXUS apart</div>
-  <div class="diff-grid">
-    <div class="diff-card green">
-      <div class="diff-icon">🎯</div>
-      <div class="diff-title">Complete Trade Plans, Not Just Tickers</div>
-      <div class="diff-body">
-        Every signal comes with entry price, stop-loss, price target, risk/reward ratio,
-        RSI, volume confirmation, and earnings proximity alert. You know exactly
-        what the setup is, why it was selected, and where to exit — before you click buy.
-      </div>
-      <div class="diff-vs">
-        Every other newsletter gives you a ticker and a thesis.<br>
-        <span>NEXUS gives you a trade plan.</span>
-      </div>
-    </div>
-    <div class="diff-card blue">
-      <div class="diff-icon">🧠</div>
-      <div class="diff-title">Regime-Aware — The System Adapts</div>
-      <div class="diff-body">
-        NEXUS continuously detects whether the market is in a BULL, CHOPPY, BEAR, or
-        CRASH regime — and automatically adjusts conviction thresholds, position sizing,
-        and sector exposure to match. You're never applying bull-market logic in a bear market.
-      </div>
-      <div class="diff-vs">
-        Other services run the same algorithm in every market condition.<br>
-        <span>NEXUS recalibrates every session.</span>
-      </div>
-    </div>
-    <div class="diff-card purple">
-      <div class="diff-icon">⚡</div>
-      <div class="diff-title">Before the Open — Up to 3 Briefs Per Trading Day</div>
-      <div class="diff-body">
-        Motley Fool and Seeking Alpha send 2 picks a month.
-        NEXUS delivers a Pre-Market Brief every single trading day at 8:00 AM ET — so you have
-        actionable signals before the bell. Ultra subscribers get three intelligence touchpoints:
-        the same pre-market brief, a post-open update at 10:30 AM (with signal
-        follow-through), and a pre-close brief at 2:30 PM. The edge compounds with frequency.
-      </div>
-      <div class="diff-vs">
-        Other newsletters arrive after the move has started.<br>
-        <span>NEXUS delivers before the open.</span>
-      </div>
-    </div>
-    <div class="diff-card amber">
-      <div class="diff-icon">🔁</div>
-      <div class="diff-title">Self-Learning — Gets Sharper Every Session</div>
-      <div class="diff-body">
-        NEXUS runs a live paper portfolio alongside every signal it publishes. Entries,
-        stops, and targets are tracked against real market data — not backtested assumptions.
-        After each session close, the system processes the outcomes: which setups delivered,
-        where conviction was miscalibrated, and which sectors are in or out of form. Those
-        results feed directly back into the scoring model, tightening the pattern
-        recognition engine with every trading day.
-      </div>
-      <div class="diff-vs">
-        Most systems are calibrated once, then run forever.<br>
-        <span>NEXUS is recalibrated after every single session.</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ COMPETITIVE CONTRAST ══ -->
-  <div class="compete-bar ani">
-    <div class="compete-label">HOW NEXUS COMPARES</div>
-    <div class="compete-grid">
-      <div class="compete-col compete-col-nexus">
-        <div class="compete-head">NEXUS</div>
-        <div class="compete-row good">&#10003; Signal every trading day</div>
-        <div class="compete-row good">&#10003; Entry, stop &amp; target on every pick</div>
-        <div class="compete-row good">&#10003; Regime-aware — adapts to market conditions</div>
-        <div class="compete-row good">&#10003; AI pipeline validates each signal</div>
-        <div class="compete-row good">&#10003; $29.99/mo &mdash; cancel anytime</div>
-      </div>
-      <div class="compete-col">
-        <div class="compete-head" style="color:var(--text3)">Motley Fool / Alpha Picks</div>
-        <div class="compete-row bad">&#10007; 2 picks per month</div>
-        <div class="compete-row bad">&#10007; No stop-loss or price targets</div>
-        <div class="compete-row bad">&#10007; Same logic in every market environment</div>
-        <div class="compete-row bad">&#10007; Human analyst discretion, no AI pipeline</div>
-        <div class="compete-row bad">&#10007; $199&ndash;$499/yr</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ HOW IT WORKS ══ -->
-  <div class="sec" style="margin-top:44px"><span class="sec-num">04</span> How the system works</div>
-  <div class="pipeline">
-    <div class="pipeline-row">
-      <div class="pipeline-step">
-        <span class="step-tag" style="color:var(--blue);background:rgba(91,184,250,.08);border:1px solid rgba(91,184,250,.2)">ANALYST</span>
-        <div class="step-num">01</div>
-      </div>
-      <div class="pipeline-body">
-        <div class="pipeline-title">Technical Deep Scan</div>
-        <div class="pipeline-desc">Every ticker in the 10-sector universe is scored against a dynamic multi-factor model. RSI zones, MACD histogram, SMA50/200, Bollinger Band compression, ATR, ADX trend strength, OBV accumulation/distribution, volume ratio, and support/resistance proximity are evaluated and numerically scored. Setups that don't meet our proprietary thresholds are eliminated before the next stage.</div>
-        <div class="pipeline-tags">
-          <span class="ptag">RSI</span><span class="ptag">MACD</span><span class="ptag">SMA50/200</span><span class="ptag">Bollinger Bands</span><span class="ptag">ADX</span><span class="ptag">OBV</span><span class="ptag">ATR</span><span class="ptag">Volume Ratio</span><span class="ptag">Support &amp; Resistance</span>
-        </div>
-      </div>
-    </div>
-    <div class="pipeline-row">
-      <div class="pipeline-step">
-        <span class="step-tag" style="color:var(--purple);background:rgba(196,174,255,.08);border:1px solid rgba(196,174,255,.2)">INTEL</span>
-        <div class="step-num">02</div>
-      </div>
-      <div class="pipeline-body">
-        <div class="pipeline-title">Catalyst &amp; Sentiment Intelligence</div>
-        <div class="pipeline-desc">Candidates that clear the technical screen are enriched with real-time intelligence: SEC Form 4 insider transactions, 8-K material event filings, analyst upgrade/downgrade history, earnings proximity warnings, and news sentiment. Divergence between sentiment and price is flagged automatically.</div>
-        <div class="pipeline-tags">
-          <span class="ptag">SEC EDGAR</span><span class="ptag">Form 4 Insider</span><span class="ptag">8-K Events</span><span class="ptag">Analyst Ratings</span><span class="ptag">Earnings Calendar</span><span class="ptag">News Sentiment</span>
-        </div>
-      </div>
-    </div>
-    <div class="pipeline-row">
-      <div class="pipeline-step">
-        <span class="step-tag" style="color:var(--green);background:rgba(0,229,152,.08);border:1px solid rgba(0,229,152,.2)">DECISION</span>
-        <div class="step-num">03</div>
-      </div>
-      <div class="pipeline-body">
-        <div class="pipeline-title">Conviction Scoring &amp; Trade Plan</div>
-        <div class="pipeline-desc">NEXUS generates the technical score and intelligence report alongside the current market regime, portfolio state, and historical learning notes. The output is a conviction score (50–90%), specific entry price, ATR-calibrated stop-loss, price target, risk/reward ratio, and an execution note. Nothing is published unless conviction clears the regime's floor.</div>
-        <div class="pipeline-tags">
-          <span class="ptag">Conviction %</span><span class="ptag">Stop-Loss</span><span class="ptag">Target Price</span><span class="ptag">Risk/Reward</span><span class="ptag">Execution Note</span><span class="ptag">Regime Gate</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ LEARNING ENGINE ══ -->
-  <div class="sec" style="margin-top:44px"><span class="sec-num">05</span> The self-improving loop</div>
-  <div class="learn-wrap">
-    <div class="learn-head">
-      <div class="learn-head-l">
-        <div style="width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(0,229,152,.5)"></div>
-        <div class="learn-ht">Live Paper Portfolio &middot; Real Data &middot; Daily Feedback Loop</div>
-      </div>
-    </div>
-    <div class="learn-copy">
-      Most trading systems are static — NEXUS operates differently. Simultaneously building a live paper portfolio based on the published signals and tracked against real market prices. After each session, every open and closed position is reviewed: scoring execution quality, flagging miscalibrated conviction, and identifying which technical patterns delivered edge. The outcomes are logged as structured learning notes that flow directly into the next scan — updating scoring weights, sector emphasis, and conviction thresholds in real time. The system doesn't just analyze the market. It learns from it, every single day.
-    </div>
-    <div class="learn-grid">
-      <div class="learn-cell">
-        <div class="learn-lbl" style="color:var(--green)">LIVE PAPER<br>PORTFOLIO</div>
-        <div class="learn-stat">Every signal tracked<br>against real prices<br><span style="color:var(--text3);font-size:11px">No hypothetical fills</span></div>
-      </div>
-      <div class="learn-cell" style="border-left:1px solid var(--border)">
-        <div class="learn-lbl" style="color:var(--blue)">REAL MARKET<br>DATA</div>
-        <div class="learn-stat">Live prices, actual<br>entries &amp; exits<br><span style="color:var(--text3);font-size:11px">Forward-testing, not backtest</span></div>
-      </div>
-      <div class="learn-cell" style="border-left:1px solid var(--border)">
-        <div class="learn-lbl" style="color:var(--purple)">POST-SESSION<br>REVIEW</div>
-        <div class="learn-stat">AI reflection scores<br>every call made<br><span style="color:var(--text3);font-size:11px">Win/loss pattern analysis</span></div>
-      </div>
-      <div class="learn-cell" style="border-left:1px solid var(--border)">
-        <div class="learn-lbl" style="color:var(--amber)">SCORING<br>UPDATES</div>
-        <div class="learn-stat">Conviction weights<br>recalibrated daily<br><span style="color:var(--text3);font-size:11px">Compounds every session</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ LIVE PAPER PORTFOLIO — moved up from 05b ══ -->
-  <div class="live-valid-wrap ani" style="margin-top:10px">
-    <div class="lv-head">
-      <div class="lv-head-left">
-        <div style="width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s ease infinite"></div>
-        <div class="lv-title">PAPER PORTFOLIO TRACKING</div>
-        <div class="lv-badge" id="lv-badge">LIVE SINCE LAUNCH</div>
-      </div>
-      <div class="lv-period" id="lv-period">Updating...</div>
-    </div>
-    <div class="lv-stats">
-      <div class="lv-stat">
-        <div class="lv-n" id="lv-return" style="color:var(--green)">—</div>
-        <div class="lv-l">paper portfolio<br>return</div>
-      </div>
-      <div class="lv-stat">
-        <div class="lv-n" id="lv-wr" style="color:var(--blue)">—</div>
-        <div class="lv-l">win rate<br>closed trades</div>
-      </div>
-      <div class="lv-stat">
-        <div class="lv-n" id="lv-trades" style="color:var(--amber)">—</div>
-        <div class="lv-l">trades<br>closed</div>
-      </div>
-      <div class="lv-stat">
-        <div class="lv-n" id="lv-dd" style="color:var(--purple)">—</div>
-        <div class="lv-l">max drawdown<br>live period</div>
-      </div>
-    </div>
-    <div class="lv-note">
-      Paper trades use actual signal prices from that day&rsquo;s edition. No look-ahead. No cherry-picking.
-      Every signal sent to subscribers is tracked from entry to exit &mdash; wins and losses published in the Friday week-in-review.
-      <span class="lv-update">Last updated: <span id="lv-lastupdate">loading...</span></span>
-    </div>
-    <div class="lv-disclaimer">
-      Paper portfolio tracks signals as published, not actual executed trades. Results will differ from live trading due to slippage, execution timing, and position sizing.
-      A brief system-downtime gap (Apr 14 &ndash; May 1, 2026) is backfilled with simulated results from the deployed configuration and is included in the figures above.
-      Past paper performance does not guarantee future live results.
-    </div>
-  </div>
-
-  <!-- ══ REGIME BLOCK ══ -->
-  <div class="sec" style="margin-top:44px"><span class="sec-num">06</span> Regime-aware intelligence</div>
-  <div class="regime-wrap">
-    <div class="regime-head">
-      <div class="regime-head-l">
-        <div style="width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px rgba(245,200,66,.5)"></div>
-        <div class="regime-ht">Dynamic Market Regime Detection</div>
-      </div>
-      <span class="regime-badge" style="color:var(--green);border-color:rgba(0,229,152,.3)">ACTIVE &mdash; BULL</span>
-    </div>
-    <div class="regime-copy">
-      Most systems apply the same rules whether the S&amp;P is ripping higher or in freefall.
-      NEXUS continuously scores four regime inputs — VIX level, SPY momentum, sector breadth,
-      and system win rate — and dynamically adjusts every parameter to match the current environment.
-      When conditions deteriorate, capital deployment drops, conviction bars rise, and volatile sectors close.
-      When conditions improve, the system scales back up automatically.
-    </div>
-    <div class="regime-grid">
-      <div class="regime-cell">
-        <div class="regime-lbl" style="color:var(--green)">BULL</div>
-        <div class="regime-stat">Full deployment<br>Max positions active<br><span style="color:var(--text3);font-size:11px">All sectors open</span></div>
-      </div>
-      <div class="regime-cell" style="border-left:1px solid var(--border)">
-        <div class="regime-lbl" style="color:var(--blue)">CHOPPY</div>
-        <div class="regime-stat">Reduced exposure<br>Higher conviction bar<br><span style="color:var(--text3);font-size:11px">Volatile sectors gated</span></div>
-      </div>
-      <div class="regime-cell" style="border-left:1px solid var(--border)">
-        <div class="regime-lbl" style="color:var(--amber)">BEAR</div>
-        <div class="regime-stat">Capital preserved<br>Defensive posture<br><span style="color:var(--text3);font-size:11px">Growth sectors closed</span></div>
-      </div>
-      <div class="regime-cell" style="border-left:1px solid var(--border)">
-        <div class="regime-lbl" style="color:var(--red)">CRASH</div>
-        <div class="regime-stat">Minimal deployment<br>Max conviction required<br><span style="color:var(--text3);font-size:11px">Only defensives</span></div>
-      </div>
-    </div>
-  </div>
-
-
     <!-- ══ PLANS ══ -->
-  <div class="sec" style="margin-top:44px" id="plans"><span class="sec-num">07</span> Choose your tier</div>
+  <div class="sec" style="margin-top:44px" id="plans"><span class="sec-num">03</span> Choose your tier</div>
   <div class="plans">
 
     <!-- FREE -->
@@ -1799,6 +1615,7 @@ body.paid .watch-levels{display:block!important}
       <div class="plan-name">Free</div>
       <div class="plan-price" style="color:var(--text2)">$0</div>
       <div class="plan-cadence">Always free &middot; No credit card required</div>
+      <div class="plan-tagline">1 signal a day &mdash; ticker, conviction &amp; setup. No price levels.</div>
       <div class="plan-urgency" style="margin-top:10px">
         🌅 Pre-Market Brief &mdash; delivered ~8:00 AM ET
       </div>
@@ -1823,6 +1640,7 @@ body.paid .watch-levels{display:block!important}
       <div class="plan-name">Premium</div>
       <div class="plan-price" style="color:var(--green)">$29.99<span style="font-size:14px;font-weight:400;color:var(--text2)">/mo</span></div>
       <div class="plan-cadence">Billed monthly &middot; Cancel anytime</div>
+      <div class="plan-tagline" style="color:var(--green)">Up to 3 signals a day &mdash; full entry, stop &amp; target on every one.</div>
       <div class="plan-urgency" style="margin-top:10px">
         🌅 Pre-Market Brief &mdash; delivered ~8:00 AM ET
       </div>
@@ -1863,10 +1681,11 @@ body.paid .watch-levels{display:block!important}
 
     <!-- ULTRA -->
     <div class="plan ultra" style="grid-column:1/-1">
-      <div class="plan-badge badge-ultra">ACTIVE TRADER</div>
+      <div class="plan-badge badge-ultra">3&times; DAILY &middot; ACTIVE TRADER</div>
       <div class="plan-name" style="color:#d4a017">Ultra</div>
       <div class="plan-price" style="color:#d4a017">$49.99<span style="font-size:14px;font-weight:400;color:var(--text2)">/mo</span></div>
       <div class="plan-cadence">Billed monthly &middot; Cancel anytime</div>
+      <div class="plan-tagline" style="color:#d4a017">Up to 5 signals a day across 3 briefs &mdash; plus execution plans &amp; live paper portfolio.</div>
 
       <!-- Daily schedule timeline -->
       <div class="ultra-schedule" style="margin-top:16px">
@@ -1972,6 +1791,247 @@ body.paid .watch-levels{display:block!important}
     </div>
 
   </div>
+
+
+  <!-- ══ WHAT SETS IT APART ══ -->
+  <div class="sec" style="margin-top:44px"><span class="sec-num">04</span> What sets NEXUS apart</div>
+  <div class="diff-grid">
+    <div class="diff-card green">
+      <div class="diff-icon">🎯</div>
+      <div class="diff-title">Complete Trade Plans, Not Just Tickers</div>
+      <div class="diff-body">
+        Every signal comes with entry price, stop-loss, price target, risk/reward ratio,
+        RSI, volume confirmation, and earnings proximity alert. You know exactly
+        what the setup is, why it was selected, and where to exit — before you click buy.
+      </div>
+      <div class="diff-vs">
+        Every other newsletter gives you a ticker and a thesis.<br>
+        <span>NEXUS gives you a trade plan.</span>
+      </div>
+    </div>
+    <div class="diff-card blue">
+      <div class="diff-icon">🧠</div>
+      <div class="diff-title">Regime-Aware — The System Adapts</div>
+      <div class="diff-body">
+        NEXUS continuously detects whether the market is in a BULL, CHOPPY, BEAR, or
+        CRASH regime — and automatically adjusts conviction thresholds, position sizing,
+        and sector exposure to match. You're never applying bull-market logic in a bear market.
+      </div>
+      <div class="diff-vs">
+        Other services run the same algorithm in every market condition.<br>
+        <span>NEXUS recalibrates every session.</span>
+      </div>
+    </div>
+    <div class="diff-card purple">
+      <div class="diff-icon">⚡</div>
+      <div class="diff-title">Before the Open — Up to 3 Briefs Per Trading Day</div>
+      <div class="diff-body">
+        Motley Fool and Seeking Alpha send 2 picks a month.
+        NEXUS delivers a Pre-Market Brief every single trading day at 8:00 AM ET — so you have
+        actionable signals before the bell. Ultra subscribers get three intelligence touchpoints:
+        the same pre-market brief, a post-open update at 10:30 AM (with signal
+        follow-through), and a pre-close brief at 2:30 PM. The edge compounds with frequency.
+      </div>
+      <div class="diff-vs">
+        Other newsletters arrive after the move has started.<br>
+        <span>NEXUS delivers before the open.</span>
+      </div>
+    </div>
+    <div class="diff-card amber">
+      <div class="diff-icon">🔁</div>
+      <div class="diff-title">Self-Learning — Gets Sharper Every Session</div>
+      <div class="diff-body">
+        NEXUS runs a live paper portfolio alongside every signal it publishes. Entries,
+        stops, and targets are tracked against real market data — not backtested assumptions.
+        After each session close, the system processes the outcomes: which setups delivered,
+        where conviction was miscalibrated, and which sectors are in or out of form. Those
+        results feed directly back into the scoring model, tightening the pattern
+        recognition engine with every trading day.
+      </div>
+      <div class="diff-vs">
+        Most systems are calibrated once, then run forever.<br>
+        <span>NEXUS is recalibrated after every single session.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ COMPETITIVE CONTRAST ══ -->
+  <div class="compete-bar ani">
+    <div class="compete-label">HOW NEXUS COMPARES</div>
+    <div class="compete-grid">
+      <div class="compete-col compete-col-nexus">
+        <div class="compete-head">NEXUS</div>
+        <div class="compete-row good">&#10003; Signal every trading day</div>
+        <div class="compete-row good">&#10003; Entry, stop &amp; target on every pick</div>
+        <div class="compete-row good">&#10003; Regime-aware — adapts to market conditions</div>
+        <div class="compete-row good">&#10003; AI pipeline validates each signal</div>
+        <div class="compete-row good">&#10003; $29.99/mo &mdash; cancel anytime</div>
+      </div>
+      <div class="compete-col">
+        <div class="compete-head" style="color:var(--text3)">Motley Fool / Alpha Picks</div>
+        <div class="compete-row bad">&#10007; 2 picks per month</div>
+        <div class="compete-row bad">&#10007; No stop-loss or price targets</div>
+        <div class="compete-row bad">&#10007; Same logic in every market environment</div>
+        <div class="compete-row bad">&#10007; Human analyst discretion, no AI pipeline</div>
+        <div class="compete-row bad">&#10007; $199&ndash;$499/yr</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ HOW IT WORKS ══ -->
+  <div class="sec" style="margin-top:44px"><span class="sec-num">05</span> How the system works</div>
+  <div class="pipeline">
+    <div class="pipeline-row">
+      <div class="pipeline-step">
+        <span class="step-tag" style="color:var(--blue);background:rgba(91,184,250,.08);border:1px solid rgba(91,184,250,.2)">ANALYST</span>
+        <div class="step-num">01</div>
+      </div>
+      <div class="pipeline-body">
+        <div class="pipeline-title">Technical Deep Scan</div>
+        <div class="pipeline-desc">Every ticker in the 10-sector universe is scored against a dynamic multi-factor model. RSI zones, MACD histogram, SMA50/200, Bollinger Band compression, ATR, ADX trend strength, OBV accumulation/distribution, volume ratio, and support/resistance proximity are evaluated and numerically scored. Setups that don't meet our proprietary thresholds are eliminated before the next stage.</div>
+        <div class="pipeline-tags">
+          <span class="ptag">RSI</span><span class="ptag">MACD</span><span class="ptag">SMA50/200</span><span class="ptag">Bollinger Bands</span><span class="ptag">ADX</span><span class="ptag">OBV</span><span class="ptag">ATR</span><span class="ptag">Volume Ratio</span><span class="ptag">Support &amp; Resistance</span>
+        </div>
+      </div>
+    </div>
+    <div class="pipeline-row">
+      <div class="pipeline-step">
+        <span class="step-tag" style="color:var(--purple);background:rgba(196,174,255,.08);border:1px solid rgba(196,174,255,.2)">INTEL</span>
+        <div class="step-num">02</div>
+      </div>
+      <div class="pipeline-body">
+        <div class="pipeline-title">Catalyst &amp; Sentiment Intelligence</div>
+        <div class="pipeline-desc">Candidates that clear the technical screen are enriched with real-time intelligence: SEC Form 4 insider transactions, 8-K material event filings, analyst upgrade/downgrade history, earnings proximity warnings, and news sentiment. Divergence between sentiment and price is flagged automatically.</div>
+        <div class="pipeline-tags">
+          <span class="ptag">SEC EDGAR</span><span class="ptag">Form 4 Insider</span><span class="ptag">8-K Events</span><span class="ptag">Analyst Ratings</span><span class="ptag">Earnings Calendar</span><span class="ptag">News Sentiment</span>
+        </div>
+      </div>
+    </div>
+    <div class="pipeline-row">
+      <div class="pipeline-step">
+        <span class="step-tag" style="color:var(--green);background:rgba(0,229,152,.08);border:1px solid rgba(0,229,152,.2)">DECISION</span>
+        <div class="step-num">03</div>
+      </div>
+      <div class="pipeline-body">
+        <div class="pipeline-title">Conviction Scoring &amp; Trade Plan</div>
+        <div class="pipeline-desc">NEXUS generates the technical score and intelligence report alongside the current market regime, portfolio state, and historical learning notes. The output is a conviction score (50–90%), specific entry price, ATR-calibrated stop-loss, price target, risk/reward ratio, and an execution note. Nothing is published unless conviction clears the regime's floor.</div>
+        <div class="pipeline-tags">
+          <span class="ptag">Conviction %</span><span class="ptag">Stop-Loss</span><span class="ptag">Target Price</span><span class="ptag">Risk/Reward</span><span class="ptag">Execution Note</span><span class="ptag">Regime Gate</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LEARNING ENGINE ══ -->
+  <div class="sec" style="margin-top:44px"><span class="sec-num">06</span> The self-improving loop</div>
+  <div class="learn-wrap">
+    <div class="learn-head">
+      <div class="learn-head-l">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(0,229,152,.5)"></div>
+        <div class="learn-ht">Live Paper Portfolio &middot; Real Data &middot; Daily Feedback Loop</div>
+      </div>
+    </div>
+    <div class="learn-copy">
+      Most trading systems are static — NEXUS operates differently. Simultaneously building a live paper portfolio based on the published signals and tracked against real market prices. After each session, every open and closed position is reviewed: scoring execution quality, flagging miscalibrated conviction, and identifying which technical patterns delivered edge. The outcomes are logged as structured learning notes that flow directly into the next scan — updating scoring weights, sector emphasis, and conviction thresholds in real time. The system doesn't just analyze the market. It learns from it, every single day.
+    </div>
+    <div class="learn-grid">
+      <div class="learn-cell">
+        <div class="learn-lbl" style="color:var(--green)">LIVE PAPER<br>PORTFOLIO</div>
+        <div class="learn-stat">Every signal tracked<br>against real prices<br><span style="color:var(--text3);font-size:11px">No hypothetical fills</span></div>
+      </div>
+      <div class="learn-cell" style="border-left:1px solid var(--border)">
+        <div class="learn-lbl" style="color:var(--blue)">REAL MARKET<br>DATA</div>
+        <div class="learn-stat">Live prices, actual<br>entries &amp; exits<br><span style="color:var(--text3);font-size:11px">Forward-testing, not backtest</span></div>
+      </div>
+      <div class="learn-cell" style="border-left:1px solid var(--border)">
+        <div class="learn-lbl" style="color:var(--purple)">POST-SESSION<br>REVIEW</div>
+        <div class="learn-stat">AI reflection scores<br>every call made<br><span style="color:var(--text3);font-size:11px">Win/loss pattern analysis</span></div>
+      </div>
+      <div class="learn-cell" style="border-left:1px solid var(--border)">
+        <div class="learn-lbl" style="color:var(--amber)">SCORING<br>UPDATES</div>
+        <div class="learn-stat">Conviction weights<br>recalibrated daily<br><span style="color:var(--text3);font-size:11px">Compounds every session</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LIVE PAPER PORTFOLIO — moved up from 05b ══ -->
+  <div class="live-valid-wrap ani" style="margin-top:10px">
+    <div class="lv-head">
+      <div class="lv-head-left">
+        <div style="width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s ease infinite"></div>
+        <div class="lv-title">PAPER PORTFOLIO TRACKING</div>
+        <div class="lv-badge" id="lv-badge">LIVE SINCE LAUNCH</div>
+      </div>
+      <div class="lv-period" id="lv-period">Updating...</div>
+    </div>
+    <div class="lv-stats">
+      <div class="lv-stat">
+        <div class="lv-n" id="lv-return" style="color:var(--green)">—</div>
+        <div class="lv-l">paper portfolio<br>return</div>
+      </div>
+      <div class="lv-stat">
+        <div class="lv-n" id="lv-wr" style="color:var(--blue)">—</div>
+        <div class="lv-l">win rate<br>closed trades</div>
+      </div>
+      <div class="lv-stat">
+        <div class="lv-n" id="lv-trades" style="color:var(--amber)">—</div>
+        <div class="lv-l">trades<br>closed</div>
+      </div>
+      <div class="lv-stat">
+        <div class="lv-n" id="lv-dd" style="color:var(--purple)">—</div>
+        <div class="lv-l">max drawdown<br>live period</div>
+      </div>
+    </div>
+    <div class="lv-note">
+      Paper trades use actual signal prices from that day&rsquo;s edition. No look-ahead. No cherry-picking.
+      Every signal sent to subscribers is tracked from entry to exit &mdash; wins and losses published in the Friday week-in-review.
+      <span class="lv-update">Last updated: <span id="lv-lastupdate">loading...</span></span>
+    </div>
+    <div class="lv-disclaimer">
+      Paper portfolio tracks signals as published, not actual executed trades. Results will differ from live trading due to slippage, execution timing, and position sizing.
+      A brief system-downtime gap (Apr 14 &ndash; May 1, 2026) is backfilled with simulated results from the deployed configuration and is included in the figures above.
+      Past paper performance does not guarantee future live results.
+    </div>
+  </div>
+
+  <!-- ══ REGIME BLOCK ══ -->
+  <div class="sec" style="margin-top:44px"><span class="sec-num">07</span> Regime-aware intelligence</div>
+  <div class="regime-wrap">
+    <div class="regime-head">
+      <div class="regime-head-l">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px rgba(245,200,66,.5)"></div>
+        <div class="regime-ht">Dynamic Market Regime Detection</div>
+      </div>
+      <span class="regime-badge" style="color:var(--green);border-color:rgba(0,229,152,.3)">ACTIVE &mdash; BULL</span>
+    </div>
+    <div class="regime-copy">
+      Most systems apply the same rules whether the S&amp;P is ripping higher or in freefall.
+      NEXUS continuously scores four regime inputs — VIX level, SPY momentum, sector breadth,
+      and system win rate — and dynamically adjusts every parameter to match the current environment.
+      When conditions deteriorate, capital deployment drops, conviction bars rise, and volatile sectors close.
+      When conditions improve, the system scales back up automatically.
+    </div>
+    <div class="regime-grid">
+      <div class="regime-cell">
+        <div class="regime-lbl" style="color:var(--green)">BULL</div>
+        <div class="regime-stat">Full deployment<br>Max positions active<br><span style="color:var(--text3);font-size:11px">All sectors open</span></div>
+      </div>
+      <div class="regime-cell" style="border-left:1px solid var(--border)">
+        <div class="regime-lbl" style="color:var(--blue)">CHOPPY</div>
+        <div class="regime-stat">Reduced exposure<br>Higher conviction bar<br><span style="color:var(--text3);font-size:11px">Volatile sectors gated</span></div>
+      </div>
+      <div class="regime-cell" style="border-left:1px solid var(--border)">
+        <div class="regime-lbl" style="color:var(--amber)">BEAR</div>
+        <div class="regime-stat">Capital preserved<br>Defensive posture<br><span style="color:var(--text3);font-size:11px">Growth sectors closed</span></div>
+      </div>
+      <div class="regime-cell" style="border-left:1px solid var(--border)">
+        <div class="regime-lbl" style="color:var(--red)">CRASH</div>
+        <div class="regime-stat">Minimal deployment<br>Max conviction required<br><span style="color:var(--text3);font-size:11px">Only defensives</span></div>
+      </div>
+    </div>
+  </div>
+
+
 
 
 
