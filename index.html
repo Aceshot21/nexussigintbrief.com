@@ -1,8 +1,18 @@
 <!DOCTYPE html>
-<!-- NEXUS Signal Brief Ad Page — v10_7 -->
+<!-- NEXUS Signal Brief Ad Page — v10_8 -->
 <!--
   CHANGELOG
   ─────────────────────────────────────────────────────────────────────────────
+  v10_8 — 2026-07-25
+    · FOUR-INDEX LIVE REFERENCE (Chris): hero band's same-window compare grows
+      from S&P-only to S&P 500 · Nasdaq-100 · Dow · Russell 2000, fetched live
+      from /api/research/index-bench (BENCH-1, v10.30.4) with the window start
+      pinned to the Mar 26 launch and `to` = today, so the line updates itself.
+      Fixes the stale hardcoded "+16.0% (Jul 21 close)" S&P figure (was +14.5%
+      by Jul 24). Baked fallbacks = Jul 24 2026 close: SPY +14.5 / QQQ +19.2 /
+      DIA +12.9 / IWM +17.7. BACKTEST section stays S&P-only by decision —
+      right benchmark for a multi-sector large-cap book; live section shows
+      the whole field because the live record currently leads all of it.
   v10_7 — 2026-07-22 (second pass, same day)
     · EXPOSURE RELEASE ALIGNMENT (v10.29.0 MX30_P50_MP20): chart/stats/tiles/
       table swapped to the OLD-WINDOW run of the newly deployed max-return
@@ -1086,8 +1096,10 @@ body.paid .watch-levels{display:block!important}
         Max drawdown <strong id="hl-dd">3.6%</strong> &nbsp;&middot;&nbsp; <strong id="hl-trades">240</strong> trades closed
         &nbsp;&middot;&nbsp; every signal published before the open, losers included
       </div>
-      <div class="hl-bench">
-        S&amp;P 500 over the same window: +16.0% <span class="hl-asof">(Mar 26 &ndash; Jul 21, 2026 close)</span>
+      <!-- v10_8: four-index same-window reference, live via /api/research/index-bench;
+           fallbacks are the Jul 24 2026 close. Backtest section stays S&P-only. -->
+      <div class="hl-bench" id="hl-bench">
+        Same window: S&amp;P 500 <strong id="hb-spy">+14.5%</strong> &nbsp;&middot;&nbsp; Nasdaq-100 <strong id="hb-qqq">+19.2%</strong> &nbsp;&middot;&nbsp; Dow <strong id="hb-dia">+12.9%</strong> &nbsp;&middot;&nbsp; Russell 2000 <strong id="hb-iwm">+17.7%</strong> <span class="hl-asof" id="hb-asof">(Mar 26 &ndash; Jul 24, 2026 close)</span>
       </div>
     </div>
 
@@ -2409,6 +2421,34 @@ if('IntersectionObserver' in window){
       // v10.2: static fallbacks remain visible, but never imply freshness
       if (elUpdate) elUpdate.textContent = 'temporarily unavailable';
     });
+
+  // v10_8: four-index same-window reference (BENCH-1). Window start is the
+  // Mar 26 launch; `to` is today so the strip tracks the live record. On any
+  // failure the baked Jul 24 close fallbacks stay visible.
+  (function(){
+    var t2 = new Date();
+    var toStr = t2.getFullYear() + '-' + ('0' + (t2.getMonth() + 1)).slice(-2) + '-' + ('0' + t2.getDate()).slice(-2);
+    fetch(NEXUS_API + '/api/research/index-bench?tickers=SPY,QQQ,DIA,IWM&from=2026-03-26&to=' + toStr)
+      .then(function(r){ return r.json(); })
+      .then(function(json){
+        var ix = json.data && json.data.indices;
+        if (!ix) return;
+        var map = { SPY: 'hb-spy', QQQ: 'hb-qqq', DIA: 'hb-dia', IWM: 'hb-iwm' };
+        var endD = null;
+        Object.keys(map).forEach(function(t){
+          var el = document.getElementById(map[t]);
+          if (el && ix[t] && ix[t].returnPct != null) el.textContent = (ix[t].returnPct >= 0 ? '+' : '') + ix[t].returnPct.toFixed(1) + '%';
+          if (ix[t] && ix[t].end && ix[t].end.d) endD = ix[t].end.d;
+        });
+        if (endD) {
+          // noon suffix avoids the date-only-UTC-midnight day shift in local time
+          var dt = new Date(endD + 'T12:00:00');
+          var el2 = document.getElementById('hb-asof');
+          if (el2) el2.textContent = '(Mar 26 – ' + dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ', ' + dt.getFullYear() + ' close)';
+        }
+      })
+      .catch(function(){});
+  })();
 })();
 
 </script>
