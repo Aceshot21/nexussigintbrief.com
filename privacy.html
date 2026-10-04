@@ -116,7 +116,7 @@ body::before{
     <a href="/" class="nav-logo">NEX<span>US</span></a>
     <div class="nav-right">
       <a href="/" class="nav-back">← Back to Site</a>
-      <a href="https://nexussigintbrief.com/#subscribe" class="nav-cta">Subscribe</a>
+      <a href="https://nexussigintbrief.com/#plans" class="nav-cta">Subscribe</a>
     </div>
   </div>
 </nav>
@@ -127,7 +127,7 @@ body::before{
   <div class="page-header">
     <div class="page-kicker">Legal · Sigint LLC d/b/a NEXUS Signal Brief</div>
     <h1 class="page-title">Privacy Policy</h1>
-    <div class="page-meta">Last Updated: May 29, 2026 &nbsp;·&nbsp; Sigint LLC d/b/a NEXUS Signal Brief</div>
+    <div class="page-meta">Last Updated: October 4, 2026 &nbsp;·&nbsp; Sigint LLC d/b/a NEXUS Signal Brief</div>
     <div class="page-scope">
       This Privacy Policy describes how Sigint LLC d/b/a NEXUS Signal Brief ("NEXUS Signal Brief," "we," or "us") collects, uses, and shares information about you when you visit <a href="https://www.nexussigintbrief.com" style="color:var(--green);text-decoration:none">www.nexussigintbrief.com</a> (the "Site") or subscribe to the NEXUS Signal Brief newsletter. This Policy is incorporated by reference into our <a href="/terms" style="color:var(--green);text-decoration:none">Terms of Use</a> and should be read together with our <a href="/disclaimers" style="color:var(--green);text-decoration:none">Disclaimers</a>. By using the Site or subscribing to the newsletter, you agree to the practices described in this Policy. If you do not agree, please do not use the Site.
     </div>
@@ -172,7 +172,7 @@ body::before{
     </div>
     <div class="subsection">
       <div class="subsection-title">B. Payment Information</div>
-      <p>Paid subscriptions are processed through our third-party newsletter and subscription platform, Beehiiv. Payment card information (such as credit card numbers) is collected and processed directly by Beehiiv's payment processor. NEXUS Signal Brief does not receive, store, or process your full payment card details. We may receive limited transaction information such as the last four digits of your card, billing country, and subscription status for account management purposes.</p>
+      <p>Paid subscriptions are processed through our third-party payment processor, Stripe. Payment card information (such as credit card numbers) is collected and processed directly by Stripe. NEXUS Signal Brief does not receive, store, or process your full payment card details. We may receive limited transaction information such as the last four digits of your card, billing country, and subscription status for account management purposes.</p>
     </div>
     <div class="subsection">
       <div class="subsection-title">C. Automatically Collected Information</div>
@@ -240,9 +240,9 @@ body::before{
       </thead>
       <tbody>
         <tr>
-          <td>Beehiiv</td>
-          <td>Newsletter platform, subscriber management, subscription billing</td>
-          <td>Name, email, subscription tier, payment transaction data</td>
+          <td>Stripe</td>
+          <td>Payment processing, subscription billing, billing portal</td>
+          <td>Name, email, subscription tier, payment card and transaction data</td>
         </tr>
         <tr>
           <td>Resend</td>
@@ -251,13 +251,18 @@ body::before{
         </tr>
         <tr>
           <td>Railway</td>
-          <td>Application hosting and infrastructure</td>
-          <td>Server logs, IP addresses, request metadata</td>
+          <td>Application hosting and infrastructure; subscriber list storage</td>
+          <td>Name, email, subscription tier and status, server logs, IP addresses, request metadata</td>
         </tr>
         <tr>
           <td>Squarespace</td>
           <td>Domain registration</td>
           <td>Domain registrant contact information</td>
+        </tr>
+        <tr>
+          <td>Google Workspace</td>
+          <td>Email for support, privacy, legal and accessibility inquiries</td>
+          <td>Email address and the contents of messages you send us</td>
         </tr>
         <tr>
           <td>Polygon.io</td>
