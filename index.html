@@ -45,7 +45,7 @@ h1 span{color:var(--gold2)}
 .nm{color:var(--text2);font-size:14px;margin-left:6px}
 .gain{font-family:var(--font-mono);font-weight:600;color:var(--blue);font-size:18px;text-align:right}
 .gain small{display:block;font-family:var(--font-body);font-size:11px;color:var(--text3);font-weight:400}
-.plan{display:grid;grid-template-columns:repeat(3,1fr);background:var(--card2);border:1px solid #3a3010;border-radius:8px}
+.plan{display:grid;grid-template-columns:repeat(2,1fr);background:var(--card2);border:1px solid #3a3010;border-radius:8px}
 .plan div{padding:10px 12px;border-left:1px solid var(--border)}
 .plan div:first-child{border-left:0}
 .plan b{display:block;color:var(--white);font-size:15px;margin-top:3px}
@@ -94,6 +94,11 @@ h2{font-family:var(--font-display);font-size:30px;color:var(--white);margin:0 0 
 </style>
 </head>
 <body>
+<!-- HOLIDAY-1 (Sun Oct 18 6 PM ET – Dec 31, 2026): the gift ribbon and offer wording switch on and off by date in the browser (ET), so this page needs no edit when the window opens or closes -->
+<div id="hgRibbon" hidden style="background:linear-gradient(90deg,#2a1f05,#3d2c07,#2a1f05);border-bottom:1px solid #d4a017;color:#f3e3b5;text-align:center;font-size:13px;line-height:1.5;padding:9px 16px">
+  <b style="color:#e8b923;letter-spacing:.12em;font-size:11px">&#10022; THE NEXUS HOLIDAY GIFT &#10022;</b><br>Join by <b>Dec 31</b> and get <b>12 weeks of Premium, free</b> — all 3 picks every week, every deep dive, the model portfolio. No card.
+  <button type="button" onclick="nexusJoin('free')" style="margin-left:8px;background:#e8b923;color:#07090f;border:0;border-radius:6px;padding:4px 12px;font-weight:700;cursor:pointer">Claim it</button>
+</div>
 <div class="wrap">
   <nav class="nav">
     <div class="logo">NEXUS SIGNAL BRIEF</div>
@@ -113,8 +118,7 @@ h2{font-family:var(--font-display);font-size:30px;color:var(--white);margin:0 0 
       <div class="pk-head"><div><span class="tk">ACME</span><span class="nm">Example Corp</span><div style="font-size:12px;color:var(--text3)">Industrials · Fri close $84.20</div></div><div class="gain">+41%<small>6-month gain</small></div></div>
       <div class="plan">
         <div><span class="lbl">Entry</span><b>Mon open</b><i>skip if it opens above $87.57</i></div>
-        <div class="sell"><span class="lbl">Sell</span><b>12 weeks out</b><i>at the close on the date</i></div>
-        <div><span class="lbl">Stop</span><b>None</b><i>the plan is the date</i></div>
+        <div class="sell"><span class="lbl">Sell</span><b>12 weeks out</b><i>at the close · no stop-loss</i></div>
       </div>
       <p class="sample-note">Illustration only — ACME is not a real pick. Real picks arrive in Monday's brief.</p>
     </div>
@@ -170,7 +174,8 @@ h2{font-family:var(--font-display);font-size:30px;color:var(--white);margin:0 0 
     <p class="sub">Start free. Upgrade when you want all three picks.</p>
     <div class="plans">
       <div class="plan-card"><div class="lbl">Free</div><div class="price">$0</div>
-        <ul><li>1 NEXUS Pick a week, with its plan and deep dive</li><li>The market at a glance, every trading morning</li><li>Top don't-chase stocks and the biggest movers</li><li>The Friday recap (summary)</li></ul>
+        <p class="hg-only" hidden style="background:#2a1f05;border:1px solid #d4a017;border-radius:8px;color:#f3e3b5;font-size:13px;padding:8px 10px;margin:6px 0 10px">&#10022; Holiday gift: join by Dec 31 and your first <b>12 weeks are Premium</b>. Then Free, automatically — no card.</p>
+        <ul><li>1 NEXUS Pick a week, with its plan</li><li>The market at a glance, every trading morning</li><li>Top don't-chase stocks and the biggest movers</li><li>The Friday recap (summary)</li></ul>
         <button type="button" class="btn btn-ghost" onclick="nexusJoin('free')">Get the free brief</button></div>
       <div class="plan-card prem"><div class="lbl" style="color:var(--gold2)">Premium</div><div class="price">$29.99<small> / month</small></div>
         <ul><li><b>All 3 NEXUS Picks</b> every week, each with its plan</li><li>Full deep dives: why, news, technicals, chart card</li><li>The open-picks scorecard and sell-this-week list</li><li>The NEXUS model portfolio, every day</li><li>The full don't-chase list and every mover with its news</li><li>The full Friday recap</li></ul>
@@ -271,11 +276,19 @@ function _nexusBuildModal(){
   return _nexusModal;
 }
 
+var HG = (function(){ try { var n = new Date(), d = n.toLocaleDateString('en-CA', { timeZone: 'America/New_York' }), h = parseInt(n.toLocaleString('en-US', { timeZone: 'America/New_York', hour: 'numeric', hour12: false }), 10) % 24; return (d > '2026-10-18' || (d === '2026-10-18' && h >= 18)) && d <= '2026-12-31'; } catch (e) { return false; } })();   // live Sun Oct 18, 6:00 PM ET through Dec 31 (ET)
+if (HG) {
+  var r = document.getElementById('hgRibbon'); if (r) r.hidden = false;
+  Array.prototype.forEach.call(document.querySelectorAll('.hg-only'), function(el){ el.hidden = false; });
+  Array.prototype.forEach.call(document.querySelectorAll('button[onclick="nexusJoin(\'free\')"]'), function(b){ if (/Get the free brief/.test(b.textContent)) b.textContent = 'Claim 12 weeks of Premium free'; });
+  var fine = document.querySelector('.hero .fine'); if (fine) fine.textContent = 'Holiday gift: join by Dec 31 and your first 12 weeks are Premium — all 3 picks, every deep dive, the model portfolio. Then the free brief, automatically. No card.';
+}
 function nexusJoin(tier){
   var m = _nexusBuildModal();
   var titleEl = document.getElementById('nxTitle'), subEl = document.getElementById('nxSub'), goEl = document.getElementById('nxGo'), msgEl = document.getElementById('nxMsg'), nameEl = document.getElementById('nxName'), emailEl = document.getElementById('nxEmail');
   msgEl.textContent = ''; msgEl.className = 'nx-msg'; goEl.disabled = false;
-  if (tier === 'free'){ titleEl.textContent = 'Start your free brief'; subEl.textContent = '1 NEXUS Pick a week with its plan, the daily market brief and the Friday recap.'; goEl.textContent = 'Get the brief'; }
+  if (tier === 'free' && HG){ titleEl.textContent = 'Claim your 12 weeks of Premium'; subEl.textContent = 'The NEXUS holiday gift: all 3 picks every week, every deep dive and the model portfolio, free for 12 weeks. No card — then the free brief, automatically.'; goEl.textContent = 'Claim my gift'; }
+  else if (tier === 'free'){ titleEl.textContent = 'Start your free brief'; subEl.textContent = '1 NEXUS Pick a week with its plan, the daily market brief and the Friday recap.'; goEl.textContent = 'Get the brief'; }
   else { titleEl.textContent = 'NEXUS Premium — $29.99/mo'; subEl.textContent = 'All 3 weekly picks, every deep dive and the model portfolio. Continue to secure checkout (powered by Stripe).'; goEl.textContent = 'Continue to checkout'; }
   m.ov.classList.add('open');
   setTimeout(function(){ emailEl.focus(); }, 50);
